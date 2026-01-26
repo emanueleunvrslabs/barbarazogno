@@ -7,6 +7,7 @@ import {
   FileText, 
   Shield, 
   TrendingUp,
+  ArrowRight,
   ArrowUpRight,
   CheckCircle
 } from "lucide-react";
@@ -18,15 +19,17 @@ import {
 } from "@/components/ui/sheet";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const features = [
+const services = [
   {
+    id: 1,
     icon: Briefcase,
     title: "General Counselling",
     titleEn: "General Counselling",
     description: "Supporto legale quotidiano a 360 gradi per ogni esigenza aziendale.",
     descriptionEn: "360-degree daily legal support for every business need.",
-    size: "small",
     color: "from-primary to-amber-600",
+    badge: "Supporto quotidiano",
+    badgeEn: "Daily support",
     fullContent: {
       subtitle: "Assistenza quotidiana altamente formata",
       subtitleEn: "Highly trained daily assistance",
@@ -47,13 +50,15 @@ const features = [
     }
   },
   {
+    id: 2,
     icon: Globe,
     title: "Commercio Internazionale",
     titleEn: "International Trade",
     description: "Un'opportunità di crescita: accompagniamo l'espansione internazionale della vostra impresa.",
     descriptionEn: "A growth opportunity: we accompany the international expansion of your business.",
-    size: "small",
     color: "from-blue-500 to-indigo-600",
+    badge: "Espansione globale",
+    badgeEn: "Global expansion",
     fullContent: {
       subtitle: "Un'opportunità di crescita",
       subtitleEn: "A growth opportunity",
@@ -80,13 +85,15 @@ const features = [
     }
   },
   {
+    id: 3,
     icon: Building2,
     title: "Diritto Societario e M&A",
     titleEn: "Corporate Law & M&A",
     description: "Assistenza specialistica nelle operazioni societarie ordinarie e straordinarie.",
     descriptionEn: "Specialized assistance in ordinary and extraordinary corporate operations.",
-    size: "small",
-    color: "from-emerald-500 to-teal-500",
+    color: "from-emerald-500 to-teal-600",
+    badge: "Operazioni straordinarie",
+    badgeEn: "Extraordinary operations",
     fullContent: {
       subtitle: "Piena soddisfazione senza sprechi di risorse economiche e di tempo",
       subtitleEn: "Full satisfaction without waste of economic and time resources",
@@ -119,13 +126,15 @@ const features = [
     }
   },
   {
+    id: 4,
     icon: FileText,
     title: "Contrattualistica",
     titleEn: "Contract Law",
     description: "Negoziazione e redazione di contratti commerciali domestici e internazionali.",
     descriptionEn: "Negotiation and drafting of domestic and international commercial contracts.",
-    size: "small",
-    color: "from-violet-500 to-purple-600",
+    color: "from-orange-500 to-red-600",
+    badge: "Accordi sicuri",
+    badgeEn: "Secure agreements",
     fullContent: {
       subtitle: "Struttura portante del commercio",
       subtitleEn: "The backbone of commerce",
@@ -152,13 +161,15 @@ const features = [
     }
   },
   {
+    id: 5,
     icon: Shield,
     title: "Compliance e Data Protection",
     titleEn: "Compliance & Data Protection",
     description: "GDPR e D.Lgs 231/2001: trasformiamo gli obblighi in vantaggi per la vostra azienda.",
     descriptionEn: "GDPR and D.Lgs 231/2001: we transform obligations into advantages for your company.",
-    size: "small",
-    color: "from-pink-500 to-rose-500",
+    color: "from-violet-500 to-purple-600",
+    badge: "Conformità garantita",
+    badgeEn: "Guaranteed compliance",
     fullContent: {
       subtitle: "Da obbligo a vantaggio",
       subtitleEn: "From obligation to advantage",
@@ -189,13 +200,15 @@ const features = [
     }
   },
   {
+    id: 6,
     icon: TrendingUp,
     title: "Business Development",
     titleEn: "Business Development",
     description: "Consulenza strategica legale ed economica per lo sviluppo del vostro business.",
     descriptionEn: "Strategic legal and economic consulting for the development of your business.",
-    size: "small",
     color: "from-cyan-500 to-blue-500",
+    badge: "Crescita strategica",
+    badgeEn: "Strategic growth",
     fullContent: {
       subtitle: "Tutta la nostra esperienza multidisciplinare al servizio dei vostri obiettivi",
       subtitleEn: "All our multidisciplinary experience at the service of your goals",
@@ -225,24 +238,26 @@ const features = [
   }
 ];
 
-const FeatureSheet = ({ 
-  feature, 
+type ServiceType = typeof services[0];
+
+const ServiceSheet = ({ 
+  service, 
   isOpen, 
   onClose 
 }: { 
-  feature: typeof features[0] | null; 
+  service: ServiceType | null; 
   isOpen: boolean; 
   onClose: () => void;
 }) => {
   const { language, t } = useLanguage();
   
-  if (!feature) return null;
+  if (!service) return null;
 
-  const title = language === 'en' ? feature.titleEn : feature.title;
-  const subtitle = language === 'en' ? feature.fullContent.subtitleEn : feature.fullContent.subtitle;
-  const intro = language === 'en' ? feature.fullContent.introEn : feature.fullContent.intro;
-  const whyUs = language === 'en' ? feature.fullContent.whyUsEn : feature.fullContent.whyUs;
-  const benefits = language === 'en' ? feature.fullContent.benefitsEn : feature.fullContent.benefits;
+  const title = language === 'en' ? service.titleEn : service.title;
+  const subtitle = language === 'en' ? service.fullContent.subtitleEn : service.fullContent.subtitle;
+  const intro = language === 'en' ? service.fullContent.introEn : service.fullContent.intro;
+  const whyUs = language === 'en' ? service.fullContent.whyUsEn : service.fullContent.whyUs;
+  const benefits = language === 'en' ? service.fullContent.benefitsEn : service.fullContent.benefits;
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -255,8 +270,8 @@ const FeatureSheet = ({
       >
         <SheetHeader className="pb-4 border-b border-border">
           <div className="flex items-center gap-4">
-            <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg`}>
-              <feature.icon className="w-7 h-7 text-white" />
+            <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg`}>
+              <service.icon className="w-7 h-7 text-white" />
             </div>
             <div>
               <SheetTitle className="text-2xl font-bold text-foreground font-serif text-left">
@@ -285,7 +300,7 @@ const FeatureSheet = ({
             }}
           >
             <h3 className="text-lg font-semibold text-foreground mb-3 font-serif">
-              {t("features.whyUs")}
+              {t("services.whyUs")}
             </h3>
             <p className="text-muted-foreground leading-relaxed">
               {whyUs}
@@ -294,15 +309,15 @@ const FeatureSheet = ({
 
           <div>
             <h3 className="text-lg font-semibold text-foreground mb-4 font-serif">
-              {t("features.whyChoose")}
+              {t("services.whatWeOffer")}
             </h3>
             <ul className="space-y-3">
               {benefits.map((benefit, i) => (
                 <li 
                   key={i}
-                  className="flex items-center gap-3"
+                  className="flex items-start gap-3"
                 >
-                  <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <CheckCircle className="w-4 h-4 text-primary" />
                   </div>
                   <span className="text-foreground/80">{benefit}</span>
@@ -317,7 +332,7 @@ const FeatureSheet = ({
             onClick={onClose}
             className="w-full py-4 px-6 rounded-lg font-semibold text-center bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
           >
-            {t("features.requestConsultation")}
+            {t("services.requestQuote")}
             <ArrowUpRight className="w-5 h-5" />
           </a>
         </div>
@@ -326,151 +341,159 @@ const FeatureSheet = ({
   );
 };
 
-const FeatureCard = ({ 
-  feature, 
+const ServiceCard = ({ 
+  service, 
   index,
   onClick 
 }: { 
-  feature: typeof features[0]; 
+  service: ServiceType; 
   index: number;
   onClick: () => void;
 }) => {
   const { language, t } = useLanguage();
-  const isLarge = feature.size === "large";
-  const isMedium = feature.size === "medium";
+  const IconComponent = service.icon;
   
-  const title = language === 'en' ? feature.titleEn : feature.title;
-  const description = language === 'en' ? feature.descriptionEn : feature.description;
-
+  const title = language === 'en' ? service.titleEn : service.title;
+  const description = language === 'en' ? service.descriptionEn : service.description;
+  const badge = language === 'en' ? service.badgeEn : service.badge;
+  
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="flex-shrink-0 w-[320px] group cursor-pointer"
+      style={{ scrollSnapAlign: 'start' }}
       onClick={onClick}
-      className={`
-        ${isLarge ? 'md:col-span-2 md:row-span-2' : ''}
-        ${isMedium ? 'md:col-span-2' : ''}
-        group relative cursor-pointer
-      `}
     >
-      <motion.div
-        className={`
-          relative h-full liquid-glass-card-sm p-6 md:p-8 
-          transition-all duration-500 overflow-hidden
-          ${isLarge ? 'min-h-[280px]' : 'min-h-[180px]'}
-        `}
-        whileHover={{ 
-          y: -4,
-          transition: { duration: 0.3 }
-        }}
-        style={{
-          background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.06) 0%, hsl(0 0% 100% / 0.02) 100%)'
-        }}
+      <div 
+        className="relative h-full rounded-xl p-6 glass-card-hover flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
       >
-        {/* Hover glow effect */}
-        <div 
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"
-          style={{
-            background: `radial-gradient(circle at 30% 30%, hsl(43 74% 49% / 0.06) 0%, transparent 60%)`
-          }}
-        />
-        
-        {/* Icon - Layered with gradient */}
-        <motion.div 
-          className={`
-            relative z-10
-            ${isLarge ? 'w-14 h-14' : 'w-11 h-11'} 
-            rounded-xl bg-gradient-to-br ${feature.color}
-            flex items-center justify-center mb-4 shadow-lg
-          `}
-          whileHover={{ scale: 1.08, rotate: 3 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <feature.icon className={`${isLarge ? 'w-7 h-7' : 'w-5 h-5'} text-white`} />
-        </motion.div>
-        
-        {/* Content */}
-        <div className="relative z-10">
-          <h3 className={`${isLarge ? 'text-2xl' : 'text-lg'} font-bold text-foreground mb-2 group-hover:text-primary transition-colors font-serif`}>
-            {title}
-          </h3>
-          <p className={`text-muted-foreground ${isLarge ? 'text-base' : 'text-sm'} leading-relaxed`}>
-            {description}
-          </p>
+        {/* Top Row - Badge */}
+        <div className="flex items-center justify-end mb-4">
+          <div className="px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-500/15 text-emerald-400">
+            {badge}
+          </div>
         </div>
 
-        {/* Click indicator */}
-        <motion.div
-          className="absolute bottom-6 right-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
-        >
-          <span className="text-xs text-primary font-medium">{t("features.learnMore")}</span>
-          <ArrowUpRight className="w-5 h-5 text-primary" />
-        </motion.div>
-      </motion.div>
+        {/* Icon & Title */}
+        <div className="flex items-start gap-4 mb-4">
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center flex-shrink-0`}>
+            <IconComponent className="w-6 h-6 text-white" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-foreground leading-tight group-hover:text-primary transition-colors font-serif">
+              {title}
+            </h3>
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="text-sm text-muted-foreground mb-6 flex-grow line-clamp-3">
+          {description}
+        </p>
+
+        {/* CTA */}
+        <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
+          <span className="text-xs text-muted-foreground">{t("services.clickForDetails")}</span>
+          <div className="flex items-center gap-1 text-sm font-semibold text-primary group-hover:gap-2 transition-all">
+            {t("services.learnMore")}
+            <ArrowRight className="w-4 h-4" />
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };
 
-export const FeaturesSection = () => {
-  const [selectedFeature, setSelectedFeature] = useState<typeof features[0] | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export const ServicesSection = () => {
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const { t } = useLanguage();
 
-  const handleCardClick = (feature: typeof features[0]) => {
-    setSelectedFeature(feature);
-    setIsModalOpen(true);
+  const handleCardClick = (service: ServiceType) => {
+    setSelectedService(service);
+    setIsSheetOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setSelectedFeature(null), 300);
+  const handleCloseSheet = () => {
+    setIsSheetOpen(false);
+    setTimeout(() => setSelectedService(null), 300);
   };
 
   return (
-    <section id="features" className="py-32 relative overflow-hidden">
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
+    <section id="servizi" className="py-20 overflow-hidden">
+      <div className="container mx-auto px-4 mb-12">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="max-w-2xl"
         >
-          <motion.span 
-            className="inline-block px-5 py-2 rounded-lg liquid-glass text-primary text-sm font-semibold mb-6"
-            whileHover={{ scale: 1.05 }}
-          >
-            {t("features.badge")}
-          </motion.span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-serif">
-            {t("features.title")}
+          <span className="inline-block px-4 py-1.5 rounded-lg bg-primary/15 text-primary text-sm font-medium mb-4">
+            {t("services.badge")}
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif">
+            {t("services.title")}
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            {t("features.description")}
+          <p className="text-lg text-muted-foreground">
+            {t("services.description")}
           </p>
         </motion.div>
-
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
-          {features.map((feature, index) => (
-            <FeatureCard 
-              key={index} 
-              feature={feature} 
-              index={index}
-              onClick={() => handleCardClick(feature)}
-            />
-          ))}
-        </div>
       </div>
 
+      {/* Horizontal Scrolling Gallery */}
+      <div 
+        className="flex gap-6 px-4 md:px-8 overflow-x-auto scrollbar-hide pt-4 pb-4"
+        style={{
+          scrollSnapType: 'x mandatory',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}
+      >
+        {/* Spacer for initial offset */}
+        <div className="flex-shrink-0 w-4 md:w-[calc((100vw-1280px)/2)]" />
+        
+        {services.map((service, index) => (
+          <ServiceCard 
+            key={service.id} 
+            service={service} 
+            index={index}
+            onClick={() => handleCardClick(service)}
+          />
+        ))}
+
+        {/* Spacer for end offset */}
+        <div className="flex-shrink-0 w-8" />
+      </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.8 }}
+        className="flex justify-center mt-8"
+      >
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <motion.div
+            animate={{ x: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <ArrowRight className="w-4 h-4" />
+          </motion.div>
+          <span>{t("services.scrollHint")}</span>
+        </div>
+      </motion.div>
+
       {/* Sheet */}
-      <FeatureSheet 
-        feature={selectedFeature}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+      <ServiceSheet 
+        service={selectedService}
+        isOpen={isSheetOpen}
+        onClose={handleCloseSheet}
       />
     </section>
   );
