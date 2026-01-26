@@ -55,8 +55,8 @@ const Index = () => {
         <main>
           <HeroSection />
           <LegalCategoriesMarquee />
-          <CaseTypesSection />
           <HowItWorksSection />
+          <CaseTypesSection />
           
           <FeaturesSection />
           <ContractTemplatesSection />
