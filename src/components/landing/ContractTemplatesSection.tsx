@@ -6,7 +6,8 @@ import {
   Check,
   Star,
   Shield,
-  Clock
+  Clock,
+  ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -119,24 +120,25 @@ const ContractCard = ({ contract, index }: { contract: typeof contractTemplates[
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`group relative ${contract.popular ? 'pt-4' : ''}`}
+      whileHover={{ y: -8, scale: 1.02 }}
+      className="flex-shrink-0 w-[320px] h-[420px] group"
+      style={{ scrollSnapAlign: 'start' }}
     >
-      {/* Popular Badge - positioned outside the card */}
-      {contract.popular && (
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
-          <Badge className="bg-gradient-to-r from-primary to-amber-500 text-primary-foreground px-4 py-1.5 flex items-center gap-1 shadow-lg">
-            <Star className="w-3 h-3 fill-current" />
-            Più venduto
-          </Badge>
-        </div>
-      )}
-      
       <div 
         className="relative h-full rounded-xl p-6 liquid-glass-card-sm flex flex-col transition-all duration-300 hover:shadow-xl"
         style={{
           background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.06) 0%, hsl(0 0% 100% / 0.02) 100%)'
         }}
       >
+        {/* Popular Badge - inside the card */}
+        {contract.popular && (
+          <div className="absolute top-4 right-4 z-10">
+            <Badge className="bg-gradient-to-r from-primary to-amber-500 text-primary-foreground px-3 py-1 flex items-center gap-1 shadow-lg text-xs">
+              <Star className="w-3 h-3 fill-current" />
+              Più venduto
+            </Badge>
+          </div>
+        )}
 
         {/* Header */}
         <div className="flex items-start gap-3 mb-4">
@@ -245,13 +247,49 @@ export const ContractTemplatesSection = () => {
             </div>
           </div>
         </motion.div>
+      </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {contractTemplates.map((contract, index) => (
-            <ContractCard key={contract.id} contract={contract} index={index} />
-          ))}
+      {/* Horizontal Scrolling Gallery */}
+      <div 
+        className="flex gap-6 px-4 md:px-8 overflow-x-auto scrollbar-hide py-4"
+        style={{
+          scrollSnapType: 'x mandatory',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none'
+        }}
+      >
+        {/* Spacer for initial offset */}
+        <div className="flex-shrink-0 w-4 md:w-[calc((100vw-1280px)/2)]" />
+        
+        {contractTemplates.map((contract, index) => (
+          <ContractCard key={contract.id} contract={contract} index={index} />
+        ))}
+
+        {/* Spacer for end offset */}
+        <div className="flex-shrink-0 w-8" />
+      </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.8 }}
+        className="flex justify-center mt-6"
+      >
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <motion.div
+            animate={{ x: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <ArrowRight className="w-4 h-4" />
+          </motion.div>
+          <span>Scorri per vedere tutti i contratti</span>
         </div>
+      </motion.div>
+
+      <div className="container mx-auto px-4 relative z-10">
 
         {/* Bottom CTA */}
         <motion.div
