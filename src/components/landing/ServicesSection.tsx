@@ -332,7 +332,7 @@ const ServiceSheet = ({
             onClick={onClose}
             className="w-full py-4 px-6 rounded-lg font-semibold text-center bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
           >
-            {t("services.requestQuote")}
+            {t("services.requestConsultation")}
             <ArrowUpRight className="w-5 h-5" />
           </a>
         </div>
