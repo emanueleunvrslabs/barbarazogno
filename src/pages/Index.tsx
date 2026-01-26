@@ -7,6 +7,7 @@ import { CaseTypesSection } from "@/components/landing/CaseTypesSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { ProblemSolutionSection } from "@/components/landing/ProblemSolutionSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
+import { ContractTemplatesSection } from "@/components/landing/ContractTemplatesSection";
 import { PricingSection } from "@/components/landing/PricingSection";
 import { Footer } from "@/components/landing/Footer";
 import { useAuth } from "@/contexts/AuthContext";
@@ -58,6 +59,7 @@ const Index = () => {
           <HowItWorksSection />
           <ProblemSolutionSection />
           <FeaturesSection />
+          <ContractTemplatesSection />
           <PricingSection />
         </main>
         
