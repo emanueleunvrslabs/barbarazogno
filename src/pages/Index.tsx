@@ -3,10 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { LegalCategoriesMarquee } from "@/components/landing/LegalCategoriesMarquee";
-import { CaseTypesSection } from "@/components/landing/CaseTypesSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
-
-import { FeaturesSection } from "@/components/landing/FeaturesSection";
+import { ServicesSection } from "@/components/landing/ServicesSection";
 import { ContractTemplatesSection } from "@/components/landing/ContractTemplatesSection";
 import { PricingSection } from "@/components/landing/PricingSection";
 import { Footer } from "@/components/landing/Footer";
@@ -56,8 +54,7 @@ const Index = () => {
           <HeroSection />
           <LegalCategoriesMarquee />
           <HowItWorksSection />
-          <FeaturesSection />
-          <CaseTypesSection />
+          <ServicesSection />
           <ContractTemplatesSection />
           <PricingSection />
         </main>

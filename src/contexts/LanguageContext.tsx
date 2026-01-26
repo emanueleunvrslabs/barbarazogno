@@ -87,6 +87,11 @@ const translations: Record<Language, Record<string, string>> = {
     "services.civilLitigation": "Contenzioso civile",
     "services.commercialDisputes": "Controversie commerciali",
     "services.alternativeResolution": "Risoluzione alternativa",
+    "services.whyUs": "Perché affidarti a noi?",
+    "services.whatWeOffer": "Cosa offriamo",
+    "services.requestQuote": "Richiedi Preventivo",
+    "services.learnMore": "Scopri di più",
+    "services.clickForDetails": "Clicca per dettagli",
 
     // How It Works
     "how.badge": "Come Lavoriamo",
@@ -257,6 +262,11 @@ const translations: Record<Language, Record<string, string>> = {
     "services.civilLitigation": "Civil litigation",
     "services.commercialDisputes": "Commercial disputes",
     "services.alternativeResolution": "Alternative resolution",
+    "services.whyUs": "Why trust us?",
+    "services.whatWeOffer": "What we offer",
+    "services.requestQuote": "Request Quote",
+    "services.learnMore": "Learn more",
+    "services.clickForDetails": "Click for details",
 
     // How It Works
     "how.badge": "How We Work",
