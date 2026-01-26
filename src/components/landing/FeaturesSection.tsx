@@ -80,19 +80,21 @@ const features = [
   },
   {
     icon: FileText,
-    title: "Contract Law",
-    description: "Negoziazione e redazione di contratti commerciali nazionali e internazionali.",
+    title: "Contrattualistica",
+    description: "Negoziazione e redazione di contratti commerciali domestici e internazionali.",
     size: "small",
     color: "from-violet-500 to-purple-600",
     fullContent: {
-      subtitle: "Prevenire il contenzioso attraverso contratti solidi",
-      intro: "La contrattualistica è fondamentale per prevenire controversie legali. Un contratto ben redatto tutela i vostri interessi e definisce chiaramente diritti e obblighi delle parti.",
-      whyUs: "Redigiamo, revisioniamo e negoziamo contratti commerciali di ogni tipo: distribuzione, fornitura, franchising, licensing e molto altro. La nostra esperienza internazionale ci permette di gestire contratti cross-border con competenza.",
+      subtitle: "Struttura portante del commercio",
+      intro: "Nelle imprese ben ramificate ed intenzionate ad espandersi i contratti sono la struttura portante, interessandone sia l'organizzazione che le attività. Purtroppo, per quanto la loro importanza sia evidente, non sempre sono oggetto della necessaria attenzione. Molte imprese, per negligenza o mancanza di fondi, si limitano a riadattare vecchi templates oppure a far preparare gli stessi a soggetti sprovvisti delle necessarie competenze.\n\nQuando i contratti devono essere sottoscritti con soggetti ed entità sovrannazionali, è necessaria ulteriore e maggiore attenzione. La negoziazione, redazione e stipula di un contratto con un partner commerciale estero comporta problematiche maggiori rispetto ad una partnership con un operatore nazionale.",
+      whyUs: "Affidandovi al nostro studio, avrete la certezza che i vostri contratti verranno predisposti in maniera completa, con l'individuazione e previsione di tutto ciò che potrebbe accadere nella fase di esecuzione degli stessi. A partire dalla negoziazione, passando per la valutazione della sua durata naturale, le conseguenze dell'inadempimento, attenta considerazione delle condizioni di rescissione, e tutti gli altri elementi legati all'adempimento.\n\nProvvediamo anche solo alla stesura dell'intera struttura contrattuale, nonché alla revisione di una già esistente ma che necessita di essere riadattata ai nuovi dettami legislativi o necessità dell'impresa.",
       benefits: [
-        "Contratti di distribuzione e fornitura",
-        "Accordi di franchising e licensing",
-        "Contratti internazionali",
-        "Negoziazione e revisione"
+        "Assistenza efficace in ogni fase delle negoziazioni nazionali e internazionali",
+        "Attenzione nella predisposizione e redazione dei contratti",
+        "Esperienza per garantire la maggiore protezione possibile",
+        "Negoziazione, redazione e revisione contratti commerciali",
+        "Analisi e mappatura degli impianti contrattuali aziendali",
+        "Contratti con fornitori, finanziatori, licenze e brevetti"
       ]
     }
   },
