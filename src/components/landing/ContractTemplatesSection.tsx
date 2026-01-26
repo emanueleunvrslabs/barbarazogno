@@ -119,23 +119,24 @@ const ContractCard = ({ contract, index }: { contract: typeof contractTemplates[
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative"
+      className={`group relative ${contract.popular ? 'pt-4' : ''}`}
     >
+      {/* Popular Badge - positioned outside the card */}
+      {contract.popular && (
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
+          <Badge className="bg-gradient-to-r from-primary to-amber-500 text-primary-foreground px-4 py-1.5 flex items-center gap-1 shadow-lg">
+            <Star className="w-3 h-3 fill-current" />
+            Più venduto
+          </Badge>
+        </div>
+      )}
+      
       <div 
         className="relative h-full rounded-xl p-6 liquid-glass-card-sm flex flex-col transition-all duration-300 hover:shadow-xl"
         style={{
           background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.06) 0%, hsl(0 0% 100% / 0.02) 100%)'
         }}
       >
-        {/* Popular Badge */}
-        {contract.popular && (
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-            <Badge className="bg-gradient-to-r from-primary to-amber-500 text-primary-foreground px-4 py-1 flex items-center gap-1">
-              <Star className="w-3 h-3 fill-current" />
-              Più venduto
-            </Badge>
-          </div>
-        )}
 
         {/* Header */}
         <div className="flex items-start gap-3 mb-4">
