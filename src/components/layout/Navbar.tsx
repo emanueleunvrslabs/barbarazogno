@@ -4,28 +4,30 @@ import { Menu, X, Scale, LogOut } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSelector } from "./LanguageSelector";
 
 interface NavLink {
-  label: string;
+  labelKey: string;
   href: string;
   isAnchor?: boolean;
 }
 
 const landingNavLinks: NavLink[] = [
-  { label: "Home", href: "#", isAnchor: true },
-  { label: "Servizi", href: "#servizi", isAnchor: true },
-  { label: "Chi Siamo", href: "#how-it-works", isAnchor: true },
-  { label: "Competenze", href: "#features", isAnchor: true },
-  { label: "Contratti", href: "#contratti", isAnchor: true },
-  { label: "Prezzi", href: "#pricing", isAnchor: true },
+  { labelKey: "nav.home", href: "#", isAnchor: true },
+  { labelKey: "nav.services", href: "#servizi", isAnchor: true },
+  { labelKey: "nav.about", href: "#how-it-works", isAnchor: true },
+  { labelKey: "nav.expertise", href: "#features", isAnchor: true },
+  { labelKey: "nav.contracts", href: "#contratti", isAnchor: true },
+  { labelKey: "nav.pricing", href: "#pricing", isAnchor: true },
 ];
 
 const dashboardNavLinks: NavLink[] = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Casi", href: "/cases" },
-  { label: "Ricerche", href: "/search" },
-  { label: "Documenti", href: "/documents" },
-  { label: "Team", href: "/team" },
+  { labelKey: "Dashboard", href: "/dashboard" },
+  { labelKey: "Casi", href: "/cases" },
+  { labelKey: "Ricerche", href: "/search" },
+  { labelKey: "Documenti", href: "/documents" },
+  { labelKey: "Team", href: "/team" },
 ];
 
 interface NavbarProps {
@@ -38,9 +40,9 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
   const [activeLink, setActiveLink] = useState(variant === "landing" ? "#" : "/dashboard");
   const location = useLocation();
   const { user, profile, signOut } = useAuth();
+  const { t } = useLanguage();
 
   const navLinks = variant === "landing" ? landingNavLinks : dashboardNavLinks;
-  const isAuthenticated = !!user;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,9 +68,16 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
     setMobileOpen(false);
   };
 
-  const renderLink = (link: NavLink, index?: number) => {
+  const getLabel = (labelKey: string) => {
+    // For dashboard links, don't translate (they're already labels)
+    if (variant === "dashboard") return labelKey;
+    return t(labelKey);
+  };
+
+  const renderLink = (link: NavLink) => {
     const isActive = activeLink === link.href || 
       (variant === "dashboard" && location.pathname === link.href);
+    const label = getLabel(link.labelKey);
 
     if (link.isAnchor) {
       return (
@@ -96,7 +105,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
               transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
             />
           )}
-          <span className="relative z-10">{link.label}</span>
+          <span className="relative z-10">{label}</span>
         </motion.a>
       );
     }
@@ -124,7 +133,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
           />
         )}
-        <span className="relative z-10">{link.label}</span>
+        <span className="relative z-10">{label}</span>
       </Link>
     );
   };
@@ -161,6 +170,11 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
         {navLinks.map((link) => renderLink(link))}
         
         <div className="w-px h-5 bg-border mx-1" />
+
+        {/* Language Selector */}
+        <LanguageSelector />
+
+        <div className="w-px h-5 bg-border mx-1" />
         
         {variant === "landing" ? (
           <motion.div>
@@ -168,7 +182,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
               href="#contact"
               className="px-5 py-2 text-sm font-semibold text-primary-foreground bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-300 inline-block hover:shadow-lg"
             >
-              Contattaci
+              {t("nav.contact")}
             </a>
           </motion.div>
         ) : (
@@ -183,7 +197,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
               whileTap={{ scale: 0.98 }}
             >
               <LogOut className="w-4 h-4" />
-              Esci
+              {t("nav.logout")}
             </motion.button>
           </div>
         )}
@@ -200,14 +214,17 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
           <Scale className="w-5 h-5 text-primary" />
           <span className="text-foreground font-bold text-lg font-serif">Zogno & Partners</span>
         </Link>
-        <motion.button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="text-foreground p-2 rounded-lg liquid-glass"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </motion.button>
+        <div className="flex items-center gap-2">
+          <LanguageSelector />
+          <motion.button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="text-foreground p-2 rounded-lg liquid-glass"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </motion.button>
+        </div>
       </motion.div>
 
       {/* Mobile Menu - Liquid Glass Panel */}
@@ -233,6 +250,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
               {navLinks.map((link, index) => {
                 const isActive = activeLink === link.href || 
                   (variant === "dashboard" && location.pathname === link.href);
+                const label = getLabel(link.labelKey);
                 
                 if (link.isAnchor) {
                   return (
@@ -250,7 +268,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                           : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
                       )}
                     >
-                      {link.label}
+                      {label}
                     </motion.a>
                   );
                 }
@@ -272,7 +290,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                           : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
                       )}
                     >
-                      {link.label}
+                      {label}
                     </Link>
                   </motion.div>
                 );
@@ -291,7 +309,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                     className="block px-4 py-3 rounded-lg text-base font-semibold text-center text-primary-foreground bg-gradient-to-r from-primary to-primary/80"
                     onClick={() => setMobileOpen(false)}
                   >
-                    Contattaci
+                    {t("nav.contact")}
                   </a>
                 </motion.div>
               ) : (
@@ -303,7 +321,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                   className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-base font-medium text-destructive hover:bg-destructive/10 transition-colors"
                 >
                   <LogOut className="w-4 h-4" />
-                  Esci
+                  {t("nav.logout")}
                 </motion.button>
               )}
             </div>

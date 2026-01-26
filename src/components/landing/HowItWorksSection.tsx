@@ -1,34 +1,37 @@
 import { motion } from "framer-motion";
 import { Phone, Users, FileText, Handshake, ArrowRight } from "lucide-react";
-
-const steps = [
-  {
-    icon: Phone,
-    title: "Primo contatto",
-    description: "Ci racconti la tua situazione e le tue esigenze. Ascoltiamo attentamente per capire come possiamo aiutarti al meglio.",
-    color: "from-blue-500 to-indigo-600"
-  },
-  {
-    icon: Users,
-    title: "Analisi e strategia",
-    description: "Il nostro team analizza il caso e definisce la strategia più efficace, con la reattività di uno studio interno e la competenza internazionale.",
-    color: "from-primary to-amber-600"
-  },
-  {
-    icon: FileText,
-    title: "Proposta personalizzata",
-    description: "Presentiamo una proposta chiara con costi definiti e tempi certi. Trasparenza totale, senza sorprese.",
-    color: "from-emerald-500 to-teal-500"
-  },
-  {
-    icon: Handshake,
-    title: "Partnership duratura",
-    description: "Costruiamo un rapporto di fiducia nel tempo, diventando il vostro partner strategico per ogni sfida legale.",
-    color: "from-violet-500 to-purple-600"
-  }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const HowItWorksSection = () => {
+  const { t } = useLanguage();
+
+  const steps = [
+    {
+      icon: Phone,
+      titleKey: "how.step1.title",
+      descriptionKey: "how.step1.description",
+      color: "from-blue-500 to-indigo-600"
+    },
+    {
+      icon: Users,
+      titleKey: "how.step2.title",
+      descriptionKey: "how.step2.description",
+      color: "from-primary to-amber-600"
+    },
+    {
+      icon: FileText,
+      titleKey: "how.step3.title",
+      descriptionKey: "how.step3.description",
+      color: "from-emerald-500 to-teal-500"
+    },
+    {
+      icon: Handshake,
+      titleKey: "how.step4.title",
+      descriptionKey: "how.step4.description",
+      color: "from-violet-500 to-purple-600"
+    }
+  ];
+
   return (
     <section id="how-it-works" className="py-32 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -44,15 +47,15 @@ export const HowItWorksSection = () => {
             className="inline-block px-5 py-2 rounded-lg liquid-glass text-primary text-sm font-semibold mb-6"
             whileHover={{ scale: 1.05 }}
           >
-            Come Lavoriamo
+            {t("how.badge")}
           </motion.span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-serif">
-            Dal primo contatto
+            {t("how.title1")}
             <br />
-            <span className="gradient-text-gold">alla partnership</span>
+            <span className="gradient-text-gold">{t("how.title2")}</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Un processo chiaro e trasparente per costruire un rapporto di fiducia duraturo.
+            {t("how.description")}
           </p>
         </motion.div>
 
@@ -91,13 +94,13 @@ export const HowItWorksSection = () => {
                   
                   <div className="flex-1 pt-2">
                     <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors font-serif">
-                      {step.title}
+                      {t(step.titleKey)}
                     </h3>
                   </div>
                 </div>
                 
                 <p className="text-muted-foreground text-base leading-relaxed pl-0 md:pl-[84px]">
-                  {step.description}
+                  {t(step.descriptionKey)}
                 </p>
 
                 {/* Hover arrow indicator */}
@@ -127,10 +130,9 @@ export const HowItWorksSection = () => {
             }}
           >
             <p className="text-foreground/90 text-lg italic font-serif mb-4">
-              "Questa legal boutique è nata dalla mia passione verso il mondo delle imprese e della professione. 
-              Provvediamo ad offrire i nostri servizi ogni giorno con piena soddisfazione e senza inutili complicazioni."
+              {t("how.quote")}
             </p>
-            <p className="text-primary font-semibold">— Barbara Zogno, Founder e Managing Partner</p>
+            <p className="text-primary font-semibold">{t("how.quoteAuthor")}</p>
           </div>
         </motion.div>
 
@@ -148,7 +150,7 @@ export const HowItWorksSection = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            Richiedi una Consulenza
+            {t("how.cta")}
             <motion.span
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}

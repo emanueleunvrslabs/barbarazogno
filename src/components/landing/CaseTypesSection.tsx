@@ -1,46 +1,17 @@
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Globe, Building2, FileText, Shield, Briefcase, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle, Globe, Building2, Shield, Briefcase } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const services = [
-  {
-    id: 1,
-    title: "General Counselling",
-    category: "Consulenza",
-    icon: Briefcase,
-    highlight: "Supporto quotidiano",
-    features: ["Assistenza legale continuativa", "Risposta rapida", "Team dedicato"],
-    color: "from-primary to-amber-600",
-  },
-  {
-    id: 2,
-    title: "Commercio Internazionale",
-    category: "Internazionale",
-    icon: Globe,
-    highlight: "Espansione globale",
-    features: ["Contratti internazionali", "Normativa doganale", "Rapporti esteri"],
-    color: "from-blue-500 to-indigo-600",
-  },
-  {
-    id: 3,
-    title: "M&A & Corporate",
-    category: "Societario",
-    icon: Building2,
-    highlight: "Operazioni straordinarie",
-    features: ["Due diligence", "Fusioni e acquisizioni", "Ristrutturazioni"],
-    color: "from-emerald-500 to-teal-600",
-  },
-  {
-    id: 4,
-    title: "Compliance & GDPR",
-    category: "Compliance",
-    icon: Shield,
-    highlight: "Conformità garantita",
-    features: ["Privacy & GDPR", "D.Lgs 231/2001", "Audit compliance"],
-    color: "from-violet-500 to-purple-600",
-  },
-];
-
-const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+const ServiceCard = ({ service, index }: { service: { 
+  id: number;
+  titleKey: string;
+  categoryKey: string;
+  icon: typeof Briefcase;
+  highlightKey: string;
+  featuresKeys: string[];
+  color: string;
+}; index: number }) => {
+  const { t } = useLanguage();
   const IconComponent = service.icon;
   
   return (
@@ -59,12 +30,12 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         <div className="flex items-center justify-between mb-4">
           {/* Category Tag */}
           <div className="inline-flex items-center px-3 py-1 rounded-lg bg-primary/15 text-primary text-xs font-medium">
-            {service.category}
+            {t(service.categoryKey)}
           </div>
           
           {/* Highlight Badge */}
           <div className="px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-500/15 text-emerald-400">
-            {service.highlight}
+            {t(service.highlightKey)}
           </div>
         </div>
 
@@ -75,17 +46,17 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           </div>
           <div className="flex-1">
             <h3 className="text-lg font-bold text-foreground leading-tight group-hover:text-primary transition-colors font-serif h-[48px] flex items-start">
-              {service.title}
+              {t(service.titleKey)}
             </h3>
           </div>
         </div>
 
         {/* Features - fixed height */}
         <div className="space-y-2 mb-6 h-[90px]">
-          {service.features.map((feature, i) => (
+          {service.featuresKeys.map((featureKey, i) => (
             <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
               <CheckCircle className="w-4 h-4 text-primary/70 flex-shrink-0" />
-              <span className="truncate">{feature}</span>
+              <span className="truncate">{t(featureKey)}</span>
             </div>
           ))}
         </div>
@@ -93,7 +64,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         {/* CTA */}
         <div className="flex items-center justify-end pt-4 border-t border-border mt-auto">
           <div className="flex items-center gap-1 text-sm font-semibold text-primary">
-            Richiedi consulenza
+            {t("services.requestConsultation")}
             <ArrowRight className="w-4 h-4" />
           </div>
         </div>
@@ -103,6 +74,47 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
 };
 
 export const CaseTypesSection = () => {
+  const { t } = useLanguage();
+  
+  const services = [
+    {
+      id: 1,
+      titleKey: "marquee.generalCounselling",
+      categoryKey: "services.consulting",
+      icon: Briefcase,
+      highlightKey: "services.dailySupport",
+      featuresKeys: ["services.continuousLegal", "services.quickResponse", "services.dedicatedTeam"],
+      color: "from-primary to-amber-600",
+    },
+    {
+      id: 2,
+      titleKey: "marquee.internationalTrade",
+      categoryKey: "services.international",
+      icon: Globe,
+      highlightKey: "services.globalExpansion",
+      featuresKeys: ["services.internationalContracts", "services.customsRegulations", "services.foreignRelations"],
+      color: "from-blue-500 to-indigo-600",
+    },
+    {
+      id: 3,
+      titleKey: "marquee.maCorporate",
+      categoryKey: "services.corporate",
+      icon: Building2,
+      highlightKey: "services.extraordinaryOps",
+      featuresKeys: ["services.dueDiligence", "services.mergersAcquisitions", "services.restructuring"],
+      color: "from-emerald-500 to-teal-600",
+    },
+    {
+      id: 4,
+      titleKey: "marquee.compliance",
+      categoryKey: "services.complianceTag",
+      icon: Shield,
+      highlightKey: "services.guaranteedCompliance",
+      featuresKeys: ["services.privacyGdpr", "services.dlgs231", "services.complianceAudit"],
+      color: "from-violet-500 to-purple-600",
+    },
+  ];
+
   return (
     <section id="servizi" className="py-20 overflow-hidden">
       <div className="container mx-auto px-4 mb-12">
@@ -114,13 +126,13 @@ export const CaseTypesSection = () => {
           className="max-w-2xl"
         >
           <span className="inline-block px-4 py-1.5 rounded-lg bg-primary/15 text-primary text-sm font-medium mb-4">
-            I Nostri Servizi
+            {t("services.badge")}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif">
-            Soluzioni legali per ogni esigenza
+            {t("services.title")}
           </h2>
           <p className="text-lg text-muted-foreground">
-            Offriamo servizi strutturati per accompagnare PMI e grandi imprese in ogni sfida legale, con costi sostenibili e qualità internazionale.
+            {t("services.description")}
           </p>
         </motion.div>
       </div>
@@ -144,7 +156,6 @@ export const CaseTypesSection = () => {
           </div>
         ))}
 
-
         {/* Spacer for end offset */}
         <div className="flex-shrink-0 w-8" />
       </div>
@@ -164,7 +175,7 @@ export const CaseTypesSection = () => {
           >
             <ArrowRight className="w-4 h-4" />
           </motion.div>
-          <span>Scorri per vedere tutti i servizi</span>
+          <span>{t("services.scrollHint")}</span>
         </div>
       </motion.div>
     </section>

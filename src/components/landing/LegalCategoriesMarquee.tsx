@@ -12,19 +12,7 @@ import {
   Gavel
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-
-const legalCategories: { icon: LucideIcon; label: string }[] = [
-  { icon: Briefcase, label: "General Counselling" },
-  { icon: Globe, label: "Commercio Internazionale" },
-  { icon: Building2, label: "M&A & Societario" },
-  { icon: FileText, label: "Contrattualistica" },
-  { icon: Shield, label: "Compliance & GDPR" },
-  { icon: TrendingUp, label: "Business Development" },
-  { icon: Scale, label: "Diritto Civile" },
-  { icon: Users, label: "Diritto del Lavoro" },
-  { icon: Landmark, label: "Diritto Bancario" },
-  { icon: Gavel, label: "Contenzioso" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CategoryCard = ({ icon: Icon, label }: { icon: LucideIcon; label: string }) => (
   <div 
@@ -39,6 +27,21 @@ const CategoryCard = ({ icon: Icon, label }: { icon: LucideIcon; label: string }
 );
 
 export const LegalCategoriesMarquee = () => {
+  const { t } = useLanguage();
+  
+  const legalCategories: { icon: LucideIcon; labelKey: string }[] = [
+    { icon: Briefcase, labelKey: "marquee.generalCounselling" },
+    { icon: Globe, labelKey: "marquee.internationalTrade" },
+    { icon: Building2, labelKey: "marquee.maCorporate" },
+    { icon: FileText, labelKey: "marquee.contracts" },
+    { icon: Shield, labelKey: "marquee.compliance" },
+    { icon: TrendingUp, labelKey: "marquee.businessDev" },
+    { icon: Scale, labelKey: "marquee.civilLaw" },
+    { icon: Users, labelKey: "marquee.laborLaw" },
+    { icon: Landmark, labelKey: "marquee.bankingLaw" },
+    { icon: Gavel, labelKey: "marquee.litigation" },
+  ];
+
   // Duplicate for infinite scroll effect
   const duplicatedCategories = [...legalCategories, ...legalCategories];
 
@@ -67,7 +70,7 @@ export const LegalCategoriesMarquee = () => {
           }}
         >
           {duplicatedCategories.map((category, index) => (
-            <CategoryCard key={`${category.label}-${index}`} icon={category.icon} label={category.label} />
+            <CategoryCard key={`${category.labelKey}-${index}`} icon={category.icon} label={t(category.labelKey)} />
           ))}
         </motion.div>
       </div>
