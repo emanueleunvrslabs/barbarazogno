@@ -15,9 +15,9 @@ import type { LucideIcon } from "lucide-react";
 
 const legalCategories: { icon: LucideIcon; label: string }[] = [
   { icon: Briefcase, label: "General Counselling" },
-  { icon: Globe, label: "International Trade" },
-  { icon: Building2, label: "M&A & Corporate" },
-  { icon: FileText, label: "Contract Law" },
+  { icon: Globe, label: "Commercio Internazionale" },
+  { icon: Building2, label: "M&A & Societario" },
+  { icon: FileText, label: "Contrattualistica" },
   { icon: Shield, label: "Compliance & GDPR" },
   { icon: TrendingUp, label: "Business Development" },
   { icon: Scale, label: "Diritto Civile" },

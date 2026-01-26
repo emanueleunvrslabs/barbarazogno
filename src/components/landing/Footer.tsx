@@ -4,8 +4,8 @@ import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone } from "lucide-
 const footerLinks = {
   Servizi: [
     { label: "General Counselling", href: "#features" },
-    { label: "International Trade", href: "#features" },
-    { label: "M&A & Corporate", href: "#features" },
+    { label: "Commercio Internazionale", href: "#features" },
+    { label: "M&A & Societario", href: "#features" },
     { label: "Compliance & GDPR", href: "#features" }
   ],
   Studio: [
