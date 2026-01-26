@@ -13,9 +13,11 @@ interface NavLink {
 
 const landingNavLinks: NavLink[] = [
   { label: "Home", href: "#", isAnchor: true },
-  { label: "Servizi", href: "#features", isAnchor: true },
+  { label: "Servizi", href: "#servizi", isAnchor: true },
   { label: "Chi Siamo", href: "#how-it-works", isAnchor: true },
-  { label: "Contatti", href: "#contact", isAnchor: true },
+  { label: "Competenze", href: "#features", isAnchor: true },
+  { label: "Contratti", href: "#contratti", isAnchor: true },
+  { label: "Prezzi", href: "#pricing", isAnchor: true },
 ];
 
 const dashboardNavLinks: NavLink[] = [
