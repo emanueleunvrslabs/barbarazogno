@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Briefcase, 
   Globe, 
@@ -6,7 +7,9 @@ import {
   FileText, 
   Shield, 
   TrendingUp,
-  ArrowUpRight
+  ArrowUpRight,
+  X,
+  CheckCircle
 } from "lucide-react";
 
 const features = [
@@ -15,46 +18,252 @@ const features = [
     title: "General Counselling",
     description: "Supporto legale quotidiano a 360 gradi per ogni esigenza aziendale.",
     size: "small",
-    color: "from-primary to-amber-600"
+    color: "from-primary to-amber-600",
+    fullContent: {
+      subtitle: "Assistenza quotidiana altamente formata",
+      intro: "L'avvocato oggi non è e non può più essere il soggetto a cui rivolgersi al solo fine di risolvere i problemi dopo la loro insorgenza. Viste le lungaggini della giustizia italiana ed i costi necessari a porre rimedio ad una situazione già degradata, l'obiettivo deve essere obbligatoriamente quello di prevenire l'insorgere di problemi già nella loro fase embrionale.",
+      whyUs: "Noi abbiamo da sempre prestato tale tipo di assistenza, trasformandola in uno dei nostri punti di forza. Siamo costantemente al fianco dei nostri clienti ed agiamo sia da consulenti legali esterni per coloro che sono sprovvisti di un team legale interno che da consulenti specializzati chiamati ad intervenire nelle questioni più delicate.",
+      benefits: [
+        "Consulenza ed assistenza altamente formata",
+        "Presenza costante ed immediata",
+        "Capacità ed esperienza nel capire i bisogni delle imprese"
+      ]
+    }
   },
   {
     icon: Globe,
     title: "International Trade",
     description: "Accompagniamo la crescita internazionale della vostra impresa con competenza globale.",
     size: "small",
-    color: "from-blue-500 to-indigo-600"
+    color: "from-blue-500 to-indigo-600",
+    fullContent: {
+      subtitle: "Espansione globale senza rischi",
+      intro: "L'espansione verso nuovi mercati comporta rischi che devono essere attentamente valutati. I contratti di import-export, le procedure doganali e le negoziazioni con partner internazionali richiedono competenze specialistiche e conoscenza dei mercati esteri.",
+      whyUs: "Grazie alla nostra esperienza e alla sede a Cipro, accompagniamo le imprese nei mercati internazionali, in particolare quelli dell'Est Europa e del Mediterraneo. Offriamo assistenza completa nella contrattualistica internazionale e nelle procedure di import-export.",
+      benefits: [
+        "Contratti di import-export",
+        "Procedure doganali e compliance",
+        "Negoziazioni con partner internazionali",
+        "Supporto dalla nostra sede di Cipro"
+      ]
+    }
   },
   {
     icon: Building2,
     title: "M&A & Corporate Law",
     description: "Assistenza specialistica nelle operazioni societarie ordinarie e straordinarie.",
     size: "small",
-    color: "from-emerald-500 to-teal-500"
+    color: "from-emerald-500 to-teal-500",
+    fullContent: {
+      subtitle: "Piena soddisfazione senza sprechi di risorse economiche e di tempo",
+      intro: "Questo ramo del diritto richiede non solo padronanza delle norme sostanziali ma anche conoscenza del mondo imprenditoriale, navigata esperienza negoziale e capacità di relazionarsi con le parti.",
+      whyUs: "Da anni accompagniamo clienti italiani e stranieri, PMI o grandi gruppi internazionali, nella gestione ordinaria e straordinaria delle imprese. Affianchiamo nella compravendita di aziende, joint-venture e operazioni di riassetto societario come fusioni, scissioni, conferimenti.",
+      benefits: [
+        "Costituzione società e start-up",
+        "Fusioni, scissioni, trasformazioni",
+        "Due diligence e data room",
+        "Patti parasociali e corporate governance",
+        "Assistenza pre e post-closing"
+      ]
+    }
   },
   {
     icon: FileText,
     title: "Contract Law",
     description: "Negoziazione e redazione di contratti commerciali nazionali e internazionali.",
     size: "small",
-    color: "from-violet-500 to-purple-600"
+    color: "from-violet-500 to-purple-600",
+    fullContent: {
+      subtitle: "Prevenire il contenzioso attraverso contratti solidi",
+      intro: "La contrattualistica è fondamentale per prevenire controversie legali. Un contratto ben redatto tutela i vostri interessi e definisce chiaramente diritti e obblighi delle parti.",
+      whyUs: "Redigiamo, revisioniamo e negoziamo contratti commerciali di ogni tipo: distribuzione, fornitura, franchising, licensing e molto altro. La nostra esperienza internazionale ci permette di gestire contratti cross-border con competenza.",
+      benefits: [
+        "Contratti di distribuzione e fornitura",
+        "Accordi di franchising e licensing",
+        "Contratti internazionali",
+        "Negoziazione e revisione"
+      ]
+    }
   },
   {
     icon: Shield,
     title: "Compliance & Data Protection",
     description: "GDPR e D.Lgs 231/2001: costruiamo il framework di conformità per la vostra azienda.",
     size: "small",
-    color: "from-pink-500 to-rose-500"
+    color: "from-pink-500 to-rose-500",
+    fullContent: {
+      subtitle: "Trasformare gli obblighi legali in vantaggio competitivo",
+      intro: "La compliance non è solo un obbligo ma un'opportunità. Un sistema di conformità efficace protegge l'azienda da rischi legali e reputazionali, trasformando l'adempimento normativo in valore aggiunto.",
+      whyUs: "Implementiamo il Modello 231 e i sistemi di compliance GDPR, costruendo strutture su misura che si integrano con i processi aziendali. Trasformiamo gli obblighi legali in opportunità di business.",
+      benefits: [
+        "Modello Organizzativo 231",
+        "Privacy e GDPR compliance",
+        "Audit e gap analysis",
+        "Formazione del personale"
+      ]
+    }
   },
   {
     icon: TrendingUp,
     title: "Business Development",
     description: "Consulenza strategica legale ed economica per lo sviluppo del vostro business.",
     size: "small",
-    color: "from-cyan-500 to-blue-500"
+    color: "from-cyan-500 to-blue-500",
+    fullContent: {
+      subtitle: "Tutta la nostra esperienza multidisciplinare al servizio dei vostri obiettivi",
+      intro: "Le scelte legali influenzano profondamente gli aspetti economici dell'impresa. Una loro attenta valutazione è indispensabile, basti pensare alle conseguenze sul piano impositivo.",
+      whyUs: "Grazie all'esperienza maturata negli anni al fianco di molteplici imprese, apportiamo un contributo utile nella scelta degli obiettivi e nell'implementazione della strategia. La nostra sede di Cipro ci permette di proporre diverse soluzioni organizzative.",
+      benefits: [
+        "Internazionalizzazione dell'impresa",
+        "Stesura del business plan",
+        "Analisi organizzazione legale",
+        "Pianificazione fiscale"
+      ]
+    }
   }
 ];
 
-const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: number }) => {
+const FeatureModal = ({ 
+  feature, 
+  isOpen, 
+  onClose 
+}: { 
+  feature: typeof features[0] | null; 
+  isOpen: boolean; 
+  onClose: () => void;
+}) => {
+  if (!feature) return null;
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
+          />
+          
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-2xl md:w-full md:max-h-[85vh] z-50 overflow-hidden"
+          >
+            <div 
+              className="h-full rounded-2xl overflow-y-auto"
+              style={{
+                background: 'linear-gradient(135deg, hsl(220 28% 12%) 0%, hsl(220 30% 8%) 100%)',
+                border: '1px solid hsl(0 0% 100% / 0.1)',
+                boxShadow: '0 32px 64px -12px hsl(220 30% 5% / 0.8)'
+              }}
+            >
+              {/* Header */}
+              <div className="sticky top-0 z-10 p-6 pb-4 border-b border-border bg-card/80 backdrop-blur-sm">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg`}>
+                      <feature.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-foreground font-serif">
+                        {feature.title}
+                      </h2>
+                      <p className="text-primary font-medium">
+                        {feature.fullContent.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                  <motion.button
+                    onClick={onClose}
+                    className="p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <X className="w-5 h-5 text-muted-foreground" />
+                  </motion.button>
+                </div>
+              </div>
+              
+              {/* Content */}
+              <div className="p-6 space-y-6">
+                <div>
+                  <p className="text-foreground/90 leading-relaxed">
+                    {feature.fullContent.intro}
+                  </p>
+                </div>
+
+                <div 
+                  className="p-5 rounded-xl"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(43 74% 49% / 0.08) 0%, hsl(0 0% 100% / 0.03) 100%)',
+                    border: '1px solid hsl(43 74% 49% / 0.15)'
+                  }}
+                >
+                  <h3 className="text-lg font-semibold text-foreground mb-3 font-serif">
+                    Perché affidarti a noi?
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.fullContent.whyUs}
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-4 font-serif">
+                    Perché le imprese ci scelgono
+                  </h3>
+                  <ul className="space-y-3">
+                    {feature.fullContent.benefits.map((benefit, i) => (
+                      <motion.li 
+                        key={i}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 }}
+                        className="flex items-center gap-3"
+                      >
+                        <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                          <CheckCircle className="w-4 h-4 text-primary" />
+                        </div>
+                        <span className="text-foreground/80">{benefit}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* CTA */}
+                <motion.a
+                  href="#contact"
+                  onClick={onClose}
+                  className="w-full py-4 px-6 rounded-lg font-semibold text-center bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Richiedi Consulenza
+                  <ArrowUpRight className="w-5 h-5" />
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const FeatureCard = ({ 
+  feature, 
+  index,
+  onClick 
+}: { 
+  feature: typeof features[0]; 
+  index: number;
+  onClick: () => void;
+}) => {
   const isLarge = feature.size === "large";
   const isMedium = feature.size === "medium";
 
@@ -64,10 +273,11 @@ const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
+      onClick={onClick}
       className={`
         ${isLarge ? 'md:col-span-2 md:row-span-2' : ''}
         ${isMedium ? 'md:col-span-2' : ''}
-        group relative
+        group relative cursor-pointer
       `}
     >
       <motion.div
@@ -116,10 +326,11 @@ const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: n
           </p>
         </div>
 
-        {/* Hover arrow */}
+        {/* Click indicator */}
         <motion.div
-          className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+          className="absolute bottom-6 right-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
         >
+          <span className="text-xs text-primary font-medium">Scopri di più</span>
           <ArrowUpRight className="w-5 h-5 text-primary" />
         </motion.div>
       </motion.div>
@@ -128,6 +339,19 @@ const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: n
 };
 
 export const FeaturesSection = () => {
+  const [selectedFeature, setSelectedFeature] = useState<typeof features[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCardClick = (feature: typeof features[0]) => {
+    setSelectedFeature(feature);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedFeature(null), 300);
+  };
+
   return (
     <section id="features" className="py-32 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -151,17 +375,29 @@ export const FeaturesSection = () => {
             <span className="gradient-text-gold">al vostro servizio</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Un team specializzato per accompagnare la vostra impresa in ogni sfida legale.
+            Un team specializzato per accompagnare la vostra impresa in ogni sfida legale. Clicca per scoprire di più.
           </p>
         </motion.div>
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
           {features.map((feature, index) => (
-            <FeatureCard key={index} feature={feature} index={index} />
+            <FeatureCard 
+              key={index} 
+              feature={feature} 
+              index={index}
+              onClick={() => handleCardClick(feature)}
+            />
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      <FeatureModal 
+        feature={selectedFeature}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 };
