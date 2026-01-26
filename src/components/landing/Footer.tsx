@@ -1,28 +1,20 @@
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Twitter, ArrowRight, MapPin, Heart, Scale } from "lucide-react";
+import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone } from "lucide-react";
 
 const footerLinks = {
-  Prodotto: [
-    { label: "Come Funziona", href: "#how-it-works" },
-    { label: "Funzionalità", href: "#features" },
-    { label: "Prezzi", href: "#pricing" },
-    { label: "Roadmap", href: "#" }
+  Servizi: [
+    { label: "General Counselling", href: "#features" },
+    { label: "International Trade", href: "#features" },
+    { label: "M&A & Corporate", href: "#features" },
+    { label: "Compliance & GDPR", href: "#features" }
   ],
-  Risorse: [
-    { label: "Blog Legale", href: "#" },
-    { label: "Guide AI", href: "#" },
-    { label: "FAQ", href: "#" },
-    { label: "API Docs", href: "#" }
-  ],
-  Azienda: [
-    { label: "Chi Siamo", href: "#" },
-    { label: "Contatti", href: "#contact" },
-    { label: "Lavora con Noi", href: "#" },
-    { label: "Partner", href: "#" }
+  Studio: [
+    { label: "Chi Siamo", href: "#how-it-works" },
+    { label: "Il Team", href: "#" },
+    { label: "Contatti", href: "#contact" }
   ],
   Legale: [
     { label: "Privacy Policy", href: "#" },
-    { label: "Termini di Servizio", href: "#" },
     { label: "Cookie Policy", href: "#" }
   ]
 };
@@ -62,7 +54,7 @@ export const Footer = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Pronto a rivoluzionare il tuo studio?
+                Pronti a diventare il vostro partner legale?
               </motion.h2>
               <motion.p 
                 className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto"
@@ -71,7 +63,7 @@ export const Footer = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                Unisciti a centinaia di avvocati che risparmiano ore ogni settimana con LexAI.
+                Contattateci per una consulenza gratuita. Costruiamo insieme il futuro della vostra impresa.
               </motion.p>
               <motion.div 
                 className="flex flex-col sm:flex-row items-center justify-center gap-4"
@@ -81,21 +73,21 @@ export const Footer = () => {
                 transition={{ delay: 0.3 }}
               >
                 <motion.a 
-                  href="/register" 
+                  href="mailto:info@legalboutiques.com" 
                   className="px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-primary/25 flex items-center gap-2"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Richiedi una Demo
+                  Richiedi Consulenza
                   <ArrowRight className="w-5 h-5" />
                 </motion.a>
                 <motion.a 
-                  href="mailto:info@lexai.it" 
+                  href="tel:+390000000000" 
                   className="flex items-center gap-2 text-foreground/70 hover:text-foreground font-medium transition-colors"
                   whileHover={{ x: 5 }}
                 >
-                  <Mail className="w-5 h-5" />
-                  Contattaci
+                  <Phone className="w-5 h-5" />
+                  Chiamaci
                 </motion.a>
               </motion.div>
             </div>
@@ -103,7 +95,7 @@ export const Footer = () => {
         </motion.div>
 
         {/* Footer Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-16">
           {/* Brand Column */}
           <div className="col-span-2">
             <motion.a 
@@ -112,29 +104,38 @@ export const Footer = () => {
               whileHover={{ scale: 1.02 }}
             >
               <Scale className="w-8 h-8 text-primary" />
-              LexAI
+              Zogno & Partners
             </motion.a>
             <p className="text-muted-foreground mb-6 max-w-xs">
-              L'AI che automatizza l'intake e potenzia la ricerca legale per avvocati e studi legali.
+              Legal Boutique con la reattività di un team interno e la competenza di uno studio internazionale.
             </p>
             
             {/* Contact info */}
             <div className="space-y-3 mb-6">
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4" />
-                <span>Milano, Italia</span>
+              <div className="flex items-start gap-3 text-sm text-muted-foreground">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-foreground">Italia</p>
+                  <p>Viale Trento, 36100 Vicenza (VI)</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-sm text-muted-foreground">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium text-foreground">Cipro</p>
+                  <p>Paphos, Onisiforou Center</p>
+                </div>
               </div>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
-                <span>info@lexai.it</span>
+                <span>info@legalboutiques.com</span>
               </div>
             </div>
 
             {/* Social - Liquid Glass buttons */}
             <div className="flex items-center gap-3">
               {[
-                { icon: Linkedin, href: "#" },
-                { icon: Twitter, href: "#" }
+                { icon: Linkedin, href: "#" }
               ].map((social, index) => (
                 <motion.a
                   key={index}
@@ -178,7 +179,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} LexAI. Tutti i diritti riservati.
+            © {new Date().getFullYear()} Zogno & Partners. Tutti i diritti riservati.
           </p>
           <p className="text-muted-foreground text-sm flex items-center gap-1.5">
             Sviluppato con <Heart className="w-4 h-4 text-red-500 fill-red-500" /> da{" "}

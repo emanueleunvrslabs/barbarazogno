@@ -1,33 +1,29 @@
 import { motion } from "framer-motion";
 import { 
+  Briefcase,
+  Globe,
+  Building2,
+  FileText,
+  Shield,
+  TrendingUp,
   Scale,
   Users,
-  Briefcase,
-  Home,
-  Shield,
   Landmark,
-  FileText,
-  Gavel,
-  Heart,
-  Building2,
-  Car,
-  Banknote
+  Gavel
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 const legalCategories: { icon: LucideIcon; label: string }[] = [
+  { icon: Briefcase, label: "General Counselling" },
+  { icon: Globe, label: "International Trade" },
+  { icon: Building2, label: "M&A & Corporate" },
+  { icon: FileText, label: "Contract Law" },
+  { icon: Shield, label: "Compliance & GDPR" },
+  { icon: TrendingUp, label: "Business Development" },
   { icon: Scale, label: "Diritto Civile" },
-  { icon: Gavel, label: "Diritto Penale" },
-  { icon: Briefcase, label: "Diritto del Lavoro" },
-  { icon: Heart, label: "Diritto di Famiglia" },
-  { icon: Home, label: "Diritto Immobiliare" },
-  { icon: Building2, label: "Diritto Societario" },
-  { icon: Banknote, label: "Diritto Tributario" },
-  { icon: Shield, label: "Diritto Amministrativo" },
-  { icon: FileText, label: "Contrattualistica" },
-  { icon: Users, label: "Successioni" },
-  { icon: Car, label: "Infortunistica" },
+  { icon: Users, label: "Diritto del Lavoro" },
   { icon: Landmark, label: "Diritto Bancario" },
+  { icon: Gavel, label: "Contenzioso" },
 ];
 
 const CategoryCard = ({ icon: Icon, label }: { icon: LucideIcon; label: string }) => (

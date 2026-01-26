@@ -1,29 +1,29 @@
 import { motion } from "framer-motion";
-import { MessageSquare, Brain, FileSearch, FileText, ArrowRight } from "lucide-react";
+import { Phone, Users, FileText, Handshake, ArrowRight } from "lucide-react";
 
 const steps = [
   {
-    icon: MessageSquare,
-    title: "Il cliente racconta il caso",
-    description: "Via chat o voce, il cliente spiega la sua situazione legale. L'AI guida con domande mirate: date, persone, importi, documenti.",
+    icon: Phone,
+    title: "Primo contatto",
+    description: "Ci racconti la tua situazione e le tue esigenze. Ascoltiamo attentamente per capire come possiamo aiutarti al meglio.",
     color: "from-blue-500 to-indigo-600"
   },
   {
-    icon: Brain,
-    title: "L'AI struttura il fascicolo",
-    description: "Il sistema organizza automaticamente: timeline dei fatti, entità coinvolte, documenti caricati, obiettivi del cliente.",
+    icon: Users,
+    title: "Analisi e strategia",
+    description: "Il nostro team analizza il caso e definisce la strategia più efficace, con la reattività di uno studio interno e la competenza internazionale.",
     color: "from-primary to-amber-600"
   },
   {
-    icon: FileSearch,
-    title: "Ricerca legge e giurisprudenza",
-    description: "Agenti AI cercano leggi applicabili, articoli di codice, sentenze simili. Ogni riferimento è tracciabile e verificabile.",
+    icon: FileText,
+    title: "Proposta personalizzata",
+    description: "Presentiamo una proposta chiara con costi definiti e tempi certi. Trasparenza totale, senza sorprese.",
     color: "from-emerald-500 to-teal-500"
   },
   {
-    icon: FileText,
-    title: "Memo legale preliminare",
-    description: "Viene generato un documento professionale: inquadramento, norme, precedenti, rischi, strategie, checklist info mancanti.",
+    icon: Handshake,
+    title: "Partnership duratura",
+    description: "Costruiamo un rapporto di fiducia nel tempo, diventando il vostro partner strategico per ogni sfida legale.",
     color: "from-violet-500 to-purple-600"
   }
 ];
@@ -44,15 +44,15 @@ export const HowItWorksSection = () => {
             className="inline-block px-5 py-2 rounded-lg liquid-glass text-primary text-sm font-semibold mb-6"
             whileHover={{ scale: 1.05 }}
           >
-            Come Funziona
+            Come Lavoriamo
           </motion.span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-serif">
-            Da intake a memo legale
+            Dal primo contatto
             <br />
-            <span className="gradient-text-gold">in 4 passaggi</span>
+            <span className="gradient-text-gold">alla partnership</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Un processo chiaro e automatizzato che ti fa risparmiare ore di lavoro ripetitivo.
+            Un processo chiaro e trasparente per costruire un rapporto di fiducia duraturo.
           </p>
         </motion.div>
 
@@ -111,7 +111,7 @@ export const HowItWorksSection = () => {
           ))}
         </div>
 
-        {/* Important Note */}
+        {/* Quote */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -120,16 +120,17 @@ export const HowItWorksSection = () => {
           className="max-w-3xl mx-auto mt-16"
         >
           <div 
-            className="liquid-glass-card-sm p-6 text-center"
+            className="liquid-glass-card-sm p-8 text-center"
             style={{
               background: 'linear-gradient(135deg, hsl(43 74% 49% / 0.08) 0%, hsl(0 0% 100% / 0.04) 100%)',
               border: '1px solid hsl(43 74% 49% / 0.2)'
             }}
           >
-            <p className="text-foreground/90 text-lg">
-              <span className="text-primary font-semibold">⚖️ Nota importante:</span> Tutti gli output AI sono materiale di supporto preliminare. 
-              Solo l'avvocato fornisce il parere legale ufficiale al cliente.
+            <p className="text-foreground/90 text-lg italic font-serif mb-4">
+              "Questa legal boutique è nata dalla mia passione verso il mondo delle imprese e della professione. 
+              Provvediamo ad offrire i nostri servizi ogni giorno con piena soddisfazione e senza inutili complicazioni."
             </p>
+            <p className="text-primary font-semibold">— Barbara Zogno, Founder e Managing Partner</p>
           </div>
         </motion.div>
 
@@ -142,12 +143,12 @@ export const HowItWorksSection = () => {
           className="text-center mt-12"
         >
           <motion.a 
-            href="/register" 
+            href="#contact" 
             className="btn-premium inline-flex items-center gap-3 text-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            Richiedi una Demo
+            Richiedi una Consulenza
             <motion.span
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}

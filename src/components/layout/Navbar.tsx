@@ -13,9 +13,8 @@ interface NavLink {
 
 const landingNavLinks: NavLink[] = [
   { label: "Home", href: "#", isAnchor: true },
-  { label: "Come Funziona", href: "#how-it-works", isAnchor: true },
-  { label: "Funzionalità", href: "#features", isAnchor: true },
-  { label: "Prezzi", href: "#pricing", isAnchor: true },
+  { label: "Servizi", href: "#features", isAnchor: true },
+  { label: "Chi Siamo", href: "#how-it-works", isAnchor: true },
   { label: "Contatti", href: "#contact", isAnchor: true },
 ];
 
@@ -151,7 +150,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
         <Link to={variant === "landing" ? "/" : "/dashboard"} className="pr-4 pl-2 flex items-center gap-2">
           <Scale className="w-5 h-5 text-primary" />
           <span className="text-lg font-bold text-foreground font-serif">
-            LexAI
+            Zogno & Partners
           </span>
         </Link>
         
@@ -163,12 +162,12 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
         
         {variant === "landing" ? (
           <motion.div>
-            <Link
-              to="/login"
+            <a
+              href="#contact"
               className="px-5 py-2 text-sm font-semibold text-primary-foreground bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-300 inline-block hover:shadow-lg"
             >
-              Accedi
-            </Link>
+              Contattaci
+            </a>
           </motion.div>
         ) : (
           <div className="flex items-center gap-3">
@@ -197,7 +196,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
       >
         <Link to={variant === "landing" ? "/" : "/dashboard"} className="flex items-center gap-2">
           <Scale className="w-5 h-5 text-primary" />
-          <span className="text-foreground font-bold text-lg font-serif">LexAI</span>
+          <span className="text-foreground font-bold text-lg font-serif">Zogno & Partners</span>
         </Link>
         <motion.button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -285,13 +284,13 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <Link
-                    to="/login"
+                  <a
+                    href="#contact"
                     className="block px-4 py-3 rounded-lg text-base font-semibold text-center text-primary-foreground bg-gradient-to-r from-primary to-primary/80"
                     onClick={() => setMobileOpen(false)}
                   >
-                    Accedi
-                  </Link>
+                    Contattaci
+                  </a>
                 </motion.div>
               ) : (
                 <motion.button

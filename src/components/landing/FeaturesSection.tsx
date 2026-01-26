@@ -1,72 +1,56 @@
 import { motion } from "framer-motion";
 import { 
-  MessageSquare, 
-  Brain, 
-  FileSearch, 
-  Users, 
-  Bell, 
-  FileText,
-  Shield,
-  BarChart3,
+  Briefcase, 
+  Globe, 
+  Building2, 
+  FileText, 
+  Shield, 
+  TrendingUp,
   ArrowUpRight
 } from "lucide-react";
 
 const features = [
   {
-    icon: MessageSquare,
-    title: "Intake Guidato",
-    description: "Il cliente racconta il caso via chat o voce. L'AI pone domande mirate per non perdere dettagli.",
-    size: "small",
-    color: "from-blue-500 to-indigo-600"
-  },
-  {
-    icon: Brain,
-    title: "Strutturazione AI",
-    description: "Trasforma il racconto in un fascicolo organizzato: timeline, persone, documenti, importi.",
+    icon: Briefcase,
+    title: "General Counselling",
+    description: "Supporto legale quotidiano a 360 gradi per ogni esigenza aziendale.",
     size: "small",
     color: "from-primary to-amber-600"
   },
   {
-    icon: FileSearch,
-    title: "Ricerca Legale",
-    description: "Identifica leggi, articoli di codice e giurisprudenza pertinenti con riferimenti verificabili.",
+    icon: Globe,
+    title: "International Trade",
+    description: "Accompagniamo la crescita internazionale della vostra impresa con competenza globale.",
+    size: "small",
+    color: "from-blue-500 to-indigo-600"
+  },
+  {
+    icon: Building2,
+    title: "M&A & Corporate Law",
+    description: "Assistenza specialistica nelle operazioni societarie ordinarie e straordinarie.",
     size: "small",
     color: "from-emerald-500 to-teal-500"
   },
   {
     icon: FileText,
-    title: "Memo Preliminare",
-    description: "Genera un documento professionale: inquadramento, norme, precedenti, strategie.",
+    title: "Contract Law",
+    description: "Negoziazione e redazione di contratti commerciali nazionali e internazionali.",
     size: "small",
     color: "from-violet-500 to-purple-600"
   },
   {
-    icon: Users,
-    title: "Multi-Studio",
-    description: "Gestisci più studi legali da un'unica dashboard con accessi separati.",
+    icon: Shield,
+    title: "Compliance & Data Protection",
+    description: "GDPR e D.Lgs 231/2001: costruiamo il framework di conformità per la vostra azienda.",
     size: "small",
     color: "from-pink-500 to-rose-500"
   },
   {
-    icon: Bell,
-    title: "Alert & Scadenze",
-    description: "Notifiche automatiche per scadenze processuali e aggiornamenti sui casi.",
+    icon: TrendingUp,
+    title: "Business Development",
+    description: "Consulenza strategica legale ed economica per lo sviluppo del vostro business.",
     size: "small",
     color: "from-cyan-500 to-blue-500"
-  },
-  {
-    icon: Shield,
-    title: "Privacy Totale",
-    description: "Dati crittografati, GDPR compliant, segreto professionale garantito.",
-    size: "small",
-    color: "from-slate-400 to-slate-600"
-  },
-  {
-    icon: BarChart3,
-    title: "Dashboard Avvocato",
-    description: "Panoramica casi, statistiche, export Word/PDF dei documenti generati.",
-    size: "small",
-    color: "from-green-500 to-emerald-600"
   }
 ];
 
@@ -90,7 +74,7 @@ const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: n
         className={`
           relative h-full liquid-glass-card-sm p-6 md:p-8 
           transition-all duration-500 overflow-hidden
-          ${isLarge ? 'min-h-[280px]' : 'min-h-[160px]'}
+          ${isLarge ? 'min-h-[280px]' : 'min-h-[180px]'}
         `}
         whileHover={{ 
           y: -4,
@@ -159,20 +143,20 @@ export const FeaturesSection = () => {
             className="inline-block px-5 py-2 rounded-lg liquid-glass text-primary text-sm font-semibold mb-6"
             whileHover={{ scale: 1.05 }}
           >
-            Funzionalità
+            Competenze
           </motion.span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-serif">
-            Tutto ciò che serve per
+            Aree di Competenza
             <br />
-            <span className="gradient-text-gold">lavorare meglio</span>
+            <span className="gradient-text-gold">al vostro servizio</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Una piattaforma completa per automatizzare l'intake e potenziare la ricerca legale.
+            Un team specializzato per accompagnare la vostra impresa in ogni sfida legale.
           </p>
         </motion.div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-5xl mx-auto">
           {features.map((feature, index) => (
             <FeatureCard key={index} feature={feature} index={index} />
           ))}
