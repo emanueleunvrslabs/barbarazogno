@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   Briefcase, 
   Globe, 
@@ -8,9 +8,14 @@ import {
   Shield, 
   TrendingUp,
   ArrowUpRight,
-  X,
   CheckCircle
 } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 const features = [
   {
@@ -123,7 +128,7 @@ const features = [
   }
 ];
 
-const FeatureModal = ({ 
+const FeatureSheet = ({ 
   feature, 
   isOpen, 
   onClose 
@@ -135,123 +140,84 @@ const FeatureModal = ({
   if (!feature) return null;
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
-          />
-          
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: "spring", duration: 0.5 }}
-            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-2xl md:w-full md:max-h-[85vh] z-50 overflow-hidden"
-          >
-            <div 
-              className="h-full rounded-2xl overflow-y-auto"
-              style={{
-                background: 'linear-gradient(135deg, hsl(220 28% 12%) 0%, hsl(220 30% 8%) 100%)',
-                border: '1px solid hsl(0 0% 100% / 0.1)',
-                boxShadow: '0 32px 64px -12px hsl(220 30% 5% / 0.8)'
-              }}
-            >
-              {/* Header */}
-              <div className="sticky top-0 z-10 p-6 pb-4 border-b border-border bg-card/80 backdrop-blur-sm">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg`}>
-                      <feature.icon className="w-7 h-7 text-white" />
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold text-foreground font-serif">
-                        {feature.title}
-                      </h2>
-                      <p className="text-primary font-medium">
-                        {feature.fullContent.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                  <motion.button
-                    onClick={onClose}
-                    className="p-2 rounded-lg hover:bg-muted/50 transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <X className="w-5 h-5 text-muted-foreground" />
-                  </motion.button>
-                </div>
-              </div>
-              
-              {/* Content */}
-              <div className="p-6 space-y-6">
-                <div>
-                  <p className="text-foreground/90 leading-relaxed">
-                    {feature.fullContent.intro}
-                  </p>
-                </div>
-
-                <div 
-                  className="p-5 rounded-xl"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(43 74% 49% / 0.08) 0%, hsl(0 0% 100% / 0.03) 100%)',
-                    border: '1px solid hsl(43 74% 49% / 0.15)'
-                  }}
-                >
-                  <h3 className="text-lg font-semibold text-foreground mb-3 font-serif">
-                    Perché affidarti a noi?
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.fullContent.whyUs}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-4 font-serif">
-                    Perché le imprese ci scelgono
-                  </h3>
-                  <ul className="space-y-3">
-                    {feature.fullContent.benefits.map((benefit, i) => (
-                      <motion.li 
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="flex items-center gap-3"
-                      >
-                        <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
-                          <CheckCircle className="w-4 h-4 text-primary" />
-                        </div>
-                        <span className="text-foreground/80">{benefit}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* CTA */}
-                <motion.a
-                  href="#contact"
-                  onClick={onClose}
-                  className="w-full py-4 px-6 rounded-lg font-semibold text-center bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Richiedi Consulenza
-                  <ArrowUpRight className="w-5 h-5" />
-                </motion.a>
-              </div>
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent 
+        side="right" 
+        className="w-full sm:max-w-lg overflow-y-auto border-l border-border"
+        style={{
+          background: 'linear-gradient(135deg, hsl(220 28% 12%) 0%, hsl(220 30% 8%) 100%)',
+        }}
+      >
+        <SheetHeader className="pb-4 border-b border-border">
+          <div className="flex items-center gap-4">
+            <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg`}>
+              <feature.icon className="w-7 h-7 text-white" />
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+            <div>
+              <SheetTitle className="text-2xl font-bold text-foreground font-serif text-left">
+                {feature.title}
+              </SheetTitle>
+              <p className="text-primary font-medium text-left">
+                {feature.fullContent.subtitle}
+              </p>
+            </div>
+          </div>
+        </SheetHeader>
+        
+        {/* Content */}
+        <div className="py-6 space-y-6">
+          <div>
+            <p className="text-foreground/90 leading-relaxed">
+              {feature.fullContent.intro}
+            </p>
+          </div>
+
+          <div 
+            className="p-5 rounded-xl"
+            style={{
+              background: 'linear-gradient(135deg, hsl(43 74% 49% / 0.08) 0%, hsl(0 0% 100% / 0.03) 100%)',
+              border: '1px solid hsl(43 74% 49% / 0.15)'
+            }}
+          >
+            <h3 className="text-lg font-semibold text-foreground mb-3 font-serif">
+              Perché affidarti a noi?
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {feature.fullContent.whyUs}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-foreground mb-4 font-serif">
+              Perché le imprese ci scelgono
+            </h3>
+            <ul className="space-y-3">
+              {feature.fullContent.benefits.map((benefit, i) => (
+                <li 
+                  key={i}
+                  className="flex items-center gap-3"
+                >
+                  <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="text-foreground/80">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* CTA */}
+          <a
+            href="#contact"
+            onClick={onClose}
+            className="w-full py-4 px-6 rounded-lg font-semibold text-center bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+          >
+            Richiedi Consulenza
+            <ArrowUpRight className="w-5 h-5" />
+          </a>
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 };
 
@@ -392,8 +358,8 @@ export const FeaturesSection = () => {
         </div>
       </div>
 
-      {/* Modal */}
-      <FeatureModal 
+      {/* Sheet */}
+      <FeatureSheet 
         feature={selectedFeature}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
