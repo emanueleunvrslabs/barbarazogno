@@ -13,7 +13,7 @@ const services = [
   },
   {
     id: 2,
-    title: "International Trade",
+    title: "Commercio Internazionale",
     category: "Internazionale",
     icon: Globe,
     highlight: "Espansione globale",
