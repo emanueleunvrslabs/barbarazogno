@@ -128,13 +128,16 @@ const features = [
     color: "from-cyan-500 to-blue-500",
     fullContent: {
       subtitle: "Tutta la nostra esperienza multidisciplinare al servizio dei vostri obiettivi",
-      intro: "Le scelte legali influenzano profondamente gli aspetti economici dell'impresa. Una loro attenta valutazione è indispensabile, basti pensare alle conseguenze sul piano impositivo.",
-      whyUs: "Grazie all'esperienza maturata negli anni al fianco di molteplici imprese, apportiamo un contributo utile nella scelta degli obiettivi e nell'implementazione della strategia. La nostra sede di Cipro ci permette di proporre diverse soluzioni organizzative.",
+      intro: "Per quanto il punto focale degli imprenditori sia la cura dell'aspetto economico-commerciale dell'impresa, tralasciare l'importanza dell'aspetto legale costituisce non solo un grande rischio, ma anche una perdita in termini di opportunità. Le scelte fatte in ordine all'organizzazione da un punto di vista strettamente legale influenzano in maniera decisa anche gli aspetti economici dell'impresa ed una loro attenta valutazione è indispensabile. Basti solo pensare alle conseguenze sul piano impositivo, fortemente influenzato dalle scelte in ambito legale.",
+      whyUs: "Grazie all'esperienza ed alle conoscenze maturate negli anni al fianco di molteplici imprese operanti in vari settori industriali, del commercio e dei servizi, siamo in grado di apportare un contributo utile nella scelta degli obiettivi ed implementazione della strategia per il loro raggiungimento.\n\nLa nostra è una consulenza specialistica che coinvolge la valutazione degli aspetti organizzativi, finanziari e legali nella stesura del business plan. Grazie alla nostra sede di Cipro, siamo in grado di proporre diverse scelte in ordine alla migliore organizzazione sociale.",
       benefits: [
+        "Preparazione per assistere sulle scelte legali per il business",
+        "Contributo alla crescita del business dei nostri clienti",
+        "Supporto dalla sede di Cipro",
         "Internazionalizzazione dell'impresa",
         "Stesura del business plan",
-        "Analisi organizzazione legale",
-        "Pianificazione fiscale"
+        "Analisi dell'organizzazione legale",
+        "Assistenza nella pianificazione fiscale"
       ]
     }
   }
