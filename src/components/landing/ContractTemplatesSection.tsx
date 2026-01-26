@@ -300,9 +300,8 @@ export const ContractTemplatesSection = () => {
             Hai bisogno di un contratto su misura? Contattaci per una consulenza personalizzata.
           </p>
           <Button 
-            variant="outline" 
             size="lg"
-            className="border-primary/30 hover:bg-primary/10"
+            className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold"
             asChild
           >
             <a href="#contact">
