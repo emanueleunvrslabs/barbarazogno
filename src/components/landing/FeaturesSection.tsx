@@ -37,19 +37,21 @@ const features = [
   },
   {
     icon: Globe,
-    title: "International Trade",
-    description: "Accompagniamo la crescita internazionale della vostra impresa con competenza globale.",
+    title: "Commercio Internazionale",
+    description: "Un'opportunità di crescita: accompagniamo l'espansione internazionale della vostra impresa.",
     size: "small",
     color: "from-blue-500 to-indigo-600",
     fullContent: {
-      subtitle: "Espansione globale senza rischi",
-      intro: "L'espansione verso nuovi mercati comporta rischi che devono essere attentamente valutati. I contratti di import-export, le procedure doganali e le negoziazioni con partner internazionali richiedono competenze specialistiche e conoscenza dei mercati esteri.",
-      whyUs: "Grazie alla nostra esperienza e alla sede a Cipro, accompagniamo le imprese nei mercati internazionali, in particolare quelli dell'Est Europa e del Mediterraneo. Offriamo assistenza completa nella contrattualistica internazionale e nelle procedure di import-export.",
+      subtitle: "Un'opportunità di crescita",
+      intro: "Per la crescita di un'impresa, espandersi nei mercati esteri è basilare, soprattutto a fronte di un mondo odierno sempre più globalizzato. Le imprese non possono permettersi di perdere l'occasione non solo in ordine all'immissione dei propri prodotti e servizi, ma anche in relazione alla produzione di questi ultimi.\n\nIl commercio internazionale comporta dei rischi diversi e maggiori rispetto al commercio domestico. Servono conoscenze specifiche che non tutti gli studi interni delle imprese sono in grado di garantire e, molto spesso, nemmeno gli studi legali esterni che non siano fortemente specializzati, con un'esperienza necessariamente pluriennale nel settore.\n\nIn tali transazioni è indispensabile affidarsi ad un consulente che abbia una profonda conoscenza delle dinamiche internazionali, che derivi non solo da una navigata esperienza nella negoziazione di contratti con i più grandi fornitori e produttori, ma anche e soprattutto da un aggiornamento costante.",
+      whyUs: "Una parte importante della nostra attività, dialogando quotidianamente con multinazionali, è tutto ciò che riguarda la vita di una società nella sua dimensione internazionale, in special modo gestione dei contratti di import-export. Non solo da e verso l'Italia, ma anche cura di contratti da e verso entità societarie entrambe con sedi all'estero. In particolare, abbiamo sviluppato una profonda conoscenza nella negoziazione con i principali fornitori e produttori con sede in oriente.\n\nNessuna impresa si può permettere di non regolamentare in maniera adeguata tutte le forme di cooperazione internazionali che sono la sua linfa vitale. Affidandoti a noi nel processo di internazionalizzazione della tua impresa hai la certezza di contare su un partner strategico.",
       benefits: [
-        "Contratti di import-export",
-        "Procedure doganali e compliance",
-        "Negoziazioni con partner internazionali",
-        "Supporto dalla nostra sede di Cipro"
+        "Conosciamo i rischi del commercio internazionale ed aiutiamo ad evitarli",
+        "Anni di esperienza nell'ambito del commercio internazionale",
+        "Profonda conoscenza delle modalità di negoziazione dei paesi orientali",
+        "Contratti con fornitori: fornitura, sub-fornitura, distribuzione",
+        "Contratti di licenza, agenzia e joint venture",
+        "Valutazione della commerciabilità di prodotti in Italia"
       ]
     }
   },
