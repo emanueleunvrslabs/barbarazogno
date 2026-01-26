@@ -104,7 +104,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
 
 export const CaseTypesSection = () => {
   return (
-    <section className="py-20 overflow-hidden">
+    <section id="servizi" className="py-20 overflow-hidden">
       <div className="container mx-auto px-4 mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
