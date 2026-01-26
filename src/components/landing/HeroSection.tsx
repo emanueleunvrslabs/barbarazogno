@@ -180,11 +180,6 @@ export const HeroSection = () => {
                   <span className="text-lg">🇨🇾</span>
                   <span className="text-sm font-semibold text-foreground">Cipro</span>
                 </div>
-                
-                <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                  <Shield className="w-4 h-4 text-emerald-400" />
-                  <span className="text-xs font-medium text-emerald-400">GDPR Compliant</span>
-                </div>
               </motion.div>
             </motion.div>
           </div>
