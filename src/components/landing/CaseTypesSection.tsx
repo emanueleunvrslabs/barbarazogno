@@ -93,7 +93,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         {/* CTA */}
         <div className="flex items-center justify-end pt-4 border-t border-border mt-auto">
           <div className="flex items-center gap-1 text-sm font-semibold text-primary">
-            Scopri di più
+            Richiedi consulenza
             <ArrowRight className="w-4 h-4" />
           </div>
         </div>
@@ -144,27 +144,6 @@ export const CaseTypesSection = () => {
           </div>
         ))}
 
-        {/* View All Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          whileHover={{ scale: 1.02 }}
-          className="flex-shrink-0 w-[280px]"
-          style={{ scrollSnapAlign: 'start' }}
-        >
-          <a 
-            href="#contact"
-            className="flex flex-col items-center justify-center h-full min-h-[340px] rounded-xl border-2 border-dashed border-primary/25 bg-primary/5 hover:bg-primary/10 hover:border-primary/40 transition-all duration-300 group cursor-pointer"
-          >
-            <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
-              <ArrowRight className="w-7 h-7 text-primary" />
-            </div>
-            <span className="text-lg font-semibold text-primary font-serif">Contattaci</span>
-            <span className="text-sm text-muted-foreground mt-1">Per una consulenza</span>
-          </a>
-        </motion.div>
 
         {/* Spacer for end offset */}
         <div className="flex-shrink-0 w-8" />
