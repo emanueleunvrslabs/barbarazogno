@@ -338,14 +338,14 @@ export const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Floating decorative elements */}
+              {/* Floating decorative elements - hidden on mobile */}
               <motion.div
-                className="absolute -top-6 -right-6 w-20 h-20 rounded-xl bg-primary/15 backdrop-blur-sm border border-primary/20"
+                className="hidden md:block absolute -top-6 -right-6 w-20 h-20 rounded-xl bg-primary/15 backdrop-blur-sm border border-primary/20"
                 animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               />
               <motion.div
-                className="absolute -bottom-4 -left-4 w-16 h-16 rounded-lg bg-secondary/30 backdrop-blur-sm border border-border"
+                className="hidden md:block absolute -bottom-4 -left-4 w-16 h-16 rounded-lg bg-secondary/30 backdrop-blur-sm border border-border"
                 animate={{ y: [0, 8, 0], rotate: [0, -3, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               />
