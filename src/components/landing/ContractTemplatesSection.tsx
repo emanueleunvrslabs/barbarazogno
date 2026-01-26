@@ -116,16 +116,15 @@ const ContractCard = ({ contract, index }: { contract: typeof contractTemplates[
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      className="flex-shrink-0 w-[320px] h-[420px] group"
+      className="flex-shrink-0 w-[320px] group"
       style={{ scrollSnapAlign: 'start' }}
     >
       <div 
-        className="relative h-full rounded-xl p-6 liquid-glass-card-sm flex flex-col transition-all duration-300 hover:shadow-xl"
+        className="relative h-full rounded-xl p-6 liquid-glass-card-sm flex flex-col transition-shadow duration-300 hover:shadow-xl"
         style={{
           background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.06) 0%, hsl(0 0% 100% / 0.02) 100%)'
         }}
@@ -140,56 +139,54 @@ const ContractCard = ({ contract, index }: { contract: typeof contractTemplates[
           </div>
         )}
 
-        {/* Header */}
-        <div className="flex items-start gap-3 mb-4">
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${contract.color} flex items-center justify-center flex-shrink-0`}>
-            <FileText className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <Badge variant="outline" className="mb-2 text-xs">
+        {/* Header - fixed height */}
+        <div className="mb-4">
+          <div className="flex items-center gap-3 mb-3">
+            <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${contract.color} flex items-center justify-center flex-shrink-0`}>
+              <FileText className="w-5 h-5 text-white" />
+            </div>
+            <Badge variant="outline" className="text-xs">
               {contract.category}
             </Badge>
-            <h3 className="text-lg font-bold text-foreground font-serif leading-tight">
-              {contract.title}
-            </h3>
           </div>
+          <h3 className="text-lg font-bold text-foreground font-serif leading-tight h-[56px] flex items-start">
+            {contract.title}
+          </h3>
         </div>
 
-        {/* Description */}
-        <p className="text-sm text-muted-foreground mb-4 flex-1">
+        {/* Description - fixed height */}
+        <p className="text-sm text-muted-foreground mb-4 h-[60px] line-clamp-3">
           {contract.description}
         </p>
 
-        {/* Features */}
-        <ul className="space-y-2 mb-6">
+        {/* Features - fixed height */}
+        <ul className="space-y-2 mb-4 h-[120px]">
           {contract.features.map((feature, i) => (
             <li key={i} className="flex items-center gap-2 text-sm text-foreground/80">
               <Check className="w-4 h-4 text-primary flex-shrink-0" />
-              <span>{feature}</span>
+              <span className="truncate">{feature}</span>
             </li>
           ))}
         </ul>
 
-        {/* Price */}
-        <div className="flex items-end justify-between mb-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-foreground">€{contract.price}</span>
-              <span className="text-sm text-muted-foreground line-through">€{contract.originalPrice}</span>
-            </div>
-            <Badge variant="secondary" className="mt-1 bg-emerald-500/15 text-emerald-400 text-xs">
-              -{discount}% di sconto
+        {/* Price - fixed position at bottom */}
+        <div className="mt-auto">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-2xl font-bold text-foreground">€{contract.price}</span>
+            <span className="text-sm text-muted-foreground line-through">€{contract.originalPrice}</span>
+            <Badge variant="secondary" className="bg-emerald-500/15 text-emerald-400 text-xs ml-auto">
+              -{discount}%
             </Badge>
           </div>
-        </div>
 
-        {/* CTA Button */}
-        <Button 
-          className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold gap-2"
-        >
-          <ShoppingCart className="w-4 h-4" />
-          Acquista ora
-        </Button>
+          {/* CTA Button */}
+          <Button 
+            className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold gap-2"
+          >
+            <ShoppingCart className="w-4 h-4" />
+            Acquista ora
+          </Button>
+        </div>
       </div>
     </motion.div>
   );
