@@ -57,20 +57,24 @@ const features = [
   },
   {
     icon: Building2,
-    title: "M&A & Corporate Law",
+    title: "Diritto Societario e M&A",
     description: "Assistenza specialistica nelle operazioni societarie ordinarie e straordinarie.",
     size: "small",
     color: "from-emerald-500 to-teal-500",
     fullContent: {
       subtitle: "Piena soddisfazione senza sprechi di risorse economiche e di tempo",
-      intro: "Questo ramo del diritto richiede non solo padronanza delle norme sostanziali ma anche conoscenza del mondo imprenditoriale, navigata esperienza negoziale e capacità di relazionarsi con le parti.",
-      whyUs: "Da anni accompagniamo clienti italiani e stranieri, PMI o grandi gruppi internazionali, nella gestione ordinaria e straordinaria delle imprese. Affianchiamo nella compravendita di aziende, joint-venture e operazioni di riassetto societario come fusioni, scissioni, conferimenti.",
+      intro: "Questo ramo del diritto è uno dei più delicati, poiché richiede non solo padronanza delle norme sostanziali ma anche e soprattutto conoscenza del mondo imprenditoriale, navigata esperienza negoziale, capacità di relazionarsi con le parti e molto altro. Se manca anche uno solo di questi elementi, si corre il rischio di non vedere pienamente soddisfatte le proprie finalità.",
+      whyUs: "Da anni accompagniamo clienti italiani e stranieri, siano essi PMI o grandi gruppi internazionali, nella cura di tutti gli aspetti relativi alla gestione sia ordinaria che straordinaria delle imprese. Forniamo consulenza qualificata nella redazione degli atti costitutivi, statuti, patti parasociali, codici etici ed operazioni infragruppo. Inoltre, affianchiamo nella compravendita di aziende, formazione di joint-venture e operazioni di riassetto societario quali fusione, scissione, conferimento o scorporo.\n\nAffidandoti a noi hai la garanzia che tutti i requisiti necessari vengano messi a tua disposizione per raggiungere l'obiettivo prefissato nel minor tempo ed alle migliori condizioni possibili.",
       benefits: [
-        "Costituzione società e start-up",
-        "Fusioni, scissioni, trasformazioni",
-        "Due diligence e data room",
+        "Conosciamo il mondo imprenditoriale e ne condividiamo la visione pragmatica",
+        "Assistiamo i clienti in ogni fase delle attività necessarie",
+        "Costituzione di società, start-up e strutture societarie",
+        "Fusioni, scissioni, trasformazioni, aumenti di capitale",
+        "Due diligence e predisposizione della data room",
         "Patti parasociali e corporate governance",
-        "Assistenza pre e post-closing"
+        "Gestione completa M&A: pre e post-closing",
+        "Acquisizioni e cessioni di partecipazioni",
+        "Put and call option agreements"
       ]
     }
   },
