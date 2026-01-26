@@ -1,19 +1,21 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Globe, FileText, ChevronRight, Shield, Scale, Briefcase } from "lucide-react";
+import { ArrowRight, Globe, ChevronRight, Briefcase } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
-
-const rotatingWords = ["REATTIVITÀ.", "COMPETENZA.", "AFFIDABILITÀ."];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Rotating word component with character-by-character animation
 const RotatingWord = () => {
   const [index, setIndex] = useState(0);
+  const { t } = useLanguage();
+  
+  const rotatingWords = [t("hero.word1"), t("hero.word2"), t("hero.word3")];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % rotatingWords.length);
     }, 2500);
     return () => clearInterval(interval);
-  }, []);
+  }, [rotatingWords.length]);
 
   const currentWord = rotatingWords[index];
   const characters = currentWord.split("");
@@ -57,6 +59,7 @@ const AnimatedNumber = ({ value, duration = 2, prefix = "", suffix = "" }: { val
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const { language } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -87,10 +90,13 @@ const AnimatedNumber = ({ value, duration = 2, prefix = "", suffix = "" }: { val
     return () => observer.disconnect();
   }, [value, duration, hasAnimated]);
 
-  return <span ref={ref}>{prefix}{displayValue.toLocaleString('it-IT')}{suffix}</span>;
+  const locale = language === 'it' ? 'it-IT' : 'en-GB';
+
+  return <span ref={ref}>{prefix}{displayValue.toLocaleString(locale)}{suffix}</span>;
 };
 
 export const HeroSection = () => {
+  const { t } = useLanguage();
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
@@ -107,7 +113,7 @@ export const HeroSection = () => {
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="block"
               >
-                IL TUO PARTNER
+                {t("hero.partner")}
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 60 }}
@@ -115,7 +121,7 @@ export const HeroSection = () => {
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className="block whitespace-nowrap"
               >
-                CON <RotatingWord />
+                {t("hero.with")} <RotatingWord />
               </motion.span>
             </motion.h1>
 
@@ -125,7 +131,7 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-lg md:text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed"
             >
-              Coniughiamo la reattività di un team legale interno con la preparazione di uno studio di livello internazionale. La vostra crescita è la nostra missione.
+              {t("hero.description")}
             </motion.p>
 
             <motion.div
@@ -153,7 +159,7 @@ export const HeroSection = () => {
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Richiedi Consulenza
+                {t("hero.cta")}
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
@@ -172,13 +178,13 @@ export const HeroSection = () => {
                 {/* Italy Badge */}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50 border border-border">
                   <span className="text-lg">🇮🇹</span>
-                  <span className="text-sm font-semibold text-foreground">Italia</span>
+                  <span className="text-sm font-semibold text-foreground">{t("hero.italy")}</span>
                 </div>
                 
                 {/* Cyprus Badge */}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50 border border-border">
                   <span className="text-lg">🇨🇾</span>
-                  <span className="text-sm font-semibold text-foreground">Cipro</span>
+                  <span className="text-sm font-semibold text-foreground">{t("hero.cyprus")}</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -283,7 +289,7 @@ export const HeroSection = () => {
                       <AnimatedNumber value={500} duration={2} suffix="+" />
                     </motion.p>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">Clienti assistiti con successo</p>
+                  <p className="text-sm text-muted-foreground mt-2">{t("hero.clients")}</p>
                 </motion.div>
 
                 {/* Info Cards - Glass Style */}
@@ -304,9 +310,9 @@ export const HeroSection = () => {
                       <Globe className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-900 text-sm">Presenza Internazionale</p>
+                      <p className="font-semibold text-slate-900 text-sm">{t("hero.international")}</p>
                       <p className="text-sm text-slate-500">
-                        Vicenza (Italia) — <span className="text-emerald-600 font-semibold">Paphos (Cipro)</span>
+                        Vicenza ({t("hero.italy")}) — <span className="text-emerald-600 font-semibold">Paphos ({t("hero.cyprus")})</span>
                       </p>
                     </div>
                     <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors flex-shrink-0" />
@@ -328,9 +334,9 @@ export const HeroSection = () => {
                       <Briefcase className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-900 text-sm">Studio Legale in OutSourcing</p>
+                      <p className="font-semibold text-slate-900 text-sm">{t("hero.outsourcing")}</p>
                       <p className="text-sm text-slate-500">
-                        Supporto continuo → <span className="font-semibold text-slate-900">Costi sostenibili</span>
+                        {t("hero.support")} → <span className="font-semibold text-slate-900">{t("hero.costs")}</span>
                       </p>
                     </div>
                     <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors flex-shrink-0" />

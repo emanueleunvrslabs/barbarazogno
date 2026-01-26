@@ -1,25 +1,28 @@
 import { motion } from "framer-motion";
 import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone } from "lucide-react";
-
-const footerLinks = {
-  Servizi: [
-    { label: "General Counselling", href: "#features" },
-    { label: "Commercio Internazionale", href: "#features" },
-    { label: "M&A & Societario", href: "#features" },
-    { label: "Compliance & GDPR", href: "#features" }
-  ],
-  Studio: [
-    { label: "Chi Siamo", href: "#how-it-works" },
-    { label: "Il Team", href: "#" },
-    { label: "Contatti", href: "#contact" }
-  ],
-  Legale: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Cookie Policy", href: "#" }
-  ]
-};
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Footer = () => {
+  const { t } = useLanguage();
+
+  const footerLinks = {
+    [t("footer.services")]: [
+      { label: "General Counselling", href: "#features" },
+      { labelKey: "marquee.internationalTrade", href: "#features" },
+      { labelKey: "marquee.maCorporate", href: "#features" },
+      { labelKey: "marquee.compliance", href: "#features" }
+    ],
+    [t("footer.studio")]: [
+      { labelKey: "footer.aboutUs", href: "#how-it-works" },
+      { labelKey: "footer.team", href: "#" },
+      { labelKey: "footer.contact", href: "#contact" }
+    ],
+    [t("footer.legal")]: [
+      { labelKey: "footer.privacyPolicy", href: "#" },
+      { labelKey: "footer.cookiePolicy", href: "#" }
+    ]
+  };
+
   return (
     <footer id="contact" className="relative pt-32 pb-8 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -54,7 +57,7 @@ export const Footer = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Pronti a diventare il vostro partner legale?
+                {t("footer.ctaTitle")}
               </motion.h2>
               <motion.p 
                 className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto"
@@ -63,7 +66,7 @@ export const Footer = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                Contattateci per una consulenza gratuita. Costruiamo insieme il futuro della vostra impresa.
+                {t("footer.ctaDescription")}
               </motion.p>
               <motion.div 
                 className="flex flex-col sm:flex-row items-center justify-center gap-4"
@@ -78,7 +81,7 @@ export const Footer = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Richiedi Consulenza
+                  {t("footer.requestConsultation")}
                   <ArrowRight className="w-5 h-5" />
                 </motion.a>
                 <motion.a 
@@ -87,7 +90,7 @@ export const Footer = () => {
                   whileHover={{ x: 5 }}
                 >
                   <Phone className="w-5 h-5" />
-                  Chiamaci
+                  {t("footer.callUs")}
                 </motion.a>
               </motion.div>
             </div>
@@ -107,7 +110,7 @@ export const Footer = () => {
               Zogno & Partners
             </motion.a>
             <p className="text-muted-foreground mb-6 max-w-xs">
-              Legal Boutique con la reattività di un team interno e la competenza di uno studio internazionale.
+              {t("footer.description")}
             </p>
             
             {/* Contact info */}
@@ -115,14 +118,14 @@ export const Footer = () => {
               <div className="flex items-start gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground">Italia</p>
+                  <p className="font-medium text-foreground">{t("hero.italy")}</p>
                   <p>Viale Trento, 36100 Vicenza (VI)</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-medium text-foreground">Cipro</p>
+                  <p className="font-medium text-foreground">{t("hero.cyprus")}</p>
                   <p>Paphos, Onisiforou Center</p>
                 </div>
               </div>
@@ -167,7 +170,7 @@ export const Footer = () => {
                       className="text-muted-foreground text-sm hover:text-foreground transition-colors inline-block"
                       whileHover={{ x: 3 }}
                     >
-                      {link.label}
+                      {link.label || t(link.labelKey || "")}
                     </motion.a>
                   </li>
                 ))}
@@ -179,10 +182,10 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Zogno & Partners. Tutti i diritti riservati.
+            © {new Date().getFullYear()} Zogno & Partners. {t("footer.allRights")}
           </p>
           <p className="text-muted-foreground text-sm flex items-center gap-1.5">
-            Sviluppato con <Heart className="w-4 h-4 text-red-500 fill-red-500" /> da{" "}
+            {t("footer.developedWith")} <Heart className="w-4 h-4 text-red-500 fill-red-500" /> {t("footer.by")}{" "}
             <a 
               href="https://www.unvrslabs.dev" 
               target="_blank" 
