@@ -1,51 +1,47 @@
 import { motion } from "framer-motion";
-import { Clock, FileText, ArrowRight, CheckCircle, Scale, Users, Briefcase, Heart } from "lucide-react";
+import { ArrowRight, CheckCircle, Globe, Building2, FileText, Shield, Briefcase, TrendingUp } from "lucide-react";
 
-const caseTypes = [
+const services = [
   {
     id: 1,
-    title: "Divorzio e Separazione",
-    category: "Famiglia",
-    icon: Heart,
-    timeReduced: "65%",
-    docsGenerated: "Memoria, Accordi, Ricorso",
-    aiCapabilities: ["Raccolta fatti guidata", "Timeline automatica", "Precedenti simili"],
-    color: "from-rose-500 to-pink-600",
+    title: "General Counselling",
+    category: "Consulenza",
+    icon: Briefcase,
+    highlight: "Supporto quotidiano",
+    features: ["Assistenza legale continuativa", "Risposta rapida", "Team dedicato"],
+    color: "from-primary to-amber-600",
   },
   {
     id: 2,
-    title: "Controversie di Lavoro",
-    category: "Lavoro",
-    icon: Briefcase,
-    timeReduced: "58%",
-    docsGenerated: "Lettera, Ricorso, Memo",
-    aiCapabilities: ["Analisi contratto", "Calcolo TFR", "CCNL applicabile"],
+    title: "International Trade",
+    category: "Internazionale",
+    icon: Globe,
+    highlight: "Espansione globale",
+    features: ["Contratti internazionali", "Normativa doganale", "Rapporti esteri"],
     color: "from-blue-500 to-indigo-600",
   },
   {
     id: 3,
-    title: "Procedimenti Penali",
-    category: "Penale",
-    icon: Scale,
-    timeReduced: "52%",
-    docsGenerated: "Memoria difensiva, Istanze",
-    aiCapabilities: ["Ricerca giurisprudenza", "Articoli codice", "Attenuanti"],
-    color: "from-amber-500 to-orange-600",
+    title: "M&A & Corporate",
+    category: "Societario",
+    icon: Building2,
+    highlight: "Operazioni straordinarie",
+    features: ["Due diligence", "Fusioni e acquisizioni", "Ristrutturazioni"],
+    color: "from-emerald-500 to-teal-600",
   },
   {
     id: 4,
-    title: "Recupero Crediti",
-    category: "Civile",
-    icon: Users,
-    timeReduced: "72%",
-    docsGenerated: "Diffida, Decreto ingiuntivo",
-    aiCapabilities: ["Verifica documentale", "Calcolo interessi", "Procedura monitoriale"],
-    color: "from-emerald-500 to-teal-600",
+    title: "Compliance & GDPR",
+    category: "Compliance",
+    icon: Shield,
+    highlight: "Conformità garantita",
+    features: ["Privacy & GDPR", "D.Lgs 231/2001", "Audit compliance"],
+    color: "from-violet-500 to-purple-600",
   },
 ];
 
-const CaseCard = ({ caseType, index }: { caseType: typeof caseTypes[0]; index: number }) => {
-  const IconComponent = caseType.icon;
+const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+  const IconComponent = service.icon;
   
   return (
     <motion.div
@@ -59,55 +55,47 @@ const CaseCard = ({ caseType, index }: { caseType: typeof caseTypes[0]; index: n
       <div 
         className="relative h-full rounded-xl p-6 glass-card-hover flex flex-col"
       >
-        {/* Top Row - Category & Time Badge */}
+        {/* Top Row - Category & Badge */}
         <div className="flex items-center justify-between mb-4">
           {/* Category Tag */}
           <div className="inline-flex items-center px-3 py-1 rounded-lg bg-primary/15 text-primary text-xs font-medium">
-            {caseType.category}
+            {service.category}
           </div>
           
-          {/* Time Reduction Badge */}
+          {/* Highlight Badge */}
           <div className="px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-500/15 text-emerald-400">
-            -{caseType.timeReduced} tempo
+            {service.highlight}
           </div>
         </div>
 
         {/* Icon & Title */}
         <div className="flex items-start gap-4 mb-4">
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${caseType.color} flex items-center justify-center flex-shrink-0`}>
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center flex-shrink-0`}>
             <IconComponent className="w-6 h-6 text-white" />
           </div>
           <div>
             <h3 className="text-lg font-bold text-foreground leading-tight group-hover:text-primary transition-colors font-serif">
-              {caseType.title}
+              {service.title}
             </h3>
-            <p className="text-sm text-muted-foreground mt-1">
-              <FileText className="w-3.5 h-3.5 inline mr-1" />
-              {caseType.docsGenerated}
-            </p>
           </div>
         </div>
 
-        {/* AI Capabilities */}
+        {/* Features */}
         <div className="space-y-2 mb-6 flex-1">
-          {caseType.aiCapabilities.map((capability, i) => (
+          {service.features.map((feature, i) => (
             <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
               <CheckCircle className="w-4 h-4 text-primary/70" />
-              <span>{capability}</span>
+              <span>{feature}</span>
             </div>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="flex items-center justify-between pt-4 border-t border-border mt-auto">
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-foreground">Intake: ~15 min</span>
-          </div>
+        <div className="flex items-center justify-end pt-4 border-t border-border mt-auto">
           <motion.div 
             className="flex items-center gap-1 text-sm font-semibold text-primary group-hover:gap-2 transition-all"
           >
-            Prova
+            Scopri di più
             <ArrowRight className="w-4 h-4" />
           </motion.div>
         </div>
@@ -128,13 +116,13 @@ export const CaseTypesSection = () => {
           className="max-w-2xl"
         >
           <span className="inline-block px-4 py-1.5 rounded-lg bg-primary/15 text-primary text-sm font-medium mb-4">
-            Tipologie di Casi
+            I Nostri Servizi
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 font-serif">
-            Supporto AI per ogni area del diritto
+            Soluzioni legali per ogni esigenza
           </h2>
           <p className="text-lg text-muted-foreground">
-            L'AI analizza il caso, trova i precedenti e prepara la documentazione iniziale per ogni tipologia di procedimento.
+            Offriamo servizi strutturati per accompagnare PMI e grandi imprese in ogni sfida legale, con costi sostenibili e qualità internazionale.
           </p>
         </motion.div>
       </div>
@@ -152,9 +140,9 @@ export const CaseTypesSection = () => {
         {/* Spacer for initial offset */}
         <div className="flex-shrink-0 w-4 md:w-[calc((100vw-1280px)/2)]" />
         
-        {caseTypes.map((caseType, index) => (
-          <div key={caseType.id} style={{ scrollSnapAlign: 'start' }}>
-            <CaseCard caseType={caseType} index={index} />
+        {services.map((service, index) => (
+          <div key={service.id} style={{ scrollSnapAlign: 'start' }}>
+            <ServiceCard service={service} index={index} />
           </div>
         ))}
 
@@ -169,14 +157,14 @@ export const CaseTypesSection = () => {
           style={{ scrollSnapAlign: 'start' }}
         >
           <a 
-            href="/cases"
+            href="#contact"
             className="flex flex-col items-center justify-center h-full min-h-[340px] rounded-xl border-2 border-dashed border-primary/25 bg-primary/5 hover:bg-primary/10 hover:border-primary/40 transition-all duration-300 group cursor-pointer"
           >
             <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
               <ArrowRight className="w-7 h-7 text-primary" />
             </div>
-            <span className="text-lg font-semibold text-primary font-serif">Tutte le tipologie</span>
-            <span className="text-sm text-muted-foreground mt-1">+25 aree del diritto</span>
+            <span className="text-lg font-semibold text-primary font-serif">Contattaci</span>
+            <span className="text-sm text-muted-foreground mt-1">Per una consulenza</span>
           </a>
         </motion.div>
 
@@ -199,7 +187,7 @@ export const CaseTypesSection = () => {
           >
             <ArrowRight className="w-4 h-4" />
           </motion.div>
-          <span>Scorri per vedere altre tipologie</span>
+          <span>Scorri per vedere tutti i servizi</span>
         </div>
       </motion.div>
     </section>

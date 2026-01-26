@@ -1,18 +1,18 @@
 import { motion } from "framer-motion";
-import { X, Check, Clock, FileSearch, Brain, AlertTriangle, Zap, Target } from "lucide-react";
+import { X, Check, Clock, AlertTriangle, DollarSign, Users, Zap, Target, Shield, Briefcase } from "lucide-react";
 
 const problems = [
-  { icon: FileSearch, text: "Ore a trascrivere racconti confusi dei clienti" },
-  { icon: AlertTriangle, text: "Ricerche legali ripetitive e time-consuming" },
-  { icon: Clock, text: "Tempo perso per strutturare ogni caso da zero" },
-  { icon: Brain, text: "Rischio di perdere dettagli importanti nell'intake" }
+  { icon: DollarSign, text: "Costi elevati per un legale interno qualificato" },
+  { icon: AlertTriangle, text: "Rischio di danni per mancanza di supporto legale" },
+  { icon: Clock, text: "Tempi lunghi e poca reattività degli studi tradizionali" },
+  { icon: Users, text: "Difficoltà con partner commerciali esteri" }
 ];
 
 const solutions = [
-  { icon: Zap, text: "L'AI guida e struttura l'intake automaticamente" },
-  { icon: Target, text: "Ricerca istantanea di leggi e precedenti" },
-  { icon: Clock, text: "Fascicolo organizzato in minuti, non ore" },
-  { icon: Check, text: "Checklist intelligente per info mancanti" }
+  { icon: Briefcase, text: "Studio Legale in OutSourcing a costi sostenibili" },
+  { icon: Zap, text: "Reattività di un team interno, qualità internazionale" },
+  { icon: Target, text: "Pacchetti su misura per PMI e grandi imprese" },
+  { icon: Shield, text: "Rapporto duraturo basato su fiducia reciproca" }
 ];
 
 export const ProblemSolutionSection = () => {
@@ -31,15 +31,15 @@ export const ProblemSolutionSection = () => {
             className="inline-block px-5 py-2 rounded-lg liquid-glass text-primary text-sm font-semibold mb-6"
             whileHover={{ scale: 1.05 }}
           >
-            Il Problema
+            La Nostra Filosofia
           </motion.span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-serif">
-            Basta perdere tempo
+            Competenza che basta?
             <br />
-            <span className="gradient-text-gold">su attività ripetitive</span>
+            <span className="gradient-text-gold">Noi andiamo oltre</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            LexAI trasforma il modo in cui gli avvocati gestiscono intake e ricerca legale.
+            L'esperienza ci ha insegnato che alla competenza serve accompagnare risposta immediata e presenza costante.
           </p>
         </motion.div>
 
@@ -68,8 +68,8 @@ export const ProblemSolutionSection = () => {
                   <X className="w-7 h-7 text-red-400" />
                 </motion.div>
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground font-serif">Senza LexAI</h3>
-                  <p className="text-muted-foreground text-sm">La situazione attuale</p>
+                  <h3 className="text-2xl font-bold text-foreground font-serif">Le sfide delle PMI</h3>
+                  <p className="text-muted-foreground text-sm">Situazioni comuni</p>
                 </div>
               </div>
 
@@ -117,8 +117,8 @@ export const ProblemSolutionSection = () => {
                   <Check className="w-7 h-7 text-emerald-400" />
                 </motion.div>
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground font-serif">Con LexAI</h3>
-                  <p className="text-muted-foreground text-sm">La tua nuova realtà</p>
+                  <h3 className="text-2xl font-bold text-foreground font-serif">Con Zogno & Partners</h3>
+                  <p className="text-muted-foreground text-sm">La nostra soluzione</p>
                 </div>
               </div>
 

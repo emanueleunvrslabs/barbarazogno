@@ -1,53 +1,52 @@
 import { motion } from "framer-motion";
-import { Check, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowRight, Sparkles, Briefcase, Building2, Globe } from "lucide-react";
 
 const plans = [
   {
-    name: "Avvocato",
-    description: "Per professionisti singoli che vogliono iniziare",
-    price: "€149",
-    period: "/mese",
+    name: "Consulenza",
+    description: "Per esigenze specifiche e puntuali",
+    price: "Su preventivo",
+    period: "",
+    icon: Briefcase,
     features: [
-      "1 utente",
-      "Intake AI illimitati",
-      "Ricerca legale base",
-      "50 memo legali/mese",
-      "Export Word/PDF",
-      "Email support"
+      "Consulenza legale mirata",
+      "Redazione contratti",
+      "Pareri legali",
+      "Assistenza giudiziale",
+      "Preventivo trasparente"
     ],
-    cta: "Inizia Ora",
+    cta: "Richiedi Preventivo",
     highlighted: false
   },
   {
-    name: "Studio",
-    description: "Per studi legali che vogliono scalare",
-    price: "€399",
-    period: "/mese",
+    name: "OutSourcing",
+    description: "Studio Legale in OutSourcing per PMI",
+    price: "Pacchetto mensile",
+    period: "",
+    icon: Building2,
     features: [
-      "Fino a 10 utenti",
-      "Intake AI illimitati",
-      "Ricerca legale avanzata",
-      "Memo illimitati",
-      "Template personalizzati",
-      "Dashboard analytics",
-      "Supporto prioritario"
+      "Supporto legale continuativo",
+      "Reattività immediata",
+      "Costi sostenibili e prevedibili",
+      "Team dedicato",
+      "Assistenza a 360 gradi",
+      "Rapporto duraturo"
     ],
-    cta: "Prova 14 Giorni Gratis",
+    cta: "Scopri il Pacchetto",
     highlighted: true
   },
   {
-    name: "Enterprise",
-    description: "Per grandi studi e legal department",
-    price: "Custom",
+    name: "International",
+    description: "Per imprese con operatività internazionale",
+    price: "Personalizzato",
     period: "",
+    icon: Globe,
     features: [
-      "Utenti illimitati",
-      "API access",
-      "SSO & compliance",
-      "Account manager dedicato",
-      "Onboarding personalizzato",
-      "SLA garantito",
-      "Formazione team"
+      "Sedi Italia e Cipro",
+      "Contrattualistica internazionale",
+      "Trade compliance",
+      "M&A cross-border",
+      "Network globale"
     ],
     cta: "Contattaci",
     highlighted: false
@@ -70,15 +69,15 @@ export const PricingSection = () => {
             className="inline-block px-5 py-2 rounded-lg liquid-glass text-primary text-sm font-semibold mb-6"
             whileHover={{ scale: 1.05 }}
           >
-            Prezzi Trasparenti
+            Le Nostre Soluzioni
           </motion.span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-serif">
-            Scegli il piano
+            Pacchetti su misura
             <br />
-            <span className="gradient-text-gold">giusto per te</span>
+            <span className="gradient-text-gold">per ogni esigenza</span>
           </h2>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Risparmia ore di lavoro ogni settimana. ROI garantito dal primo mese.
+            Soluzioni flessibili che si adattano alle dimensioni e alle necessità della vostra impresa.
           </p>
         </motion.div>
 
@@ -104,7 +103,7 @@ export const PricingSection = () => {
                 >
                   <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/20">
                     <Sparkles className="w-4 h-4" />
-                    Più Popolare
+                    Più Richiesto
                   </div>
                 </motion.div>
               )}
@@ -139,8 +138,11 @@ export const PricingSection = () => {
                 )}
                 
                 <div className="relative z-10 flex flex-col h-full">
-                  {/* Plan Info */}
+                  {/* Plan Icon & Info */}
                   <div className="mb-6">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mb-4`}>
+                      <plan.icon className="w-6 h-6 text-primary-foreground" />
+                    </div>
                     <h3 className="text-2xl font-bold text-foreground mb-2 font-serif">{plan.name}</h3>
                     <p className="text-muted-foreground text-sm">{plan.description}</p>
                   </div>
@@ -148,7 +150,7 @@ export const PricingSection = () => {
                   {/* Price */}
                   <div className="mb-8">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-5xl font-bold text-foreground font-serif">{plan.price}</span>
+                      <span className="text-3xl font-bold text-foreground font-serif">{plan.price}</span>
                       <span className="text-muted-foreground text-lg">{plan.period}</span>
                     </div>
                   </div>
@@ -174,7 +176,7 @@ export const PricingSection = () => {
 
                   {/* CTA */}
                   <motion.a
-                    href={plan.name === "Enterprise" ? "#contact" : "/register"}
+                    href="#contact"
                     className={`
                       w-full py-4 px-6 rounded-lg font-semibold text-center 
                       transition-all duration-300 flex items-center justify-center gap-2
@@ -203,7 +205,7 @@ export const PricingSection = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center mt-12 text-muted-foreground"
         >
-          ⚖️ 30 giorni soddisfatti o rimborsati · 🔒 Pagamenti sicuri con Stripe
+          ⚖️ Prima consulenza gratuita · 🔒 Riservatezza garantita · 🌍 Operatività internazionale
         </motion.p>
       </div>
     </section>

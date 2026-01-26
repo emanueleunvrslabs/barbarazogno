@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Scale, FileText, ChevronRight, Shield, Gavel, Users } from "lucide-react";
+import { ArrowRight, Globe, FileText, ChevronRight, Shield, Scale, Briefcase } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
-const rotatingWords = ["EFFICIENZA.", "PRECISIONE.", "RISULTATI."];
+const rotatingWords = ["REATTIVITÀ.", "COMPETENZA.", "AFFIDABILITÀ."];
 
 // Rotating word component with character-by-character animation
 const RotatingWord = () => {
@@ -107,7 +107,7 @@ export const HeroSection = () => {
                 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="block"
               >
-                L'AI CHE LAVORA
+                IL TUO PARTNER
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 60 }}
@@ -125,7 +125,7 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-lg md:text-xl text-muted-foreground max-w-xl mb-10 leading-relaxed"
             >
-              La piattaforma AI per avvocati che automatizza l'intake clienti, struttura i casi legali e prepara ricerche giurisprudenziali, lasciandoti il controllo totale sulla consulenza.
+              Coniughiamo la reattività di un team legale interno con la preparazione di uno studio di livello internazionale. La vostra crescita è la nostra missione.
             </motion.p>
 
             <motion.div
@@ -135,7 +135,7 @@ export const HeroSection = () => {
               className="flex flex-col gap-6"
             >
               <motion.a
-                href="/register"
+                href="#contact"
                 className="inline-flex items-center gap-3 px-8 py-4 rounded-lg font-semibold text-lg group w-fit text-foreground"
                 style={{
                   background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.1) 0%, hsl(0 0% 100% / 0.05) 100%)',
@@ -153,7 +153,7 @@ export const HeroSection = () => {
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Richiedi Accesso
+                Richiedi Consulenza
                 <motion.span
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
@@ -171,8 +171,8 @@ export const HeroSection = () => {
               >
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20">
-                    <Scale className="w-4 h-4 text-primary" />
-                    <span className="text-xs font-semibold text-primary">Legal Tech 2025</span>
+                    <Globe className="w-4 h-4 text-primary" />
+                    <span className="text-xs font-semibold text-primary">Italia & Cipro</span>
                   </div>
                 </div>
                 
@@ -242,10 +242,10 @@ export const HeroSection = () => {
                   transition={{ duration: 0.6, delay: 0.7 }}
                   className="text-center mb-4 relative z-10"
                 >
-                  <span className="text-lg font-semibold text-foreground/90 font-serif">LexAI</span>
+                  <span className="text-lg font-semibold text-foreground/90 font-serif">Zogno & Partners</span>
                 </motion.div>
 
-                {/* Cases Counter with Wave Glow Effect */}
+                {/* Years Counter with Wave Glow Effect */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -281,10 +281,10 @@ export const HeroSection = () => {
                         ease: "easeInOut" 
                       }}
                     >
-                      <AnimatedNumber value={1247} duration={2} />
+                      <AnimatedNumber value={500} duration={2} suffix="+" />
                     </motion.p>
                   </div>
-                  <p className="text-sm text-muted-foreground mt-2">Casi strutturati questo mese</p>
+                  <p className="text-sm text-muted-foreground mt-2">Clienti assistiti con successo</p>
                 </motion.div>
 
                 {/* Info Cards - Glass Style */}
@@ -302,12 +302,12 @@ export const HeroSection = () => {
                     }}
                   >
                     <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center flex-shrink-0">
-                      <Gavel className="w-5 h-5 text-primary-foreground" />
+                      <Globe className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-900 text-sm">Nuovo Caso Analizzato</p>
+                      <p className="font-semibold text-slate-900 text-sm">Presenza Internazionale</p>
                       <p className="text-sm text-slate-500">
-                        Divorzio consensuale — <span className="text-emerald-600 font-semibold">12 precedenti</span>
+                        Vicenza (Italia) — <span className="text-emerald-600 font-semibold">Paphos (Cipro)</span>
                       </p>
                     </div>
                     <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors flex-shrink-0" />
@@ -326,12 +326,12 @@ export const HeroSection = () => {
                     }}
                   >
                     <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-5 h-5 text-white" />
+                      <Briefcase className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-900 text-sm">Memo Legale Pronto</p>
+                      <p className="font-semibold text-slate-900 text-sm">Studio Legale in OutSourcing</p>
                       <p className="text-sm text-slate-500">
-                        Causa lavoro → <span className="font-semibold text-slate-900">Art. 2118 c.c.</span>
+                        Supporto continuo → <span className="font-semibold text-slate-900">Costi sostenibili</span>
                       </p>
                     </div>
                     <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors flex-shrink-0" />
