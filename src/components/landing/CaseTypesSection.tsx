@@ -45,15 +45,15 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      className="flex-shrink-0 w-[340px] md:w-[380px] h-[340px] group cursor-pointer"
+      className="flex-shrink-0 w-[320px] group cursor-pointer"
+      style={{ scrollSnapAlign: 'start' }}
     >
       <div 
-        className="relative h-full rounded-xl p-6 glass-card-hover flex flex-col"
+        className="relative h-full rounded-xl p-6 glass-card-hover flex flex-col transition-shadow duration-300 hover:shadow-xl"
       >
         {/* Top Row - Category & Badge */}
         <div className="flex items-center justify-between mb-4">
@@ -68,36 +68,34 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           </div>
         </div>
 
-        {/* Icon & Title */}
+        {/* Icon & Title - fixed height */}
         <div className="flex items-start gap-4 mb-4">
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center flex-shrink-0`}>
-            <IconComponent className="w-6 h-6 text-white" />
+          <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${service.color} flex items-center justify-center flex-shrink-0`}>
+            <IconComponent className="w-5 h-5 text-white" />
           </div>
-          <div>
-            <h3 className="text-lg font-bold text-foreground leading-tight group-hover:text-primary transition-colors font-serif">
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-foreground leading-tight group-hover:text-primary transition-colors font-serif h-[48px] flex items-start">
               {service.title}
             </h3>
           </div>
         </div>
 
-        {/* Features */}
-        <div className="space-y-2 mb-6 flex-1">
+        {/* Features - fixed height */}
+        <div className="space-y-2 mb-6 h-[90px]">
           {service.features.map((feature, i) => (
             <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-              <CheckCircle className="w-4 h-4 text-primary/70" />
-              <span>{feature}</span>
+              <CheckCircle className="w-4 h-4 text-primary/70 flex-shrink-0" />
+              <span className="truncate">{feature}</span>
             </div>
           ))}
         </div>
 
         {/* CTA */}
         <div className="flex items-center justify-end pt-4 border-t border-border mt-auto">
-          <motion.div 
-            className="flex items-center gap-1 text-sm font-semibold text-primary group-hover:gap-2 transition-all"
-          >
+          <div className="flex items-center gap-1 text-sm font-semibold text-primary">
             Scopri di più
             <ArrowRight className="w-4 h-4" />
-          </motion.div>
+          </div>
         </div>
       </div>
     </motion.div>
