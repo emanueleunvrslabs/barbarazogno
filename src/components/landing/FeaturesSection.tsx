@@ -100,19 +100,23 @@ const features = [
   },
   {
     icon: Shield,
-    title: "Compliance & Data Protection",
-    description: "GDPR e D.Lgs 231/2001: costruiamo il framework di conformità per la vostra azienda.",
+    title: "Compliance e Data Protection",
+    description: "GDPR e D.Lgs 231/2001: trasformiamo gli obblighi in vantaggi per la vostra azienda.",
     size: "small",
     color: "from-pink-500 to-rose-500",
     fullContent: {
-      subtitle: "Trasformare gli obblighi legali in vantaggio competitivo",
-      intro: "La compliance non è solo un obbligo ma un'opportunità. Un sistema di conformità efficace protegge l'azienda da rischi legali e reputazionali, trasformando l'adempimento normativo in valore aggiunto.",
-      whyUs: "Implementiamo il Modello 231 e i sistemi di compliance GDPR, costruendo strutture su misura che si integrano con i processi aziendali. Trasformiamo gli obblighi legali in opportunità di business.",
+      subtitle: "Da obbligo a vantaggio",
+      intro: "Nel nostro ordinamento vi sono diverse normative che richiedono un ingente impegno alle imprese nell'adeguarsi ai provvedimenti legislativi e regolamentari. Adeguarsi a tale moltitudine di requisiti ed obblighi non è opera facile, soprattutto alla luce di continue e frequenti modifiche.\n\nCostruire una struttura adeguata sia per quanto riguarda la sicurezza sul lavoro secondo il D.Lgs. n. 231/2001 che un sistema perfettamente rispettoso dei dettami del G.D.P.R., ai più può sembrare una perdita di risorse. Ma nel momento del bisogno, tali strutture possono fare la differenza sul bilancio dell'impresa, evitando ingenti ammende e danni reputazionali.",
+      whyUs: "Consci di tutto questo, costruiamo la struttura di compliance in modo da sfruttare tutti i vantaggi che la legge concede ed allo stesso tempo limitiamo e formalizziamo il meno possibile la tua impresa. Non ti sentirai costretto da ulteriori regole non volute, ma protetto da una struttura costruita ad hoc.\n\nForniamo assistenza nella predisposizione ed implementazione dei Modelli di Organizzazione, Gestione e Controllo (MOG) e in ambito Data Protection offriamo assistenza continuativa nella gestione delle tematiche privacy secondo il GDPR.",
       benefits: [
-        "Modello Organizzativo 231",
-        "Privacy e GDPR compliance",
-        "Audit e gap analysis",
-        "Formazione del personale"
+        "Trasformiamo un obbligo legislativo in vantaggio",
+        "Struttura ad hoc senza ricorrere a prestampati",
+        "Assistenza continua con aggiornamenti normativi",
+        "Redazione e revisione di Modelli 231",
+        "Implementazione documentazione GDPR",
+        "Sviluppo organigramma privacy con DPO",
+        "Valutazioni d'Impatto Privacy",
+        "Consulenza per ispezioni e indagini"
       ]
     }
   },
