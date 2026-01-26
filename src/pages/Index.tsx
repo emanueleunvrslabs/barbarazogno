@@ -5,7 +5,7 @@ import { HeroSection } from "@/components/landing/HeroSection";
 import { LegalCategoriesMarquee } from "@/components/landing/LegalCategoriesMarquee";
 import { CaseTypesSection } from "@/components/landing/CaseTypesSection";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
-import { ProblemSolutionSection } from "@/components/landing/ProblemSolutionSection";
+
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { ContractTemplatesSection } from "@/components/landing/ContractTemplatesSection";
 import { PricingSection } from "@/components/landing/PricingSection";
@@ -57,7 +57,7 @@ const Index = () => {
           <LegalCategoriesMarquee />
           <CaseTypesSection />
           <HowItWorksSection />
-          <ProblemSolutionSection />
+          
           <FeaturesSection />
           <ContractTemplatesSection />
           <PricingSection />
