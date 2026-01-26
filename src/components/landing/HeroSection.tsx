@@ -162,25 +162,29 @@ export const HeroSection = () => {
                 </motion.span>
               </motion.a>
 
-              {/* Awards & Recognition */}
+              {/* Location Badges */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.1 }}
-                className="flex items-center gap-4 flex-wrap pt-2"
+                className="flex items-center gap-3 flex-wrap pt-2"
               >
-                <div className="flex items-center gap-2 text-muted-foreground">
-                  <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20">
-                    <Globe className="w-4 h-4 text-primary" />
-                    <span className="text-xs font-semibold text-primary">Italia & Cipro</span>
-                  </div>
+                {/* Italy Badge */}
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50 border border-border">
+                  <span className="text-lg">🇮🇹</span>
+                  <span className="text-sm font-semibold text-foreground">Italia</span>
                 </div>
                 
-                <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-muted/50 border border-border">
-                  <Shield className="w-4 h-4 text-emerald-400" />
-                  <span className="text-xs font-medium text-foreground/80">GDPR Compliant</span>
+                {/* Cyprus Badge */}
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-muted/50 border border-border">
+                  <span className="text-lg">🇨🇾</span>
+                  <span className="text-sm font-semibold text-foreground">Cipro</span>
                 </div>
-
+                
+                <div className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                  <Shield className="w-4 h-4 text-emerald-400" />
+                  <span className="text-xs font-medium text-emerald-400">GDPR Compliant</span>
+                </div>
               </motion.div>
             </motion.div>
           </div>
