@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Globe, Building2, Shield, Briefcase } from "lucide-react";
+import { ArrowRight, CheckCircle, Globe, Building2, Shield, Briefcase, FileText, Gavel } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ServiceCard = ({ service, index }: { service: { 
@@ -106,12 +106,30 @@ export const CaseTypesSection = () => {
     },
     {
       id: 4,
+      titleKey: "marquee.contracts",
+      categoryKey: "services.contractsTag",
+      icon: FileText,
+      highlightKey: "services.secureAgreements",
+      featuresKeys: ["services.draftingNegotiation", "services.contractReview", "services.contractManagement"],
+      color: "from-orange-500 to-red-600",
+    },
+    {
+      id: 5,
       titleKey: "marquee.compliance",
       categoryKey: "services.complianceTag",
       icon: Shield,
       highlightKey: "services.guaranteedCompliance",
       featuresKeys: ["services.privacyGdpr", "services.dlgs231", "services.complianceAudit"],
       color: "from-violet-500 to-purple-600",
+    },
+    {
+      id: 6,
+      titleKey: "marquee.litigation",
+      categoryKey: "services.litigationTag",
+      icon: Gavel,
+      highlightKey: "services.defenseProtection",
+      featuresKeys: ["services.civilLitigation", "services.commercialDisputes", "services.alternativeResolution"],
+      color: "from-rose-500 to-pink-600",
     },
   ];
 

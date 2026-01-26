@@ -77,6 +77,16 @@ const translations: Record<Language, Record<string, string>> = {
     "services.privacyGdpr": "Privacy & GDPR",
     "services.dlgs231": "D.Lgs 231/2001",
     "services.complianceAudit": "Audit compliance",
+    "services.contractsTag": "Contratti",
+    "services.secureAgreements": "Accordi sicuri",
+    "services.draftingNegotiation": "Redazione e negoziazione",
+    "services.contractReview": "Revisione contratti",
+    "services.contractManagement": "Gestione contrattuale",
+    "services.litigationTag": "Contenzioso",
+    "services.defenseProtection": "Difesa e tutela",
+    "services.civilLitigation": "Contenzioso civile",
+    "services.commercialDisputes": "Controversie commerciali",
+    "services.alternativeResolution": "Risoluzione alternativa",
 
     // How It Works
     "how.badge": "Come Lavoriamo",
@@ -237,6 +247,16 @@ const translations: Record<Language, Record<string, string>> = {
     "services.privacyGdpr": "Privacy & GDPR",
     "services.dlgs231": "D.Lgs 231/2001",
     "services.complianceAudit": "Compliance audit",
+    "services.contractsTag": "Contracts",
+    "services.secureAgreements": "Secure agreements",
+    "services.draftingNegotiation": "Drafting & negotiation",
+    "services.contractReview": "Contract review",
+    "services.contractManagement": "Contract management",
+    "services.litigationTag": "Litigation",
+    "services.defenseProtection": "Defense & protection",
+    "services.civilLitigation": "Civil litigation",
+    "services.commercialDisputes": "Commercial disputes",
+    "services.alternativeResolution": "Alternative resolution",
 
     // How It Works
     "how.badge": "How We Work",
