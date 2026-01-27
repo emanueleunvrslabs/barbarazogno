@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Users, Copy, Check, Briefcase, Link2, MessageSquare, Share2 } from "lucide-react";
+import { 
+  Users, 
+  Copy, 
+  Check, 
+  Briefcase, 
+  Link2, 
+  MessageSquare, 
+  Share2,
+  FileText,
+  ShoppingCart
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navbar } from "@/components/layout/Navbar";
+import { ConsultationRequestsSection } from "@/components/dashboard/ConsultationRequestsSection";
+import { ContractTemplatesSection } from "@/components/dashboard/ContractTemplatesSection";
+import { ContractPurchasesSection } from "@/components/dashboard/ContractPurchasesSection";
 
 export default function Dashboard() {
   const { user, profile, studio, userRole, loading } = useAuth();
@@ -59,16 +73,16 @@ export default function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Quick Cards Row */}
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
             {/* Studio Card */}
             <motion.div
-              className="p-6 liquid-glass-card"
+              className="p-5 liquid-glass-card"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="p-2 rounded-lg bg-primary/20 text-primary">
                   <Briefcase className="w-5 h-5" />
                 </div>
@@ -76,16 +90,14 @@ export default function Dashboard() {
               </div>
               
               {studio ? (
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <p className="text-lg font-medium text-foreground">{studio.name}</p>
                   {studio.p_iva && (
                     <p className="text-sm text-muted-foreground">P.IVA: {studio.p_iva}</p>
                   )}
-                  <div className="pt-2">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary capitalize">
-                      {userRole?.role || "member"}
-                    </span>
-                  </div>
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary capitalize">
+                    {userRole?.role || "member"}
+                  </span>
                 </div>
               ) : (
                 <p className="text-muted-foreground">Nessuno studio associato</p>
@@ -94,12 +106,12 @@ export default function Dashboard() {
 
             {/* Client Intake Link Card */}
             <motion.div
-              className="p-6 liquid-glass-card"
+              className="p-5 liquid-glass-card"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="p-2 rounded-lg bg-primary/20 text-primary">
                   <MessageSquare className="w-5 h-5" />
                 </div>
@@ -107,11 +119,11 @@ export default function Dashboard() {
               </div>
               
               <p className="text-sm text-muted-foreground mb-3">
-                Condividi questo link con i tuoi clienti per avviare una consulenza con l'agente AI
+                Condividi questo link con i tuoi clienti
               </p>
               
               <div className="flex items-center gap-2">
-                <div className="flex-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-muted-foreground truncate">
+                <div className="flex-1 px-3 py-2 rounded-lg bg-muted/30 border border-border text-sm text-muted-foreground truncate">
                   {clientIntakeLink}
                 </div>
                 <Button
@@ -122,7 +134,7 @@ export default function Dashboard() {
                     setClientLinkCopied(true);
                     setTimeout(() => setClientLinkCopied(false), 2000);
                   }}
-                  className="shrink-0 bg-white/5 border-white/10 hover:bg-white/10"
+                  className="shrink-0 bg-muted/30 border-border hover:bg-muted/50"
                   title="Copia link"
                 >
                   {clientLinkCopied ? (
@@ -142,14 +154,14 @@ export default function Dashboard() {
                           text: "Avvia una consulenza con il nostro assistente AI",
                           url: clientIntakeLink,
                         });
-                      } catch (err) {
+                      } catch {
                         // User cancelled or share failed
                       }
                     } else {
                       navigator.clipboard.writeText(clientIntakeLink);
                     }
                   }}
-                  className="shrink-0 bg-white/5 border-white/10 hover:bg-white/10"
+                  className="shrink-0 bg-muted/30 border-border hover:bg-muted/50"
                   title="Condividi"
                 >
                   <Share2 className="w-4 h-4" />
@@ -160,12 +172,12 @@ export default function Dashboard() {
             {/* Invite Code Card - Only for owners/admins */}
             {(userRole?.role === "owner" || userRole?.role === "admin") && studio && (
               <motion.div
-                className="p-6 liquid-glass-card"
+                className="p-5 liquid-glass-card"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-3">
                   <div className="p-2 rounded-lg bg-primary/20 text-primary">
                     <Users className="w-5 h-5" />
                   </div>
@@ -177,14 +189,14 @@ export default function Dashboard() {
                 </p>
                 
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 px-3 py-2 rounded-lg bg-white/5 border border-white/10 font-mono text-lg tracking-wider text-center text-foreground">
+                  <code className="flex-1 px-3 py-2 rounded-lg bg-muted/30 border border-border font-mono text-lg tracking-wider text-center text-foreground">
                     {studio.invite_code}
                   </code>
                   <Button
                     variant="outline"
                     size="icon"
                     onClick={copyInviteCode}
-                    className="shrink-0 bg-white/5 border-white/10 hover:bg-white/10"
+                    className="shrink-0 bg-muted/30 border-border hover:bg-muted/50"
                   >
                     {copied ? (
                       <Check className="w-4 h-4 text-green-500" />
@@ -196,6 +208,51 @@ export default function Dashboard() {
               </motion.div>
             )}
           </div>
+
+          {/* Main Tabs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <Tabs defaultValue="requests" className="space-y-6">
+              <TabsList className="bg-muted/30 border border-border p-1">
+                <TabsTrigger 
+                  value="requests" 
+                  className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  Richieste
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="contracts"
+                  className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                >
+                  <FileText className="w-4 h-4" />
+                  Contratti
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="purchases"
+                  className="gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  Acquisti
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="requests" className="mt-6">
+                <ConsultationRequestsSection />
+              </TabsContent>
+
+              <TabsContent value="contracts" className="mt-6">
+                <ContractTemplatesSection />
+              </TabsContent>
+
+              <TabsContent value="purchases" className="mt-6">
+                <ContractPurchasesSection />
+              </TabsContent>
+            </Tabs>
+          </motion.div>
         </motion.div>
       </main>
     </div>
