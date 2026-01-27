@@ -171,11 +171,6 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
         {navLinks.map((link) => renderLink(link))}
         
         <div className="w-px h-5 bg-border mx-1" />
-
-        {/* Language Selector */}
-        <LanguageSelector />
-
-        <div className="w-px h-5 bg-border mx-1" />
         
         {variant === "landing" ? (
           <motion.div>
@@ -203,6 +198,11 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
           </div>
         )}
       </motion.div>
+
+      {/* Language Selector - Fixed Right */}
+      <div className="hidden lg:flex fixed right-6 top-5">
+        <LanguageSelector />
+      </div>
 
       {/* Mobile Menu Toggle */}
       <motion.div
