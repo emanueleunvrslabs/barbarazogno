@@ -14,6 +14,163 @@ export type Database = {
   }
   public: {
     Tables: {
+      consultation_requests: {
+        Row: {
+          client_email: string
+          client_name: string
+          client_phone: string | null
+          created_at: string
+          id: string
+          lawyer_id: string
+          message: string | null
+          notes: string | null
+          service_type: string
+          status: Database["public"]["Enums"]["consultation_status"]
+          studio_id: string
+          updated_at: string
+        }
+        Insert: {
+          client_email: string
+          client_name: string
+          client_phone?: string | null
+          created_at?: string
+          id?: string
+          lawyer_id: string
+          message?: string | null
+          notes?: string | null
+          service_type: string
+          status?: Database["public"]["Enums"]["consultation_status"]
+          studio_id: string
+          updated_at?: string
+        }
+        Update: {
+          client_email?: string
+          client_name?: string
+          client_phone?: string | null
+          created_at?: string
+          id?: string
+          lawyer_id?: string
+          message?: string | null
+          notes?: string | null
+          service_type?: string
+          status?: Database["public"]["Enums"]["consultation_status"]
+          studio_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consultation_requests_studio_id_fkey"
+            columns: ["studio_id"]
+            isOneToOne: false
+            referencedRelation: "studios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contract_purchases: {
+        Row: {
+          amount: number
+          buyer_email: string
+          buyer_name: string
+          buyer_phone: string | null
+          contract_id: string
+          created_at: string
+          id: string
+          status: string
+          studio_id: string
+        }
+        Insert: {
+          amount: number
+          buyer_email: string
+          buyer_name: string
+          buyer_phone?: string | null
+          contract_id: string
+          created_at?: string
+          id?: string
+          status?: string
+          studio_id: string
+        }
+        Update: {
+          amount?: number
+          buyer_email?: string
+          buyer_name?: string
+          buyer_phone?: string | null
+          contract_id?: string
+          created_at?: string
+          id?: string
+          status?: string
+          studio_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_purchases_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "contract_templates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contract_purchases_studio_id_fkey"
+            columns: ["studio_id"]
+            isOneToOne: false
+            referencedRelation: "studios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contract_templates: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          display_order: number
+          file_url: string | null
+          id: string
+          is_active: boolean
+          is_bestseller: boolean
+          name: string
+          price: number
+          studio_id: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          file_url?: string | null
+          id?: string
+          is_active?: boolean
+          is_bestseller?: boolean
+          name: string
+          price?: number
+          studio_id: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          file_url?: string | null
+          id?: string
+          is_active?: boolean
+          is_bestseller?: boolean
+          name?: string
+          price?: number
+          studio_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_templates_studio_id_fkey"
+            columns: ["studio_id"]
+            isOneToOne: false
+            referencedRelation: "studios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -144,6 +301,7 @@ export type Database = {
     }
     Enums: {
       app_role: "owner" | "admin" | "member"
+      consultation_status: "new" | "in_progress" | "completed" | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -272,6 +430,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["owner", "admin", "member"],
+      consultation_status: ["new", "in_progress", "completed", "archived"],
     },
   },
 } as const
