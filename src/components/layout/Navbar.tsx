@@ -181,7 +181,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
         {variant === "landing" ? (
           <motion.div>
             <a
-              href="#contact"
+              href="#contact-form"
               className="px-5 py-2 text-sm font-semibold text-primary-foreground bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-300 inline-block hover:shadow-lg"
             >
               {t("nav.contact")}
@@ -312,7 +312,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                   transition={{ delay: 0.3 }}
                 >
                   <a
-                    href="#contact"
+                    href="#contact-form"
                     className="block px-4 py-3 rounded-lg text-base font-semibold text-center text-primary-foreground bg-gradient-to-r from-primary to-primary/80"
                     onClick={() => setMobileOpen(false)}
                   >
