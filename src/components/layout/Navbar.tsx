@@ -23,11 +23,9 @@ const landingNavLinks: NavLink[] = [
 ];
 
 const dashboardNavLinks: NavLink[] = [
-  { labelKey: "Dashboard", href: "/dashboard" },
-  { labelKey: "Casi", href: "/cases" },
-  { labelKey: "Ricerche", href: "/search" },
-  { labelKey: "Documenti", href: "/documents" },
-  { labelKey: "Team", href: "/team" },
+  { labelKey: "Richieste", href: "/dashboard?tab=requests" },
+  { labelKey: "Contratti", href: "/dashboard?tab=contracts" },
+  { labelKey: "Acquisti", href: "/dashboard?tab=purchases" },
 ];
 
 interface NavbarProps {
@@ -37,8 +35,8 @@ interface NavbarProps {
 export const Navbar = ({ variant = "landing" }: NavbarProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState(variant === "landing" ? "#" : "/dashboard");
   const location = useLocation();
+  const [activeLink, setActiveLink] = useState(variant === "landing" ? "#" : location.pathname + location.search);
   const { user, profile, signOut } = useAuth();
   const { t } = useLanguage();
 
@@ -54,9 +52,11 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
 
   useEffect(() => {
     if (variant === "dashboard") {
-      setActiveLink(location.pathname);
+      const fullPath = location.pathname + location.search;
+      // Default to requests if no tab specified
+      setActiveLink(location.search ? fullPath : "/dashboard?tab=requests");
     }
-  }, [location.pathname, variant]);
+  }, [location.pathname, location.search, variant]);
 
   const handleLinkClick = (href: string) => {
     setActiveLink(href);
@@ -75,8 +75,9 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
   };
 
   const renderLink = (link: NavLink) => {
-    const isActive = activeLink === link.href || 
-      (variant === "dashboard" && location.pathname === link.href);
+    const linkPath = link.href;
+    const isActive = activeLink === linkPath || 
+      (variant === "dashboard" && !location.search && link.href === "/dashboard?tab=requests");
     const label = getLabel(link.labelKey);
 
     if (link.isAnchor) {
