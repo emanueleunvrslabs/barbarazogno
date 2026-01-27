@@ -166,9 +166,15 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
           </span>
         </Link>
         
-        <div className="w-px h-5 bg-border mx-1" />
+        {variant === "landing" && <div className="w-px h-5 bg-border mx-1" />}
         
-        {navLinks.map((link) => renderLink(link))}
+        {variant === "landing" ? (
+          navLinks.map((link) => renderLink(link))
+        ) : (
+          <div className="flex-1 flex justify-center">
+            {navLinks.map((link) => renderLink(link))}
+          </div>
+        )}
         
         <div className="w-px h-5 bg-border mx-1" />
         
