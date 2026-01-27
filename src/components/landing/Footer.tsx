@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone } from "lucide-react";
+import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone, LogIn } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Footer = () => {
@@ -184,17 +185,26 @@ export const Footer = () => {
           <p className="text-muted-foreground text-sm">
             © {new Date().getFullYear()} Zogno & Partners. {t("footer.allRights")}
           </p>
-          <p className="text-muted-foreground text-sm flex items-center gap-1.5">
-            {t("footer.developedWith")} <Heart className="w-4 h-4 text-red-500 fill-red-500" /> {t("footer.by")}{" "}
-            <a 
-              href="https://www.unvrslabs.dev" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors font-medium"
+          <div className="flex items-center gap-6">
+            <Link
+              to="/login"
+              className="flex items-center gap-2 text-muted-foreground text-sm hover:text-foreground transition-colors"
             >
-              Unvrs Labs
-            </a>
-          </p>
+              <LogIn className="w-4 h-4" />
+              {t("footer.lawyerAccess")}
+            </Link>
+            <p className="text-muted-foreground text-sm flex items-center gap-1.5">
+              {t("footer.developedWith")} <Heart className="w-4 h-4 text-red-500 fill-red-500" /> {t("footer.by")}{" "}
+              <a 
+                href="https://www.unvrslabs.dev" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-foreground hover:text-primary transition-colors font-medium"
+              >
+                Unvrs Labs
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

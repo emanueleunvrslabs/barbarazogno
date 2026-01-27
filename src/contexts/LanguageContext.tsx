@@ -186,6 +186,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.allRights": "Tutti i diritti riservati.",
     "footer.developedWith": "Sviluppato con",
     "footer.by": "da",
+    "footer.lawyerAccess": "Area Avvocati",
   },
   en: {
     // Navbar
@@ -361,6 +362,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.allRights": "All rights reserved.",
     "footer.developedWith": "Developed with",
     "footer.by": "by",
+    "footer.lawyerAccess": "Lawyer Access",
   },
 };
 
