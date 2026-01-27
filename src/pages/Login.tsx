@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Scale, Mail, Lock, Loader2, ArrowRight } from "lucide-react";
+import { Scale, Mail, Lock, Loader2, ArrowRight, ArrowLeft } from "lucide-react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -114,9 +114,17 @@ export default function Login() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
+            <Link 
+              to="/" 
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Torna al sito
+            </Link>
+            
             <div className="flex items-center gap-3 mb-8">
               <Scale className="w-10 h-10 text-primary" />
-              <span className="text-3xl font-bold font-serif text-foreground">LexAI</span>
+              <span className="text-3xl font-bold font-serif text-foreground">Zogno & Partners</span>
             </div>
             
             <h1 className="text-4xl font-serif font-bold text-foreground mb-4">
@@ -141,10 +149,19 @@ export default function Login() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Mobile logo */}
-          <div className="lg:hidden flex items-center gap-2 mb-8">
-            <Scale className="w-6 h-6 text-primary" />
-            <span className="text-xl font-bold font-serif text-foreground">LexAI</span>
+          {/* Mobile logo and back link */}
+          <div className="lg:hidden mb-8">
+            <Link 
+              to="/" 
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Torna al sito
+            </Link>
+            <div className="flex items-center gap-2">
+              <Scale className="w-6 h-6 text-primary" />
+              <span className="text-xl font-bold font-serif text-foreground">Zogno & Partners</span>
+            </div>
           </div>
 
           <div className="mb-8">
