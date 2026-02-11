@@ -15,9 +15,8 @@ interface NavLink {
 
 const landingNavLinks: NavLink[] = [
   { labelKey: "nav.home", href: "#", isAnchor: true },
-  { labelKey: "nav.services", href: "#servizi", isAnchor: true },
   { labelKey: "nav.about", href: "#how-it-works", isAnchor: true },
-  { labelKey: "nav.expertise", href: "#features", isAnchor: true },
+  { labelKey: "nav.services", href: "#servizi", isAnchor: true },
   { labelKey: "nav.contracts", href: "#contratti", isAnchor: true },
   { labelKey: "nav.pricing", href: "#pricing", isAnchor: true },
 ];
