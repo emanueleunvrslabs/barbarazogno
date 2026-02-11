@@ -144,8 +144,8 @@ export const HowItWorksSection = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-center mt-12"
         >
-          <motion.a 
-            href="#contact" 
+          <motion.button 
+            onClick={() => window.dispatchEvent(new Event("open-consultation"))}
             className="btn-premium inline-flex items-center gap-3 text-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
@@ -157,7 +157,7 @@ export const HowItWorksSection = () => {
             >
               <ArrowRight className="w-5 h-5" />
             </motion.span>
-          </motion.a>
+          </motion.button>
         </motion.div>
       </div>
     </section>

@@ -76,15 +76,15 @@ export const Footer = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <motion.a 
-                  href="mailto:info@legalboutiques.com" 
+                <motion.button 
+                  onClick={() => window.dispatchEvent(new Event("open-consultation"))}
                   className="px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-primary/25 flex items-center gap-2"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {t("footer.requestConsultation")}
                   <ArrowRight className="w-5 h-5" />
-                </motion.a>
+                </motion.button>
                 <motion.a 
                   href="tel:+390000000000" 
                   className="flex items-center gap-2 text-foreground/70 hover:text-foreground font-medium transition-colors"
