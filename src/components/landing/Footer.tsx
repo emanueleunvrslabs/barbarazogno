@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone, LogIn } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { LegalModal } from "./LegalModal";
 
 export const Footer = () => {
   const { t } = useLanguage();
+  const [legalModal, setLegalModal] = useState<{ open: boolean; type: "privacy" | "cookie" }>({ open: false, type: "privacy" });
 
   const footerLinks = {
     [t("footer.services")]: [
@@ -19,12 +21,13 @@ export const Footer = () => {
       { labelKey: "footer.contact", href: "#contact" }
     ],
     [t("footer.legal")]: [
-      { labelKey: "footer.privacyPolicy", href: "/privacy-policy" },
-      { labelKey: "footer.cookiePolicy", href: "/cookie-policy" }
+      { labelKey: "footer.privacyPolicy", href: "#", onClick: () => setLegalModal({ open: true, type: "privacy" }) },
+      { labelKey: "footer.cookiePolicy", href: "#", onClick: () => setLegalModal({ open: true, type: "cookie" }) }
     ]
   };
 
   return (
+    <>
     <footer id="contact" className="relative pt-32 pb-8 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         {/* CTA Section - Liquid Glass */}
@@ -168,13 +171,13 @@ export const Footer = () => {
               <ul className="space-y-3">
                 {links.map((link, index) => (
                   <li key={index}>
-                    {link.href.startsWith("/") ? (
-                      <Link
-                        to={link.href}
+                    {link.onClick ? (
+                      <button
+                        onClick={link.onClick}
                         className="text-muted-foreground text-sm hover:text-foreground transition-colors inline-block"
                       >
                         {link.label || t(link.labelKey || "")}
-                      </Link>
+                      </button>
                     ) : (
                       <motion.a
                         href={link.href}
@@ -212,5 +215,12 @@ export const Footer = () => {
         </div>
       </div>
     </footer>
+
+      <LegalModal
+        open={legalModal.open}
+        onClose={() => setLegalModal({ ...legalModal, open: false })}
+        type={legalModal.type}
+      />
+    </>
   );
 };
