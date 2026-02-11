@@ -86,7 +86,7 @@ export const Footer = () => {
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
                 <motion.a 
-                  href="tel:+390000000000" 
+                  href="tel:+393468684244" 
                   className="flex items-center gap-2 text-foreground/70 hover:text-foreground font-medium transition-colors"
                   whileHover={{ x: 5 }}
                 >
