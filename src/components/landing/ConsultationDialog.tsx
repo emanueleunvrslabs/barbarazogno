@@ -5,11 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import {
   Drawer,
   DrawerContent,
@@ -192,26 +192,27 @@ export const ConsultationDialog = ({ open, onOpenChange }: ConsultationDialogPro
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        className="sm:max-w-lg border-border"
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent
+        side="right"
+        className="w-full sm:max-w-lg overflow-y-auto border-l border-border"
         style={{
           background:
             "linear-gradient(135deg, hsl(220 28% 14%) 0%, hsl(220 30% 10%) 100%)",
         }}
       >
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-foreground font-serif">
+        <SheetHeader className="pb-4 border-b border-border">
+          <SheetTitle className="text-2xl font-bold text-foreground font-serif text-left">
             {t("contact.title")}
-          </DialogTitle>
-          <p className="text-sm text-muted-foreground mt-1">
+          </SheetTitle>
+          <p className="text-sm text-muted-foreground mt-1 text-left">
             {t("contact.description")}
           </p>
-        </DialogHeader>
-        <div className="mt-4">
+        </SheetHeader>
+        <div className="mt-6">
           <ConsultationForm onSubmit={handleFormSubmit} />
         </div>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 };
