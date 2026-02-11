@@ -84,7 +84,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
       return (
         <motion.a
           key={link.href}
-          href={link.href}
+          href={location.pathname === "/" ? link.href : `/${link.href}`}
           onClick={() => handleLinkClick(link.href)}
           className={cn(
             "relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full",
@@ -263,7 +263,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                   return (
                     <motion.a
                       key={link.href}
-                      href={link.href}
+                      href={location.pathname === "/" ? link.href : `/${link.href}`}
                       onClick={() => handleLinkClick(link.href)}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
