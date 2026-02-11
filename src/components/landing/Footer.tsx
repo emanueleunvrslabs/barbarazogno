@@ -19,8 +19,8 @@ export const Footer = () => {
       { labelKey: "footer.contact", href: "#contact" }
     ],
     [t("footer.legal")]: [
-      { labelKey: "footer.privacyPolicy", href: "#" },
-      { labelKey: "footer.cookiePolicy", href: "#" }
+      { labelKey: "footer.privacyPolicy", href: "/privacy-policy" },
+      { labelKey: "footer.cookiePolicy", href: "/cookie-policy" }
     ]
   };
 
@@ -166,13 +166,22 @@ export const Footer = () => {
               <ul className="space-y-3">
                 {links.map((link, index) => (
                   <li key={index}>
-                    <motion.a
-                      href={link.href}
-                      className="text-muted-foreground text-sm hover:text-foreground transition-colors inline-block"
-                      whileHover={{ x: 3 }}
-                    >
-                      {link.label || t(link.labelKey || "")}
-                    </motion.a>
+                    {link.href.startsWith("/") ? (
+                      <Link
+                        to={link.href}
+                        className="text-muted-foreground text-sm hover:text-foreground transition-colors inline-block"
+                      >
+                        {link.label || t(link.labelKey || "")}
+                      </Link>
+                    ) : (
+                      <motion.a
+                        href={link.href}
+                        className="text-muted-foreground text-sm hover:text-foreground transition-colors inline-block"
+                        whileHover={{ x: 3 }}
+                      >
+                        {link.label || t(link.labelKey || "")}
+                      </motion.a>
+                    )}
                   </li>
                 ))}
               </ul>
