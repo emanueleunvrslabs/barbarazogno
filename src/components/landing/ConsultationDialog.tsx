@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User, MessageSquare, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,15 +24,23 @@ const WHATSAPP_NUMBER = "393468684244";
 interface ConsultationDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  defaultReason?: string;
 }
 
-const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void }) => {
+const ConsultationForm = ({ onSubmit, defaultReason = "" }: { onSubmit: (e: React.FormEvent) => void; defaultReason?: string }) => {
   const { t } = useLanguage();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    reason: "",
+    reason: defaultReason,
   });
+
+  // Update reason when defaultReason changes
+  useEffect(() => {
+    if (defaultReason) {
+      setFormData(prev => ({ ...prev, reason: defaultReason }));
+    }
+  }, [defaultReason]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,8 +62,6 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
     setFormData({ firstName: "", lastName: "", reason: "" });
     onSubmit(e);
   };
-
-  
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -90,9 +96,6 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
         </div>
       </div>
 
-
-
-
       <div className="space-y-2">
         <Label htmlFor="reason" className="text-foreground flex items-center gap-2">
           <MessageSquare className="w-4 h-4 text-primary" />
@@ -124,7 +127,7 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
   );
 };
 
-export const ConsultationDialog = ({ open, onOpenChange }: ConsultationDialogProps) => {
+export const ConsultationDialog = ({ open, onOpenChange, defaultReason = "" }: ConsultationDialogProps) => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
 
@@ -151,7 +154,7 @@ export const ConsultationDialog = ({ open, onOpenChange }: ConsultationDialogPro
             </p>
           </DrawerHeader>
           <div className="px-2 overflow-y-auto max-h-[70vh]">
-            <ConsultationForm onSubmit={handleFormSubmit} />
+            <ConsultationForm onSubmit={handleFormSubmit} defaultReason={defaultReason} />
           </div>
         </DrawerContent>
       </Drawer>
@@ -177,7 +180,7 @@ export const ConsultationDialog = ({ open, onOpenChange }: ConsultationDialogPro
           </p>
         </SheetHeader>
         <div className="mt-6">
-          <ConsultationForm onSubmit={handleFormSubmit} />
+          <ConsultationForm onSubmit={handleFormSubmit} defaultReason={defaultReason} />
         </div>
       </SheetContent>
     </Sheet>
