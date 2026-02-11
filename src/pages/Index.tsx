@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/landing/HeroSection";
@@ -7,13 +7,14 @@ import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { ServicesSection } from "@/components/landing/ServicesSection";
 import { ContractTemplatesSection } from "@/components/landing/ContractTemplatesSection";
 import { PricingSection } from "@/components/landing/PricingSection";
-import { ContactFormSection } from "@/components/landing/ContactFormSection";
+import { ConsultationDialog } from "@/components/landing/ConsultationDialog";
 import { Footer } from "@/components/landing/Footer";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Index = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const [consultationOpen, setConsultationOpen] = useState(false);
 
   // Redirect to dashboard if already logged in
   useEffect(() => {
@@ -21,6 +22,13 @@ const Index = () => {
       navigate("/dashboard", { replace: true });
     }
   }, [user, loading, navigate]);
+
+  // Listen for custom event to open consultation dialog
+  useEffect(() => {
+    const handler = () => setConsultationOpen(true);
+    window.addEventListener("open-consultation", handler);
+    return () => window.removeEventListener("open-consultation", handler);
+  }, []);
 
   // Show nothing while checking auth to avoid flash
   if (loading) {
@@ -58,11 +66,12 @@ const Index = () => {
           <ServicesSection />
           <ContractTemplatesSection />
           <PricingSection />
-          <ContactFormSection />
         </main>
         
         <Footer />
       </div>
+
+      <ConsultationDialog open={consultationOpen} onOpenChange={setConsultationOpen} />
     </div>
   );
 };

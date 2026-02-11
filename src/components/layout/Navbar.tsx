@@ -180,12 +180,12 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
         
         {variant === "landing" ? (
           <motion.div>
-            <a
-              href="#contact-form"
+            <button
+              onClick={() => window.dispatchEvent(new Event("open-consultation"))}
               className="px-5 py-2 text-sm font-semibold text-primary-foreground bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-300 inline-block hover:shadow-lg"
             >
               {t("nav.contact")}
-            </a>
+            </button>
           </motion.div>
         ) : (
           <div className="flex items-center gap-3">
@@ -311,13 +311,15 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <a
-                    href="#contact-form"
-                    className="block px-4 py-3 rounded-lg text-base font-semibold text-center text-primary-foreground bg-gradient-to-r from-primary to-primary/80"
-                    onClick={() => setMobileOpen(false)}
+                  <button
+                    className="block w-full px-4 py-3 rounded-lg text-base font-semibold text-center text-primary-foreground bg-gradient-to-r from-primary to-primary/80"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      window.dispatchEvent(new Event("open-consultation"));
+                    }}
                   >
                     {t("nav.contact")}
-                  </a>
+                  </button>
                 </motion.div>
               ) : (
                 <motion.button

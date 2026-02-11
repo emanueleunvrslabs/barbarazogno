@@ -140,8 +140,8 @@ export const HeroSection = () => {
               transition={{ duration: 0.7, delay: 0.6 }}
               className="flex flex-col gap-6"
             >
-              <motion.a
-                href="#contact"
+              <motion.button
+                onClick={() => window.dispatchEvent(new Event("open-consultation"))}
                 className="inline-flex items-center gap-3 px-8 py-4 rounded-lg font-semibold text-lg group w-fit text-foreground"
                 style={{
                   background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.1) 0%, hsl(0 0% 100% / 0.05) 100%)',
@@ -166,7 +166,7 @@ export const HeroSection = () => {
                 >
                   <ArrowRight className="w-5 h-5" />
                 </motion.span>
-              </motion.a>
+              </motion.button>
 
               {/* Location Badges */}
               <motion.div
