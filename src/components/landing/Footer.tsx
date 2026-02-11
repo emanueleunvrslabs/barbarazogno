@@ -186,13 +186,6 @@ export const Footer = () => {
             © {new Date().getFullYear()} Zogno & Partners. {t("footer.allRights")}
           </p>
           <div className="flex items-center gap-6">
-            <Link
-              to="/login"
-              className="flex items-center gap-2 text-muted-foreground text-sm hover:text-foreground transition-colors"
-            >
-              <LogIn className="w-4 h-4" />
-              {t("footer.lawyerAccess")}
-            </Link>
             <p className="text-muted-foreground text-sm flex items-center gap-1.5">
               {t("footer.developedWith")} <Heart className="w-4 h-4 text-red-500 fill-red-500" /> {t("footer.by")}{" "}
               <a 
