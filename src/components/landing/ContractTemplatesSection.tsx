@@ -304,11 +304,9 @@ export const ContractTemplatesSection = () => {
           <Button 
             size="lg"
             className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-semibold"
-            asChild
+            onClick={() => window.dispatchEvent(new CustomEvent("open-consultation", { detail: { serviceName: t("contracts.requestCustom") } }))}
           >
-            <a href="#contact">
-              {t("contracts.requestCustom")}
-            </a>
+            {t("contracts.requestCustom")}
           </Button>
         </motion.div>
       </div>
