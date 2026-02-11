@@ -38,11 +38,11 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
     e.preventDefault();
 
     const message = [
-      `*Richiesta Consulenza*`,
+      `*${t("contact.whatsappHeader")}*`,
       ``,
-      `👤 *Nome:* ${formData.firstName} ${formData.lastName}`,
+      `👤 *${t("contact.whatsappName")}:* ${formData.firstName} ${formData.lastName}`,
       ``,
-      `📝 *Motivo della consulenza:*`,
+      `📝 *${t("contact.whatsappReason")}:*`,
       formData.reason,
     ]
       .join("\n");
@@ -63,28 +63,28 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
         <div className="space-y-2">
           <Label htmlFor="firstName" className="text-foreground flex items-center gap-2">
             <User className="w-4 h-4 text-primary" />
-            Nome *
+            {t("contact.firstName")} *
           </Label>
           <Input
             id="firstName"
             required
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            placeholder="Mario"
+            placeholder={t("contact.firstNamePlaceholder")}
             className="bg-background/50 border-border focus:border-primary"
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="lastName" className="text-foreground flex items-center gap-2">
             <User className="w-4 h-4 text-primary" />
-            Cognome *
+            {t("contact.lastName")} *
           </Label>
           <Input
             id="lastName"
             required
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            placeholder="Rossi"
+            placeholder={t("contact.lastNamePlaceholder")}
             className="bg-background/50 border-border focus:border-primary"
           />
         </div>
@@ -96,7 +96,7 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
       <div className="space-y-2">
         <Label htmlFor="reason" className="text-foreground flex items-center gap-2">
           <MessageSquare className="w-4 h-4 text-primary" />
-          Motivo della consulenza *
+          {t("contact.reason")} *
         </Label>
         <Textarea
           id="reason"
@@ -104,7 +104,7 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
           rows={3}
           value={formData.reason}
           onChange={(e) => setFormData({ ...formData, reason: e.target.value })}
-          placeholder="Descrivi brevemente il motivo della consulenza..."
+          placeholder={t("contact.reasonPlaceholder")}
           className="bg-background/50 border-border focus:border-primary resize-none"
         />
       </div>
@@ -114,7 +114,7 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
         className="w-full py-5 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 text-primary-foreground gap-2"
       >
         <Send className="w-5 h-5" />
-        Invia su WhatsApp
+        {t("contact.sendWhatsapp")}
       </Button>
 
       <p className="text-center text-xs text-muted-foreground">
