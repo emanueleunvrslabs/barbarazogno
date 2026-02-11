@@ -85,14 +85,14 @@ export const Footer = () => {
                   {t("footer.requestConsultation")}
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
-                <motion.a 
-                  href="tel:+393468684244" 
+                <motion.button 
+                  onClick={() => window.dispatchEvent(new Event("open-consultation"))}
                   className="flex items-center gap-2 text-foreground/70 hover:text-foreground font-medium transition-colors"
                   whileHover={{ x: 5 }}
                 >
                   <Phone className="w-5 h-5" />
                   {t("footer.callUs")}
-                </motion.a>
+                </motion.button>
               </motion.div>
             </div>
           </div>
