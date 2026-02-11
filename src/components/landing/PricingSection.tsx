@@ -178,8 +178,8 @@ export const PricingSection = () => {
                   </ul>
 
                   {/* CTA */}
-                  <motion.a
-                    href="#contact"
+                  <motion.button
+                    onClick={() => window.dispatchEvent(new CustomEvent("open-consultation", { detail: { serviceName: t(plan.nameKey) } }))}
                     className={`
                       w-full py-4 px-6 rounded-lg font-semibold text-center 
                       transition-all duration-300 flex items-center justify-center gap-2
@@ -193,7 +193,7 @@ export const PricingSection = () => {
                   >
                     {t(plan.ctaKey)}
                     <ArrowRight className="w-4 h-4" />
-                  </motion.a>
+                  </motion.button>
                 </div>
               </motion.div>
             </motion.div>
