@@ -139,11 +139,13 @@ export const Footer = () => {
             {/* Social - Liquid Glass buttons */}
             <div className="flex items-center gap-3">
               {[
-                { icon: Linkedin, href: "#" }
+                { icon: Linkedin, href: "https://www.linkedin.com/in/barbarazogno?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" }
               ].map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg liquid-glass flex items-center justify-center"
                   whileHover={{ scale: 1.1, y: -2 }}
                 >
