@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, Mail, Phone, MessageSquare, Send } from "lucide-react";
+import { User, MessageSquare, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,8 +31,6 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
-    phone: "",
     reason: "",
   });
 
@@ -43,24 +41,21 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
       `*Richiesta Consulenza*`,
       ``,
       `👤 *Nome:* ${formData.firstName} ${formData.lastName}`,
-      `📧 *Email:* ${formData.email}`,
-      formData.phone ? `📞 *Telefono:* ${formData.phone}` : "",
       ``,
       `📝 *Motivo della consulenza:*`,
       formData.reason,
     ]
-      .filter(Boolean)
       .join("\n");
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
     window.open(whatsappUrl, "_blank");
 
-    setFormData({ firstName: "", lastName: "", email: "", phone: "", reason: "" });
+    setFormData({ firstName: "", lastName: "", reason: "" });
     onSubmit(e);
   };
 
-  const { t: translate } = useLanguage();
+  
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -68,14 +63,14 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
         <div className="space-y-2">
           <Label htmlFor="firstName" className="text-foreground flex items-center gap-2">
             <User className="w-4 h-4 text-primary" />
-            {t("contact.name")} *
+            Nome *
           </Label>
           <Input
             id="firstName"
             required
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            placeholder={t("contact.namePlaceholder")}
+            placeholder="Mario"
             className="bg-background/50 border-border focus:border-primary"
           />
         </div>
@@ -89,42 +84,14 @@ const ConsultationForm = ({ onSubmit }: { onSubmit: (e: React.FormEvent) => void
             required
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            placeholder="Inserisci il cognome"
+            placeholder="Rossi"
             className="bg-background/50 border-border focus:border-primary"
           />
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="email" className="text-foreground flex items-center gap-2">
-          <Mail className="w-4 h-4 text-primary" />
-          {t("contact.email")} *
-        </Label>
-        <Input
-          id="email"
-          type="email"
-          required
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          placeholder={t("contact.emailPlaceholder")}
-          className="bg-background/50 border-border focus:border-primary"
-        />
-      </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="phone" className="text-foreground flex items-center gap-2">
-          <Phone className="w-4 h-4 text-primary" />
-          {t("contact.phone")}
-        </Label>
-        <Input
-          id="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          placeholder={t("contact.phonePlaceholder")}
-          className="bg-background/50 border-border focus:border-primary"
-        />
-      </div>
+
 
       <div className="space-y-2">
         <Label htmlFor="reason" className="text-foreground flex items-center gap-2">
