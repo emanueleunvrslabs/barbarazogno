@@ -15,6 +15,7 @@ const Index = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [consultationOpen, setConsultationOpen] = useState(false);
+  const [consultationReason, setConsultationReason] = useState("");
 
   // Redirect to dashboard if already logged in
   useEffect(() => {
@@ -25,7 +26,11 @@ const Index = () => {
 
   // Listen for custom event to open consultation dialog
   useEffect(() => {
-    const handler = () => setConsultationOpen(true);
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      setConsultationReason(detail?.serviceName || "");
+      setConsultationOpen(true);
+    };
     window.addEventListener("open-consultation", handler);
     return () => window.removeEventListener("open-consultation", handler);
   }, []);
@@ -71,7 +76,7 @@ const Index = () => {
         <Footer />
       </div>
 
-      <ConsultationDialog open={consultationOpen} onOpenChange={setConsultationOpen} />
+      <ConsultationDialog open={consultationOpen} onOpenChange={setConsultationOpen} defaultReason={consultationReason} />
     </div>
   );
 };
