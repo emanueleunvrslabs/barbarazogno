@@ -141,7 +141,7 @@ export const HeroSection = () => {
               className="flex flex-col gap-6"
             >
               <motion.button
-                onClick={() => window.dispatchEvent(new Event("open-consultation"))}
+                onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
                 className="inline-flex items-center gap-3 px-8 py-4 rounded-lg font-semibold text-lg group w-fit text-foreground"
                 style={{
                   background: 'linear-gradient(135deg, hsl(0 0% 100% / 0.1) 0%, hsl(0 0% 100% / 0.05) 100%)',
