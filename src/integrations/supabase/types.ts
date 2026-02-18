@@ -67,6 +67,27 @@ export type Database = {
           },
         ]
       }
+      contract_downloads: {
+        Row: {
+          contract_id: string
+          downloaded_at: string
+          id: string
+          stripe_session_id: string
+        }
+        Insert: {
+          contract_id: string
+          downloaded_at?: string
+          id?: string
+          stripe_session_id: string
+        }
+        Update: {
+          contract_id?: string
+          downloaded_at?: string
+          id?: string
+          stripe_session_id?: string
+        }
+        Relationships: []
+      }
       contract_purchases: {
         Row: {
           amount: number
