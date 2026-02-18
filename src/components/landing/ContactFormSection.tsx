@@ -62,18 +62,15 @@ export const ContactFormSection = () => {
 
       const studioId = studios[0].id;
 
-      // Get a lawyer from the studio
-      const { data: userRoles, error: userRoleError } = await supabase
-        .from("user_roles")
-        .select("user_id")
-        .eq("studio_id", studioId)
-        .limit(1);
+      // Get a lawyer from the studio using security definer function
+      const { data: lawyerId, error: lawyerError } = await supabase
+        .rpc("get_studio_lawyer", { _studio_id: studioId });
 
-      if (userRoleError || !userRoles || userRoles.length === 0) {
+      if (lawyerError || !lawyerId) {
         throw new Error("Nessun avvocato trovato");
       }
 
-      const lawyerId = userRoles[0].user_id;
+      
 
       // Insert the consultation request
       const { error: insertError } = await supabase
