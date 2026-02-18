@@ -1,69 +1,33 @@
 
 
-# Piano: Sezione Consulenze con Pagamento Anticipato via Stripe
+# Semplificare il flusso: raccolta dati direttamente in Stripe
 
-## Cosa faremo
+## Cosa cambia
 
-Sostituiremo l'attuale sezione Pricing generica con le 5 offerte di consulenza specifiche dal documento PRICING.docx. Ogni consulenza dovra essere pagata prima tramite Stripe Checkout.
+Rimuoviamo il dialog che chiede nome e WhatsApp prima del pagamento. Stripe Checkout raccoglie gia tutto:
+- **Nome**: campo nativo di Stripe
+- **Email**: campo nativo di Stripe  
+- **Telefono/WhatsApp**: tramite `phone_number_collection` (gia attivo)
 
-## Le 5 offerte
+Il cliente cliccera "Acquista ora" e andra direttamente al checkout Stripe, dove inserira tutti i suoi dati in un unico passaggio.
 
-| # | Nome | Durata | Prezzo | Prezzo originale |
-|---|------|--------|--------|-----------------|
-| 1 | Quick Legal Call | 30 min | 150 EUR | - |
-| 2 | Consulenza Standard | 1 ora | 250 EUR | - |
-| 3 | Pacchetto Base | 2 ore | 400 EUR | 500 EUR |
-| 4 | Pacchetto Growth | 5 ore | 900 EUR | 1.250 EUR |
-| 5 | Pacchetto Strategic | 10 ore | 1.500 EUR | 2.500 EUR |
+## Modifiche
 
-## Passaggi
+### 1. Frontend - PricingSection.tsx
+- Rimuovere il `Dialog` pre-checkout con i campi nome e WhatsApp
+- Il pulsante "Acquista ora" chiamera direttamente l'edge function senza passaggi intermedi
+- Rimuovere gli state `showWhatsAppDialog`, `customerName`, `customerWhatsApp`
 
-### 1. Creare 5 prodotti e prezzi su Stripe
-Creeremo un prodotto Stripe con relativo prezzo per ciascuna delle 5 consulenze.
+### 2. Edge Function - create-consultation-checkout
+- Rimuovere i parametri `customerName` e `customerWhatsApp` dal body
+- Mantenere `phone_number_collection: { enabled: true }` (gia presente)
+- Semplificare i metadata rimuovendo i campi che ora Stripe raccoglie nativamente
 
-### 2. Creare edge function `create-consultation-checkout`
-Una nuova edge function che:
-- Riceve il `price_id` dal frontend
-- Crea una sessione Stripe Checkout in modalita `payment` (pagamento unico)
-- Supporta checkout senza login (guest): l'utente inserisce la sua email direttamente su Stripe
-- Redirige alla pagina di successo dopo il pagamento
+### 3. Traduzioni - LanguageContext.tsx
+- Rimuovere le chiavi di traduzione non piu necessarie (`pricing.contactInfoTitle`, `pricing.yourName`, ecc.)
 
-### 3. Riprogettare la sezione Pricing
-Sostituire le 3 card generiche attuali con un layout a 2 gruppi:
+## Risultato
 
-**Consulenze Singole** (2 card affiancate):
-- Quick Legal Call (30 min, 150 EUR)
-- Consulenza Standard (1 ora, 250 EUR, con badge "include follow-up scritto")
+Il flusso diventa: **click "Acquista ora" -> Stripe Checkout (nome, email, telefono, pagamento) -> pagina di successo**
 
-**Pacchetti Ore Prepagati** (3 card affiancate):
-- Base (2h, 400 EUR, barrato 500 EUR)
-- Growth (5h, 900 EUR, barrato 1.250 EUR) - evidenziato come piu popolare
-- Strategic (10h, 1.500 EUR, barrato 2.500 EUR)
-
-Ogni card avra un pulsante "Acquista ora" che apre Stripe Checkout.
-
-Sotto le card, sezione "Cosa e incluso" e "Non incluso" dal documento.
-
-### 4. Aggiungere testi multilingua
-Aggiornare il LanguageContext con le traduzioni IT/EN per tutti i nuovi testi della sezione.
-
-### 5. Pagina di successo
-Riutilizzare o adattare la pagina `CheckoutSuccess` gia esistente per confermare l'avvenuto pagamento della consulenza.
-
----
-
-### Dettagli tecnici
-
-**Edge function `create-consultation-checkout`:**
-- Importa Stripe SDK
-- Accetta `priceId` nel body della richiesta
-- Crea sessione checkout con `mode: "payment"`
-- Non richiede autenticazione (guest checkout supportato)
-- Utilizza `STRIPE_SECRET_KEY` gia configurato nei secrets
-
-**Modifiche file:**
-- `src/components/landing/PricingSection.tsx` - riscrittura completa con le 5 offerte
-- `src/contexts/LanguageContext.tsx` - nuove chiavi di traduzione
-- `supabase/functions/create-consultation-checkout/index.ts` - nuova edge function
-- `src/pages/Index.tsx` - nessuna modifica necessaria (PricingSection gia incluso)
-
+L'avvocato trovera nome, email e telefono del cliente direttamente nella notifica Stripe e nel dashboard Stripe, sotto "Customer details".
