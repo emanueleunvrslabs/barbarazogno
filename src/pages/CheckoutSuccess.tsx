@@ -77,8 +77,8 @@ const CheckoutSuccess = () => {
                 ? "If you need assistance, please contact us at:"
                 : "Se hai bisogno di assistenza, contattaci a:"}
               <br />
-              <a href="mailto:avv.barbarazogno@gmail.com" className="text-primary underline font-medium">
-                avv.barbarazogno@gmail.com
+              <a href="mailto:info@legalboutiques.com" className="text-primary underline font-medium">
+                info@legalboutiques.com
               </a>
             </p>
             <Link to="/#contratti">
