@@ -195,7 +195,7 @@ export const ContractTemplatesSection = () => {
       if (error) throw new Error(error.message);
       if (data?.error) throw new Error(data.error);
       if (data?.url) {
-        window.open(data.url, "_blank");
+        window.location.href = data.url;
       }
     } catch (err: any) {
       toast.error(language === 'en' ? 'Error starting checkout' : 'Errore nell\'avvio del checkout');

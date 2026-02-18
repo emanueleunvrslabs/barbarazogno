@@ -129,7 +129,7 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
       const { data, error } = await supabase.functions.invoke("create-consultation-checkout", { body: { priceId: plan.priceId } });
       if (error) throw new Error(error.message);
       if (data?.error) throw new Error(data.error);
-      if (data?.url) window.open(data.url, "_blank");
+      if (data?.url) window.location.href = data.url;
     } catch (err: any) {
       toast.error(language === "en" ? "Error starting checkout" : "Errore nell'avvio del checkout");
       console.error(err);
