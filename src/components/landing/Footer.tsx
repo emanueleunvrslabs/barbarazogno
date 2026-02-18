@@ -17,8 +17,7 @@ export const Footer = () => {
     ],
     [t("footer.studio")]: [
       { labelKey: "footer.aboutUs", href: "#how-it-works" },
-      { labelKey: "footer.team", href: "#" },
-      { labelKey: "footer.contact", href: "#contact" }
+      { labelKey: "footer.team", href: "#" }
     ],
     [t("footer.legal")]: [
       { labelKey: "footer.privacyPolicy", href: "#", onClick: () => setLegalModal({ open: true, type: "privacy" }) },
