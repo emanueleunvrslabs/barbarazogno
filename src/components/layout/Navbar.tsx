@@ -49,10 +49,39 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Track active section based on scroll position
+  useEffect(() => {
+    if (variant !== "landing") return;
+
+    const sectionIds = ["pricing", "contratti", "servizi", "how-it-works"];
+    
+    const handleScrollActive = () => {
+      const scrollY = window.scrollY + 200;
+      
+      // Check if at top
+      if (scrollY < 300) {
+        setActiveLink("#");
+        return;
+      }
+
+      // Find the current section by checking from bottom to top
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && scrollY >= el.offsetTop) {
+          const href = `#${id}`;
+          setActiveLink(href);
+          return;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollActive, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollActive);
+  }, [variant]);
+
   useEffect(() => {
     if (variant === "dashboard") {
       const fullPath = location.pathname + location.search;
-      // Default to requests if no tab specified
       setActiveLink(location.search ? fullPath : "/dashboard?tab=requests");
     }
   }, [location.pathname, location.search, variant]);
