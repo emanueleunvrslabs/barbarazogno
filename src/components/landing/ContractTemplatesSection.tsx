@@ -98,19 +98,19 @@ const ContractCard = ({
               </Badge>
             )}
           </div>
-          <h3 className="text-lg font-bold text-foreground font-serif leading-tight h-[56px] flex items-start">
+        <h3 className="text-lg font-bold text-foreground font-serif leading-tight min-h-[56px] flex items-start">
             {title}
           </h3>
         </div>
 
         {description && (
-          <p className="text-sm text-muted-foreground mb-4 h-[60px] line-clamp-3">
+          <p className="text-sm text-muted-foreground mb-4 min-h-[60px] line-clamp-3">
             {description}
           </p>
         )}
 
         {features && features.length > 0 && (
-          <ul className="space-y-2 mb-4 h-[120px]">
+          <ul className="space-y-2 mb-6 flex-grow">
             {features.map((feature, i) => (
               <li key={i} className="flex items-center gap-2 text-sm text-foreground/80">
                 <Check className="w-4 h-4 text-primary flex-shrink-0" />
