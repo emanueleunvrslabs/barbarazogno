@@ -35,17 +35,6 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    // Check if this session was already used for download
-    const { data: existingDownload } = await supabaseClient
-      .from("contract_downloads")
-      .select("id")
-      .eq("stripe_session_id", sessionId)
-      .maybeSingle();
-
-    if (existingDownload) {
-      // Allow re-download but log it - fetch contract info still
-    }
-
     // Fetch the contract to get file_url
     const { data: contract, error: contractError } = await supabaseClient
       .from("contract_templates")
@@ -56,13 +45,9 @@ serve(async (req) => {
     if (contractError || !contract) throw new Error("Contract not found");
     if (!contract.file_url) throw new Error("No file available for this contract");
 
-    // Generate a signed URL for the private file (valid 1 hour)
-    const { data: signedUrlData, error: signedUrlError } = await supabaseClient
-      .storage
-      .from("contract-files")
-      .createSignedUrl(contract.file_url, 3600);
-
-    if (signedUrlError) throw new Error(`Failed to generate download link: ${signedUrlError.message}`);
+    // Build download URL - files are served from the public site
+    const origin = req.headers.get("origin") || "https://barbarazogno.lovable.app";
+    const downloadUrl = `${origin}${contract.file_url}`;
 
     // Record the download (ignore conflict if already recorded)
     await supabaseClient.from("contract_downloads").upsert({
@@ -75,8 +60,9 @@ serve(async (req) => {
     await supabaseClient.from("contract_purchases").upsert({
       contract_id: contractId,
       studio_id: contract.studio_id,
-      buyer_name: session.customer_details?.name || "Guest",
+      buyer_name: session.customer_details?.name || session.custom_fields?.find((f: any) => f.key === "full_name")?.text?.value || "Guest",
       buyer_email: session.customer_details?.email || "",
+      buyer_phone: session.customer_details?.phone || null,
       amount: (session.amount_total || 0) / 100,
       status: "completed",
       stripe_session_id: sessionId,
@@ -86,7 +72,7 @@ serve(async (req) => {
     });
 
     return new Response(JSON.stringify({ 
-      downloadUrl: signedUrlData.signedUrl,
+      downloadUrl,
       contractName: contract.name 
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
