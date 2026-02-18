@@ -109,7 +109,7 @@ const CheckoutSuccess = () => {
             <h1 className="text-2xl font-bold text-foreground font-serif">
               {language === "en" ? "Payment successful!" : "Pagamento completato!"}
             </h1>
-            <p className="text-muted-foreground mb-4">
+            <p className="text-muted-foreground mb-8">
               {language === "en"
                 ? `Your contract "${contractName}" is ready for download.`
                 : `Il tuo contratto "${contractName}" è pronto per il download.`}
