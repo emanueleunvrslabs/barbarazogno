@@ -189,7 +189,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
         ) : (
           <div className="flex items-center gap-3">
             <span className="text-sm text-muted-foreground">
-              {profile?.first_name} {profile?.last_name}
+              {profile?.full_name || profile?.email}
             </span>
             <motion.button
               onClick={handleSignOut}
@@ -247,7 +247,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
               {variant === "dashboard" && profile && (
                 <>
                   <div className="px-4 py-3 text-sm text-muted-foreground">
-                    {profile.first_name} {profile.last_name}
+                    {profile.full_name || profile.email}
                   </div>
                   <div className="h-px bg-border my-1" />
                 </>

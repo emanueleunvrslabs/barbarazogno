@@ -5,21 +5,24 @@ import { supabase } from '@/integrations/supabase/client';
 interface Profile {
   id: string;
   user_id: string;
-  studio_id: string | null;
-  first_name: string | null;
-  last_name: string | null;
-  phone: string | null;
+  full_name: string | null;
+  email: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 interface Studio {
   id: string;
   name: string;
-  p_iva: string | null;
-  invite_code: string;
+  slug: string | null;
+  description: string | null;
+  logo_url: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 interface UserRole {
-  role: 'owner' | 'admin' | 'member';
+  role: string;
   studio_id: string;
 }
 
@@ -53,27 +56,31 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .eq('user_id', userId)
         .single();
 
-      setProfile(profileData);
+      if (profileData) {
+        setProfile(profileData as unknown as Profile);
+      }
 
-      if (profileData?.studio_id) {
+      // Fetch role (to get studio_id)
+      const { data: roleData } = await supabase
+        .from('user_roles')
+        .select('role, studio_id')
+        .eq('user_id', userId)
+        .limit(1)
+        .single();
+
+      if (roleData) {
+        setUserRole(roleData as unknown as UserRole);
+
         // Fetch studio
         const { data: studioData } = await supabase
           .from('studios')
           .select('*')
-          .eq('id', profileData.studio_id)
+          .eq('id', (roleData as unknown as UserRole).studio_id)
           .single();
 
-        setStudio(studioData);
-
-        // Fetch role
-        const { data: roleData } = await supabase
-          .from('user_roles')
-          .select('role, studio_id')
-          .eq('user_id', userId)
-          .eq('studio_id', profileData.studio_id)
-          .single();
-
-        setUserRole(roleData as UserRole | null);
+        if (studioData) {
+          setStudio(studioData as unknown as Studio);
+        }
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
