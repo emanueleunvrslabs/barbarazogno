@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale } from "lucide-react";
+import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LegalModal } from "./LegalModal";
 
@@ -127,6 +127,10 @@ export const Footer = () => {
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
                 <span>info@legalboutiques.com</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                <Phone className="w-4 h-4" />
+                <a href="tel:+35796619112" className="hover:text-foreground transition-colors">+357 96619112</a>
               </div>
             </div>
 
