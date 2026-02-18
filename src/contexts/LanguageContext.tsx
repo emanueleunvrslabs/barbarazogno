@@ -19,7 +19,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.about": "Chi Siamo",
     "nav.expertise": "Competenze",
     "nav.contracts": "Contratti",
-    "nav.pricing": "Prezzi",
+    "nav.pricing": "Consulenze",
     "nav.contact": "Contattaci",
     "nav.logout": "Esci",
 
@@ -233,7 +233,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.about": "About Us",
     "nav.expertise": "Expertise",
     "nav.contracts": "Contracts",
-    "nav.pricing": "Pricing",
+    "nav.pricing": "Consultations",
     "nav.contact": "Contact Us",
     "nav.logout": "Logout",
 
