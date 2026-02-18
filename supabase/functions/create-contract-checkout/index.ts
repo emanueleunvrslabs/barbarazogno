@@ -68,6 +68,8 @@ serve(async (req) => {
         },
       ],
       mode: "payment",
+      phone_number_collection: { enabled: true },
+      billing_address_collection: "required",
       success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#contratti`,
       metadata: {

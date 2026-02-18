@@ -1,0 +1,1 @@
+UPDATE contract_templates SET file_url = '/contracts/EULA_End_User_License_Agreement.docx' WHERE name = 'Contratto Test';
