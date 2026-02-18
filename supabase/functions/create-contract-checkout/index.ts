@@ -69,7 +69,13 @@ serve(async (req) => {
       ],
       mode: "payment",
       phone_number_collection: { enabled: true },
-      billing_address_collection: "required",
+      custom_fields: [
+        {
+          key: "full_name",
+          label: { type: "custom", custom: "Nome e Cognome" },
+          type: "text",
+        },
+      ],
       success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#contratti`,
       metadata: {
