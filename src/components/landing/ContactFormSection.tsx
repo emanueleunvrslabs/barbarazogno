@@ -8,6 +8,15 @@ import { Label } from "@/components/ui/label";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const contactFormSchema = z.object({
+  name: z.string().trim().min(2, "Name too short").max(100, "Name too long"),
+  email: z.string().trim().email("Invalid email").max(255, "Email too long"),
+  phone: z.string().max(20, "Phone too long").optional().or(z.literal("")),
+  service: z.string().max(200, "Service too long").optional().or(z.literal("")),
+  message: z.string().max(2000, "Message too long").optional().or(z.literal("")),
+});
 
 export const ContactFormSection = () => {
   const { t } = useLanguage();
@@ -25,6 +34,20 @@ export const ContactFormSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Validate input
+    const result = contactFormSchema.safeParse(formData);
+    if (!result.success) {
+      toast({
+        title: t("contact.errorTitle"),
+        description: result.error.errors[0]?.message || "Invalid input",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    const validatedData = result.data;
 
     try {
       // Get the first studio (for now, we'll use a default studio)
@@ -56,11 +79,11 @@ export const ContactFormSection = () => {
       const { error: insertError } = await supabase
         .from("consultation_requests")
         .insert({
-          client_name: formData.name,
-          client_email: formData.email,
-          client_phone: formData.phone || null,
-          service_type: formData.service || "Consulenza Generale",
-          message: formData.message || null,
+          client_name: validatedData.name,
+          client_email: validatedData.email,
+          client_phone: validatedData.phone || null,
+          service_type: validatedData.service || "Consulenza Generale",
+          message: validatedData.message || null,
           studio_id: studioId,
           lawyer_id: lawyerId,
           status: "new"

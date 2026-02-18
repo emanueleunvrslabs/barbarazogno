@@ -35,6 +35,17 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
+    // Check if this session was already used for download
+    const { data: existingDownload } = await supabaseClient
+      .from("contract_downloads")
+      .select("id")
+      .eq("stripe_session_id", sessionId)
+      .maybeSingle();
+
+    if (existingDownload) {
+      // Allow re-download but log it - fetch contract info still
+    }
+
     // Fetch the contract to get file_url
     const { data: contract, error: contractError } = await supabaseClient
       .from("contract_templates")
@@ -52,6 +63,13 @@ serve(async (req) => {
       .createSignedUrl(contract.file_url, 3600);
 
     if (signedUrlError) throw new Error(`Failed to generate download link: ${signedUrlError.message}`);
+
+    // Record the download (ignore conflict if already recorded)
+    await supabaseClient.from("contract_downloads").upsert({
+      contract_id: contractId,
+      stripe_session_id: sessionId,
+      downloaded_at: new Date().toISOString(),
+    }, { onConflict: "stripe_session_id" });
 
     // Record the purchase
     await supabaseClient.from("contract_purchases").upsert({
