@@ -4,8 +4,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -125,19 +123,11 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
   const [buying, setBuying] = useState(false);
   const discount = plan.originalPrice ? Math.round((1 - plan.price / plan.originalPrice) * 100) : 0;
 
-  const [showWhatsAppDialog, setShowWhatsAppDialog] = useState(false);
-  const [customerName, setCustomerName] = useState("");
-  const [customerWhatsApp, setCustomerWhatsApp] = useState("");
-
   const handleBuy = async () => {
-    if (!customerName.trim() || !customerWhatsApp.trim()) {
-      toast.error(language === "en" ? "Please fill in all fields" : "Compila tutti i campi");
-      return;
-    }
     setBuying(true);
     try {
       const { data, error } = await supabase.functions.invoke("create-consultation-checkout", {
-        body: { priceId: plan.priceId, customerName: customerName.trim(), customerWhatsApp: customerWhatsApp.trim() },
+        body: { priceId: plan.priceId },
       });
       if (error) throw new Error(error.message);
       if (data?.error) throw new Error(data.error);
@@ -218,36 +208,15 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
             ))}
           </ul>
 
-          <Dialog open={showWhatsAppDialog} onOpenChange={setShowWhatsAppDialog}>
-            <DialogTrigger asChild>
-              <Button
-                className="w-full gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/20"
-                size="lg"
-              >
-                <ShoppingCart className="w-4 h-4" />
-                {t("pricing.buyNow")}
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-sm">
-              <DialogHeader>
-                <DialogTitle className="font-serif">{t("pricing.contactInfoTitle")}</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 mt-2">
-                <div>
-                  <Label htmlFor={`name-${plan.priceId}`}>{t("pricing.yourName")}</Label>
-                  <Input id={`name-${plan.priceId}`} value={customerName} onChange={(e) => setCustomerName(e.target.value)} placeholder={t("pricing.namePlaceholder")} />
-                </div>
-                <div>
-                  <Label htmlFor={`whatsapp-${plan.priceId}`}>WhatsApp</Label>
-                  <Input id={`whatsapp-${plan.priceId}`} value={customerWhatsApp} onChange={(e) => setCustomerWhatsApp(e.target.value)} placeholder="+39 346 868 4244" type="tel" />
-                </div>
-                <Button onClick={handleBuy} disabled={buying} className="w-full gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground" size="lg">
-                  {buying ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShoppingCart className="w-4 h-4" />}
-                  {t("pricing.proceedToPayment")}
-                </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Button
+            onClick={handleBuy}
+            disabled={buying}
+            className="w-full gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/20"
+            size="lg"
+          >
+            {buying ? <Loader2 className="w-4 h-4 animate-spin" /> : <ShoppingCart className="w-4 h-4" />}
+            {t("pricing.buyNow")}
+          </Button>
         </div>
       </div>
     </motion.div>

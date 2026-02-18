@@ -20,7 +20,7 @@ serve(async (req) => {
   }
 
   try {
-    const { priceId, customerName, customerWhatsApp } = await req.json();
+    const { priceId } = await req.json();
     if (!priceId) throw new Error("priceId is required");
     if (!VALID_PRICE_IDS.includes(priceId)) throw new Error("Invalid price ID");
 
@@ -37,8 +37,6 @@ serve(async (req) => {
       success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#pricing`,
       metadata: {
-        customer_name: customerName || "",
-        customer_whatsapp: customerWhatsApp || "",
         type: "consultation",
       },
     });
