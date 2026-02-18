@@ -1,0 +1,1 @@
+UPDATE public.contract_templates SET stripe_price_id = 'price_1T27FHKMHtAMmeThIRsaf3yI' WHERE id = 'b0aec757-e6c3-444d-b025-7dc79f71a09a';
