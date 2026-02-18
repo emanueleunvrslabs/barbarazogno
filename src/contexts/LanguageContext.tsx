@@ -169,6 +169,13 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.excl.notarization": "Autenticazioni notarili",
     "pricing.excl.adminFees": "Spese amministrative e bolli",
     "pricing.trustText": "🔒 Pagamento sicuro · ⚖️ Servizio garantito · 🌍 Disponibilità internazionale",
+    "pricing.termsTitle": "Condizioni di vendita",
+    "pricing.term.prepayment": "Il pagamento è richiesto in anticipo prima dell'erogazione del servizio.",
+    "pricing.term.validity": "I pacchetti ore hanno validità 6 mesi dalla data di acquisto.",
+    "pricing.term.scheduling": "Le consulenze vengono erogate previo appuntamento concordato.",
+    "pricing.term.cancellation": "Cancellazione gratuita fino a 24 ore prima dell'appuntamento.",
+    "pricing.term.nonTransferable": "I pacchetti sono personali e non cedibili a terzi.",
+    "pricing.term.noRefund": "Non sono previsti rimborsi per le ore non utilizzate alla scadenza del pacchetto.",
 
     // Contract Templates Section
     "contracts.badge": "Modelli Pronti all'Uso",
@@ -376,6 +383,13 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.excl.notarization": "Notarization",
     "pricing.excl.adminFees": "Administrative fees and stamps",
     "pricing.trustText": "🔒 Secure payment · ⚖️ Guaranteed service · 🌍 International availability",
+    "pricing.termsTitle": "Terms of sale",
+    "pricing.term.prepayment": "Payment is required in advance before the service is provided.",
+    "pricing.term.validity": "Hour packages are valid for 6 months from the date of purchase.",
+    "pricing.term.scheduling": "Consultations are provided by prior appointment.",
+    "pricing.term.cancellation": "Free cancellation up to 24 hours before the appointment.",
+    "pricing.term.nonTransferable": "Packages are personal and non-transferable.",
+    "pricing.term.noRefund": "No refunds for unused hours upon package expiration.",
 
     // Contract Templates Section
     "contracts.badge": "Ready-to-Use Templates",
