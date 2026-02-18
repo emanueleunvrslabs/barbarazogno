@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { Check, X, ArrowRight, Sparkles, Phone, Clock, Briefcase, Zap, Crown, Loader2, ShoppingCart } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, X, Phone, Briefcase, Zap, Crown, Loader2, ShoppingCart, Sparkles, Clock, Package, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,6 @@ interface ConsultationPlan {
   descKey: string;
   price: number;
   originalPrice?: number;
-  duration: string;
   durationKey: string;
   icon: React.ElementType;
   priceId: string;
@@ -26,7 +25,6 @@ const singlePlans: ConsultationPlan[] = [
     nameKey: "pricing.quickCall",
     descKey: "pricing.quickCallDesc",
     price: 150,
-    duration: "30 min",
     durationKey: "pricing.duration30min",
     icon: Phone,
     priceId: "price_1T27NDKMHtAMmeThxNdmxyCw",
@@ -40,7 +38,6 @@ const singlePlans: ConsultationPlan[] = [
     nameKey: "pricing.standard",
     descKey: "pricing.standardDesc",
     price: 250,
-    duration: "1h",
     durationKey: "pricing.duration1h",
     icon: Briefcase,
     priceId: "price_1T27O7KMHtAMmeThuD6hp43P",
@@ -60,7 +57,6 @@ const packagePlans: ConsultationPlan[] = [
     descKey: "pricing.baseDesc",
     price: 400,
     originalPrice: 500,
-    duration: "2h",
     durationKey: "pricing.duration2h",
     icon: Zap,
     priceId: "price_1T27OKKMHtAMmeThnlGUrf4O",
@@ -75,7 +71,6 @@ const packagePlans: ConsultationPlan[] = [
     descKey: "pricing.growthDesc",
     price: 900,
     originalPrice: 1250,
-    duration: "5h",
     durationKey: "pricing.duration5h",
     icon: ArrowRight,
     priceId: "price_1T27OYKMHtAMmeThk2fPgjpL",
@@ -93,7 +88,6 @@ const packagePlans: ConsultationPlan[] = [
     descKey: "pricing.strategicDesc",
     price: 1500,
     originalPrice: 2500,
-    duration: "10h",
     durationKey: "pricing.duration10h",
     icon: Crown,
     priceId: "price_1T27PEKMHtAMmeThBhpgiYUM",
@@ -134,30 +128,23 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.4, delay: index * 0.08 }}
       className={`relative ${plan.highlighted ? "lg:-mt-4 lg:mb-4" : ""}`}
     >
       {plan.highlighted && (
-        <motion.div
-          className="absolute -top-4 left-1/2 -translate-x-1/2 z-10"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
           <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary to-primary/80 text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/20">
             <Sparkles className="w-4 h-4" />
             {t("pricing.mostRequested")}
           </div>
-        </motion.div>
+        </div>
       )}
 
-      <motion.div
-        className="relative h-full rounded-xl p-7 flex flex-col transition-all duration-500 overflow-hidden"
-        whileHover={{ y: -4 }}
+      <div
+        className="relative h-full rounded-xl p-7 flex flex-col transition-all duration-300 hover:-translate-y-1 overflow-hidden"
         style={{
           background: plan.highlighted
             ? "linear-gradient(135deg, hsl(43 74% 49% / 0.1) 0%, hsl(0 0% 100% / 0.06) 50%, hsl(0 0% 100% / 0.03) 100%)"
@@ -169,7 +156,7 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
       >
         {plan.highlighted && (
           <div
-            className="absolute inset-0 rounded-xl opacity-40"
+            className="absolute inset-0 rounded-xl opacity-40 pointer-events-none"
             style={{ background: "radial-gradient(ellipse at 50% 0%, hsl(43 74% 49% / 0.12) 0%, transparent 60%)" }}
           />
         )}
@@ -180,13 +167,9 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
                 <plan.icon className="w-5 h-5 text-primary-foreground" />
               </div>
-              <Badge variant="outline" className="text-xs">
-                {t(plan.durationKey)}
-              </Badge>
+              <Badge variant="outline" className="text-xs">{t(plan.durationKey)}</Badge>
               {plan.badgeKey && (
-                <Badge className="bg-emerald-500/15 text-emerald-400 text-xs">
-                  {t(plan.badgeKey)}
-                </Badge>
+                <Badge className="bg-emerald-500/15 text-emerald-400 text-xs border-0">{t(plan.badgeKey)}</Badge>
               )}
             </div>
             <h3 className="text-xl font-bold text-foreground font-serif">{t(plan.nameKey)}</h3>
@@ -199,9 +182,7 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
               {plan.originalPrice && (
                 <>
                   <span className="text-sm text-muted-foreground line-through">€{plan.originalPrice}</span>
-                  <Badge variant="secondary" className="bg-emerald-500/15 text-emerald-400 text-xs">
-                    -{discount}%
-                  </Badge>
+                  <Badge variant="secondary" className="bg-emerald-500/15 text-emerald-400 text-xs border-0">-{discount}%</Badge>
                 </>
               )}
             </div>
@@ -224,7 +205,7 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
             className={`w-full gap-2 ${
               plan.highlighted
                 ? "bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg shadow-primary/20"
-                : "liquid-glass text-foreground hover:bg-muted/30"
+                : "bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground"
             }`}
             size="lg"
           >
@@ -232,13 +213,19 @@ const PlanCard = ({ plan, index }: { plan: ConsultationPlan; index: number }) =>
             {t("pricing.buyNow")}
           </Button>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };
 
 export const PricingSection = () => {
   const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState<"single" | "packages">("single");
+
+  const tabs = [
+    { id: "single" as const, labelKey: "pricing.singleConsultations", icon: Clock },
+    { id: "packages" as const, labelKey: "pricing.prepaidPackages", icon: Package },
+  ];
 
   return (
     <section id="pricing" className="py-32 relative overflow-hidden">
@@ -249,7 +236,7 @@ export const PricingSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <motion.span
             className="inline-block px-5 py-2 rounded-lg liquid-glass text-primary text-sm font-semibold mb-6"
@@ -267,41 +254,64 @@ export const PricingSection = () => {
           </p>
         </motion.div>
 
-        {/* Single Consultations */}
-        <div className="mb-16">
-          <motion.h3
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-2xl font-bold text-foreground font-serif mb-8 flex items-center gap-3"
-          >
-            <Clock className="w-6 h-6 text-primary" />
-            {t("pricing.singleConsultations")}
-          </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
-            {singlePlans.map((plan, i) => (
-              <PlanCard key={i} plan={plan} index={i} />
+        {/* Tab Menu */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex justify-center mb-12"
+        >
+          <div className="inline-flex rounded-xl p-1.5 liquid-glass gap-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`
+                  flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-300
+                  ${activeTab === tab.id
+                    ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20"
+                    : "text-muted-foreground hover:text-foreground"
+                  }
+                `}
+              >
+                <tab.icon className="w-4 h-4" />
+                {t(tab.labelKey)}
+              </button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Prepaid Packages */}
-        <div className="mb-16">
-          <motion.h3
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-2xl font-bold text-foreground font-serif mb-8 flex items-center gap-3"
-          >
-            <Briefcase className="w-6 h-6 text-primary" />
-            {t("pricing.prepaidPackages")}
-          </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {packagePlans.map((plan, i) => (
-              <PlanCard key={i} plan={plan} index={i} />
-            ))}
-          </div>
-        </div>
+        {/* Cards */}
+        <AnimatePresence mode="wait">
+          {activeTab === "single" ? (
+            <motion.div
+              key="single"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.35 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto"
+            >
+              {singlePlans.map((plan, i) => (
+                <PlanCard key={plan.priceId} plan={plan} index={i} />
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="packages"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.35 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+            >
+              {packagePlans.map((plan, i) => (
+                <PlanCard key={plan.priceId} plan={plan} index={i} />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Included / Not Included */}
         <motion.div
@@ -309,14 +319,14 @@ export const PricingSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mt-16"
         >
-          <div className="rounded-xl p-6 liquid-glass-card-sm">
+          <div className="rounded-xl p-6" style={{ background: "linear-gradient(135deg, hsl(0 0% 100% / 0.06) 0%, hsl(0 0% 100% / 0.02) 100%)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
             <h4 className="font-bold text-foreground mb-4 font-serif flex items-center gap-2">
               <Check className="w-5 h-5 text-primary" />
               {t("pricing.included")}
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {["pricing.incl.analysis", "pricing.incl.oralAdvice", "pricing.incl.writtenFollowUp", "pricing.incl.simpleDocReview", "pricing.incl.strategy"].map((key, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-foreground/80">
                   <Check className="w-4 h-4 text-primary flex-shrink-0" />
@@ -325,12 +335,12 @@ export const PricingSection = () => {
               ))}
             </ul>
           </div>
-          <div className="rounded-xl p-6 liquid-glass-card-sm">
+          <div className="rounded-xl p-6" style={{ background: "linear-gradient(135deg, hsl(0 0% 100% / 0.06) 0%, hsl(0 0% 100% / 0.02) 100%)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
             <h4 className="font-bold text-foreground mb-4 font-serif flex items-center gap-2">
               <X className="w-5 h-5 text-destructive" />
               {t("pricing.notIncluded")}
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {["pricing.excl.draftingContracts", "pricing.excl.courtFiling", "pricing.excl.notarization", "pricing.excl.adminFees"].map((key, i) => (
                 <li key={i} className="flex items-center gap-2 text-sm text-foreground/80">
                   <X className="w-4 h-4 text-destructive flex-shrink-0" />
@@ -341,13 +351,42 @@ export const PricingSection = () => {
           </div>
         </motion.div>
 
+        {/* Terms of Sale */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="max-w-4xl mx-auto mt-12 rounded-xl p-6"
+          style={{ background: "linear-gradient(135deg, hsl(0 0% 100% / 0.04) 0%, hsl(0 0% 100% / 0.01) 100%)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
+        >
+          <h4 className="font-bold text-foreground mb-4 font-serif text-sm uppercase tracking-wider">
+            {t("pricing.termsTitle")}
+          </h4>
+          <ul className="space-y-2 text-xs text-muted-foreground leading-relaxed">
+            {[
+              "pricing.term.prepayment",
+              "pricing.term.validity",
+              "pricing.term.scheduling",
+              "pricing.term.cancellation",
+              "pricing.term.nonTransferable",
+              "pricing.term.noRefund",
+            ].map((key, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">•</span>
+                <span>{t(key)}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
         {/* Trust text */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-12 text-muted-foreground"
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-center mt-10 text-muted-foreground"
         >
           {t("pricing.trustText")}
         </motion.p>
