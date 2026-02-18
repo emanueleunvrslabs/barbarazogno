@@ -127,14 +127,21 @@ export type Database = {
       contract_templates: {
         Row: {
           category: string | null
+          category_en: string | null
+          color: string | null
           created_at: string
           description: string | null
+          description_en: string | null
           display_order: number
+          features: string[] | null
+          features_en: string[] | null
           file_url: string | null
           id: string
           is_active: boolean
           is_bestseller: boolean
           name: string
+          name_en: string | null
+          original_price: number | null
           page_count: number | null
           preview_url: string | null
           price: number
@@ -144,14 +151,21 @@ export type Database = {
         }
         Insert: {
           category?: string | null
+          category_en?: string | null
+          color?: string | null
           created_at?: string
           description?: string | null
+          description_en?: string | null
           display_order?: number
+          features?: string[] | null
+          features_en?: string[] | null
           file_url?: string | null
           id?: string
           is_active?: boolean
           is_bestseller?: boolean
           name: string
+          name_en?: string | null
+          original_price?: number | null
           page_count?: number | null
           preview_url?: string | null
           price?: number
@@ -161,14 +175,21 @@ export type Database = {
         }
         Update: {
           category?: string | null
+          category_en?: string | null
+          color?: string | null
           created_at?: string
           description?: string | null
+          description_en?: string | null
           display_order?: number
+          features?: string[] | null
+          features_en?: string[] | null
           file_url?: string | null
           id?: string
           is_active?: boolean
           is_bestseller?: boolean
           name?: string
+          name_en?: string | null
+          original_price?: number | null
           page_count?: number | null
           preview_url?: string | null
           price?: number
