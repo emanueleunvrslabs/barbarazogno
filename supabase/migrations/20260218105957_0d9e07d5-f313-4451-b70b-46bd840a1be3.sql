@@ -1,0 +1,1 @@
+DELETE FROM contract_templates WHERE id = 'cd804ce1-5e00-4831-98ad-cbdf6ac7ce4e';

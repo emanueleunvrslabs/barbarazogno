@@ -72,6 +72,15 @@ const CheckoutSuccess = () => {
               {language === "en" ? "Something went wrong" : "Qualcosa è andato storto"}
             </h1>
             <p className="text-muted-foreground">{error}</p>
+            <p className="text-sm text-muted-foreground">
+              {language === "en"
+                ? "If you need assistance, please contact us at:"
+                : "Se hai bisogno di assistenza, contattaci a:"}
+              <br />
+              <a href="mailto:avv.barbarazogno@gmail.com" className="text-primary underline font-medium">
+                avv.barbarazogno@gmail.com
+              </a>
+            </p>
             <Link to="/#contratti">
               <Button variant="outline">
                 {language === "en" ? "Back to contracts" : "Torna ai contratti"}
