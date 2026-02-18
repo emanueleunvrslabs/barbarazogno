@@ -1,0 +1,2 @@
+INSERT INTO contract_templates (name, name_en, description, description_en, category, category_en, price, studio_id, stripe_price_id, is_active, display_order, features, features_en, page_count)
+VALUES ('Contratto Test', 'Test Contract', 'Contratto di prova per testare il flusso di acquisto', 'Test contract to verify purchase flow', 'Test', 'Test', 1, 'a0000000-0000-0000-0000-000000000001', 'price_1T280wKMHtAMmeThueindYsi', true, 99, ARRAY['Solo per test', 'Prezzo simbolico 1€'], ARRAY['Test only', 'Symbolic price 1€'], 1);
