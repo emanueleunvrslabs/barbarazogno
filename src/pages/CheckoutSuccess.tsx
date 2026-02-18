@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Download, CheckCircle, Loader2, AlertCircle } from "lucide-react";
+import { Download, CheckCircle, Loader2, AlertCircle, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const CheckoutSuccess = () => {
@@ -12,6 +12,7 @@ const CheckoutSuccess = () => {
   const [contractName, setContractName] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isConsultation, setIsConsultation] = useState(false);
   const { language } = useLanguage();
 
   useEffect(() => {
@@ -28,12 +29,24 @@ const CheckoutSuccess = () => {
         });
 
         if (fnError) throw new Error(fnError.message);
-        if (data?.error) throw new Error(data.error);
-
-        setDownloadUrl(data.downloadUrl);
-        setContractName(data.contractName);
+        if (data?.error) {
+          // Check if this is a consultation (no contract to download)
+          if (data.error === "No contract associated with this session" || data.type === "consultation") {
+            setIsConsultation(true);
+          } else {
+            throw new Error(data.error);
+          }
+        } else {
+          setDownloadUrl(data.downloadUrl);
+          setContractName(data.contractName);
+        }
       } catch (err: any) {
-        setError(err.message);
+        // Also handle consultation case from catch
+        if (err.message?.includes("No contract associated")) {
+          setIsConsultation(true);
+        } else {
+          setError(err.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -49,7 +62,7 @@ const CheckoutSuccess = () => {
           <>
             <Loader2 className="w-16 h-16 text-primary mx-auto animate-spin" />
             <h1 className="text-2xl font-bold text-foreground font-serif">
-              {language === "en" ? "Preparing your download..." : "Preparazione del download..."}
+              {language === "en" ? "Processing..." : "Elaborazione..."}
             </h1>
           </>
         ) : error ? (
@@ -64,6 +77,31 @@ const CheckoutSuccess = () => {
                 {language === "en" ? "Back to contracts" : "Torna ai contratti"}
               </Button>
             </Link>
+          </>
+        ) : isConsultation ? (
+          <>
+            <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto" />
+            <h1 className="text-2xl font-bold text-foreground font-serif">
+              {language === "en" ? "Payment successful!" : "Pagamento completato!"}
+            </h1>
+            <p className="text-muted-foreground">
+              {language === "en"
+                ? "Thank you for your purchase! We will contact you shortly to schedule your consultation."
+                : "Grazie per il tuo acquisto! Ti contatteremo a breve per fissare la tua consulenza."}
+            </p>
+            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+              <Phone className="w-4 h-4" />
+              {language === "en"
+                ? "You will be contacted via the phone number provided."
+                : "Verrai contattato al numero di telefono fornito."}
+            </div>
+            <div>
+              <Link to="/">
+                <Button variant="ghost" className="text-muted-foreground">
+                  {language === "en" ? "Back to home" : "Torna alla home"}
+                </Button>
+              </Link>
+            </div>
           </>
         ) : (
           <>
