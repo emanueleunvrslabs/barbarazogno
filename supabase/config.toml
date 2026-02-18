@@ -1,1 +1,16 @@
 project_id = "blseblymafrjfhheuiyt"
+
+[functions.create-contract-checkout]
+verify_jwt = false
+
+[functions.download-contract]
+verify_jwt = false
+
+[functions.register]
+verify_jwt = false
+
+[functions.reset-password]
+verify_jwt = false
+
+[functions.create-consultation-checkout]
+verify_jwt = false
