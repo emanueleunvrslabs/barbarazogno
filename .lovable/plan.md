@@ -1,70 +1,69 @@
 
-# Integrazione Contratti Reali con Pagamento Stripe
 
-## Panoramica
-Sostituire i 6 contratti placeholder con contratti reali (partendo dal "Reseller Agreement + EULA + SLA") e implementare il flusso di acquisto tramite Stripe checkout. L'utente vede una preview (PDF data sheet), paga con Stripe, e riceve il file originale (DOCX) da scaricare.
+# Piano: Sezione Consulenze con Pagamento Anticipato via Stripe
 
-## Flusso Utente
+## Cosa faremo
 
-```text
-Card contratto --> Click "Acquista" --> Stripe Checkout --> Pagamento --> Pagina di successo --> Download file DOCX
-```
+Sostituiremo l'attuale sezione Pricing generica con le 5 offerte di consulenza specifiche dal documento PRICING.docx. Ogni consulenza dovra essere pagata prima tramite Stripe Checkout.
 
-## Step di Implementazione
+## Le 5 offerte
 
-### Step 1 - Abilitare Stripe
-Attivare l'integrazione Stripe nel progetto. Servira la tua chiave segreta Stripe.
+| # | Nome | Durata | Prezzo | Prezzo originale |
+|---|------|--------|--------|-----------------|
+| 1 | Quick Legal Call | 30 min | 150 EUR | - |
+| 2 | Consulenza Standard | 1 ora | 250 EUR | - |
+| 3 | Pacchetto Base | 2 ore | 400 EUR | 500 EUR |
+| 4 | Pacchetto Growth | 5 ore | 900 EUR | 1.250 EUR |
+| 5 | Pacchetto Strategic | 10 ore | 1.500 EUR | 2.500 EUR |
 
-### Step 2 - Storage dei file
-- Caricare il PDF preview e il DOCX originale su Supabase Storage
-- Creare un bucket `contract-previews` (pubblico) per i PDF di anteprima
-- Creare un bucket `contract-files` (privato) per i DOCX scaricabili dopo il pagamento
+## Passaggi
 
-### Step 3 - Database
-Utilizzare la tabella `contract_templates` gia esistente, aggiungendo eventuali colonne necessarie:
-- `preview_url` - link al PDF di anteprima
-- `file_url` - link al file DOCX originale (gia presente)
-- `stripe_price_id` - ID del prezzo Stripe associato
+### 1. Creare 5 prodotti e prezzi su Stripe
+Creeremo un prodotto Stripe con relativo prezzo per ciascuna delle 5 consulenze.
 
-### Step 4 - Edge Function per Stripe Checkout
-Creare una edge function `create-contract-checkout` che:
-- Riceve l'ID del contratto
-- Crea una sessione Stripe Checkout con il prezzo corretto
-- Restituisce l'URL di checkout al frontend
+### 2. Creare edge function `create-consultation-checkout`
+Una nuova edge function che:
+- Riceve il `price_id` dal frontend
+- Crea una sessione Stripe Checkout in modalita `payment` (pagamento unico)
+- Supporta checkout senza login (guest): l'utente inserisce la sua email direttamente su Stripe
+- Redirige alla pagina di successo dopo il pagamento
 
-### Step 5 - Edge Function per il Download
-Creare una edge function `download-contract` che:
-- Verifica che il pagamento sia stato completato (tramite session ID)
-- Genera un URL firmato temporaneo per il download del DOCX
-- Registra l'acquisto nella tabella `contract_purchases`
+### 3. Riprogettare la sezione Pricing
+Sostituire le 3 card generiche attuali con un layout a 2 gruppi:
 
-### Step 6 - Webhook Stripe
-Edge function `stripe-webhook` per ricevere conferma pagamento e aggiornare lo stato dell'acquisto.
+**Consulenze Singole** (2 card affiancate):
+- Quick Legal Call (30 min, 150 EUR)
+- Consulenza Standard (1 ora, 250 EUR, con badge "include follow-up scritto")
 
-### Step 7 - Aggiornare il Frontend
-- Rimuovere i 6 contratti hardcoded dalla `ContractTemplatesSection`
-- Caricare i contratti dal database (tabella `contract_templates`)
-- Click su "Acquista" apre una modale con preview PDF + bottone per andare a Stripe Checkout
-- Creare una pagina `/checkout-success` per il download post-pagamento
-- Click su "Anteprima" mostra il PDF data sheet
+**Pacchetti Ore Prepagati** (3 card affiancate):
+- Base (2h, 400 EUR, barrato 500 EUR)
+- Growth (5h, 900 EUR, barrato 1.250 EUR) - evidenziato come piu popolare
+- Strategic (10h, 1.500 EUR, barrato 2.500 EUR)
 
-### Step 8 - Primo contratto reale
-Inserire il "Reseller Agreement + EULA + SLA" come primo contratto:
-- Prezzo: EUR 299
-- Categoria: International / IoT
-- 20 pagine, include EULA + SLA
-- Upload dei file (PDF preview + DOCX originale) su Supabase Storage
+Ogni card avra un pulsante "Acquista ora" che apre Stripe Checkout.
 
-## Dettagli Tecnici
+Sotto le card, sezione "Cosa e incluso" e "Non incluso" dal documento.
 
-### Struttura file
-- `supabase/functions/create-contract-checkout/index.ts` - crea sessione Stripe
-- `supabase/functions/stripe-contract-webhook/index.ts` - gestisce webhook
-- `supabase/functions/download-contract/index.ts` - genera link download
-- `src/pages/CheckoutSuccess.tsx` - pagina post-pagamento con download
-- `src/components/landing/ContractPreviewModal.tsx` - modale anteprima PDF
+### 4. Aggiungere testi multilingua
+Aggiornare il LanguageContext con le traduzioni IT/EN per tutti i nuovi testi della sezione.
 
-### Sicurezza
-- I file DOCX originali sono in un bucket privato, accessibili solo tramite URL firmati generati dalla edge function dopo verifica del pagamento
-- I PDF di anteprima sono in un bucket pubblico per la visualizzazione
-- RLS policies sulla tabella `contract_purchases` per tracciare gli acquisti
+### 5. Pagina di successo
+Riutilizzare o adattare la pagina `CheckoutSuccess` gia esistente per confermare l'avvenuto pagamento della consulenza.
+
+---
+
+### Dettagli tecnici
+
+**Edge function `create-consultation-checkout`:**
+- Importa Stripe SDK
+- Accetta `priceId` nel body della richiesta
+- Crea sessione checkout con `mode: "payment"`
+- Non richiede autenticazione (guest checkout supportato)
+- Utilizza `STRIPE_SECRET_KEY` gia configurato nei secrets
+
+**Modifiche file:**
+- `src/components/landing/PricingSection.tsx` - riscrittura completa con le 5 offerte
+- `src/contexts/LanguageContext.tsx` - nuove chiavi di traduzione
+- `supabase/functions/create-consultation-checkout/index.ts` - nuova edge function
+- `src/pages/Index.tsx` - nessuna modifica necessaria (PricingSection gia incluso)
+
