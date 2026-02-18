@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale, Phone } from "lucide-react";
+import { Mail, Linkedin, ArrowRight, MapPin, Heart, Scale } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LegalModal } from "./LegalModal";
 
@@ -80,21 +80,13 @@ export const Footer = () => {
                 transition={{ delay: 0.3 }}
               >
                 <motion.button 
-                  onClick={() => window.dispatchEvent(new Event("open-consultation"))}
+                  onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
                   className="px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-primary/25 flex items-center gap-2"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   {t("footer.requestConsultation")}
                   <ArrowRight className="w-5 h-5" />
-                </motion.button>
-                <motion.button 
-                  onClick={() => window.dispatchEvent(new Event("open-consultation"))}
-                  className="flex items-center gap-2 text-foreground/70 hover:text-foreground font-medium transition-colors"
-                  whileHover={{ x: 5 }}
-                >
-                  <Phone className="w-5 h-5" />
-                  {t("footer.callUs")}
                 </motion.button>
               </motion.div>
             </div>
