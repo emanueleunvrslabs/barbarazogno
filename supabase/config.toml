@@ -1,7 +1,1 @@
-project_id = "josgdhbscmchrfiwlfnn"
-
-[functions.create-contract-checkout]
-verify_jwt = false
-
-[functions.download-contract]
-verify_jwt = false
+project_id = "blseblymafrjfhheuiyt"
