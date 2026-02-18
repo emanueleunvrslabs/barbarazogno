@@ -20,7 +20,7 @@ serve(async (req) => {
   }
 
   try {
-    const { priceId } = await req.json();
+    const { priceId, customerName, customerWhatsApp } = await req.json();
     if (!priceId) throw new Error("priceId is required");
     if (!VALID_PRICE_IDS.includes(priceId)) throw new Error("Invalid price ID");
 
@@ -33,8 +33,14 @@ serve(async (req) => {
     const session = await stripe.checkout.sessions.create({
       line_items: [{ price: priceId, quantity: 1 }],
       mode: "payment",
+      phone_number_collection: { enabled: true },
       success_url: `${origin}/checkout-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/#pricing`,
+      metadata: {
+        customer_name: customerName || "",
+        customer_whatsapp: customerWhatsApp || "",
+        type: "consultation",
+      },
     });
 
     return new Response(JSON.stringify({ url: session.url }), {
