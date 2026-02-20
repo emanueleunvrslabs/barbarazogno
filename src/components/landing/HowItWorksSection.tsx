@@ -145,7 +145,7 @@ export const HowItWorksSection = () => {
           className="text-center mt-12"
         >
           <motion.button 
-            onClick={() => document.getElementById("consulenze")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })}
             className="btn-premium inline-flex items-center gap-3 text-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
