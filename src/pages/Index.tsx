@@ -51,6 +51,29 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-x-hidden">
+      {/* SEO: Hidden structured text for search engines and AI crawlers */}
+      <div className="sr-only" aria-hidden="false">
+        <h1>Zogno &amp; Partners — Studio Legale Boutique a Vicenza e Cipro</h1>
+        <p>
+          Zogno &amp; Partners è uno studio legale boutique fondato dall'avvocato Barbara Zogno, 
+          con sede a Vicenza (Italia) e Paphos (Cipro). Offriamo consulenza legale specializzata 
+          per PMI e grandi imprese in General Counselling, M&amp;A, International Trade, 
+          Compliance GDPR e contratti internazionali. Oltre 500 clienti soddisfatti in tutta Europa.
+        </p>
+        <p>
+          Contatti: info@legalboutiques.com | Tel: +357 96619112 | 
+          Viale Trento, 36100 Vicenza (VI) Italia | Paphos, Onisiforou Center, Cipro
+        </p>
+        <nav aria-label="Servizi offerti">
+          <ul>
+            <li>General Counselling — supporto legale quotidiano per imprese</li>
+            <li>M&amp;A e Diritto Societario — fusioni, acquisizioni, operazioni straordinarie</li>
+            <li>International Trade — commercio internazionale e contratti cross-border</li>
+            <li>Compliance GDPR — adeguamento normativo e protezione dati</li>
+            <li>Contratti legali pronti all'uso — templates professionali scaricabili</li>
+          </ul>
+        </nav>
+      </div>
       {/* Modern mesh gradient background */}
       <div className="fixed inset-0 mesh-gradient" />
       
