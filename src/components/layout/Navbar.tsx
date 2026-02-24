@@ -15,10 +15,10 @@ interface NavLink {
 
 const landingNavLinks: NavLink[] = [
   { labelKey: "nav.home", href: "#", isAnchor: true },
-  { labelKey: "nav.about", href: "#how-it-works", isAnchor: true },
-  { labelKey: "nav.services", href: "#servizi", isAnchor: true },
   { labelKey: "nav.contracts", href: "#contratti", isAnchor: true },
   { labelKey: "nav.pricing", href: "#pricing", isAnchor: true },
+  { labelKey: "nav.about", href: "#how-it-works", isAnchor: true },
+  { labelKey: "nav.services", href: "#servizi", isAnchor: true },
 ];
 
 const dashboardNavLinks: NavLink[] = [
@@ -53,7 +53,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
   useEffect(() => {
     if (variant !== "landing") return;
 
-    const sectionIds = ["pricing", "contratti", "servizi", "how-it-works"];
+    const sectionIds = ["servizi", "how-it-works", "pricing", "contratti"];
     
     const handleScrollActive = () => {
       const scrollY = window.scrollY + 200;
