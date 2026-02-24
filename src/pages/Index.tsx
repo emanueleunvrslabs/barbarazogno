@@ -90,10 +90,10 @@ const Index = () => {
         <main>
           <HeroSection />
           <LegalCategoriesMarquee />
-          <HowItWorksSection />
-          <ServicesSection />
           <ContractTemplatesSection />
           <PricingSection />
+          <HowItWorksSection />
+          <ServicesSection />
         </main>
         
         <Footer />
