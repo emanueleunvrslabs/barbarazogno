@@ -45,11 +45,14 @@ serve(async (req) => {
     if (contractError || !contract) throw new Error("Contract not found");
     if (!contract.file_url) throw new Error("No file available for this contract");
 
+    // Normalize path: strip leading /contracts/ if present
+    const storagePath = contract.file_url.replace(/^\/?contracts\//, '');
+
     // Generate a short-lived signed URL from private storage bucket
     const { data: signedUrlData, error: signedUrlError } = await supabaseClient
       .storage
       .from("contract-files")
-      .createSignedUrl(contract.file_url, 300); // 5 minutes expiry
+      .createSignedUrl(storagePath, 300); // 5 minutes expiry
 
     if (signedUrlError || !signedUrlData?.signedUrl) {
       console.error("Signed URL error:", signedUrlError);
