@@ -123,13 +123,19 @@ const ContractCard = ({
 
         <div className="mt-auto">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-2xl font-bold text-foreground">€{contract.price}</span>
-            {contract.original_price && (
+            {contract.price === 0 ? (
+              <span className="text-2xl font-bold text-emerald-500">{t("contracts.free")}</span>
+            ) : (
               <>
-                <span className="text-sm text-muted-foreground line-through">€{contract.original_price}</span>
-                <Badge variant="secondary" className="bg-emerald-500/15 text-emerald-400 text-xs ml-auto">
-                  -{discount}%
-                </Badge>
+                <span className="text-2xl font-bold text-foreground">€{contract.price}</span>
+                {contract.original_price && (
+                  <>
+                    <span className="text-sm text-muted-foreground line-through">€{contract.original_price}</span>
+                    <Badge variant="secondary" className="bg-emerald-500/15 text-emerald-400 text-xs ml-auto">
+                      -{discount}%
+                    </Badge>
+                  </>
+                )}
               </>
             )}
           </div>
@@ -153,10 +159,12 @@ const ContractCard = ({
             >
               {buying ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
+              ) : contract.price === 0 ? (
+                <Download className="w-4 h-4" />
               ) : (
                 <ShoppingCart className="w-4 h-4" />
               )}
-              {t("contracts.buyNow")}
+              {contract.price === 0 ? t("contracts.downloadFree") : t("contracts.buyNow")}
             </Button>
           </div>
         </div>
