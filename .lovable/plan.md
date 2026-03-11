@@ -1,32 +1,33 @@
 
 
-# Fix del flusso di consegna contratti
+# Semplificare il flusso: raccolta dati direttamente in Stripe
 
-## Problema
-Le edge function `download-contract` e `download-free-contract` generano signed URL dal bucket privato `contract-files`, ma:
-1. I `file_url` nel DB potrebbero ancora avere il prefisso `/contracts/` invece dei soli nomi file
-2. I file DOCX devono essere presenti nel bucket `contract-files`
+## Cosa cambia
+
+Rimuoviamo il dialog che chiede nome e WhatsApp prima del pagamento. Stripe Checkout raccoglie gia tutto:
+- **Nome**: campo nativo di Stripe
+- **Email**: campo nativo di Stripe  
+- **Telefono/WhatsApp**: tramite `phone_number_collection` (gia attivo)
+
+Il cliente cliccera "Acquista ora" e andra direttamente al checkout Stripe, dove inserira tutti i suoi dati in un unico passaggio.
 
 ## Modifiche
 
-### 1. Migrazione DB: normalizzare file_url
-Eseguire un UPDATE che rimuove il prefisso `/contracts/` se ancora presente, per tutti i record:
-```sql
-UPDATE contract_templates 
-SET file_url = regexp_replace(file_url, '^/contracts/', '')
-WHERE file_url LIKE '/contracts/%';
-```
+### 1. Frontend - PricingSection.tsx
+- Rimuovere il `Dialog` pre-checkout con i campi nome e WhatsApp
+- Il pulsante "Acquista ora" chiamera direttamente l'edge function senza passaggi intermedi
+- Rimuovere gli state `showWhatsAppDialog`, `customerName`, `customerWhatsApp`
 
-### 2. Edge function `download-contract`: gestire entrambi i formati
-Aggiungere un fallback che rimuove `/contracts/` dal path prima di cercare nel bucket, in caso la migrazione non sia ancora applicata.
+### 2. Edge Function - create-consultation-checkout
+- Rimuovere i parametri `customerName` e `customerWhatsApp` dal body
+- Mantenere `phone_number_collection: { enabled: true }` (gia presente)
+- Semplificare i metadata rimuovendo i campi che ora Stripe raccoglie nativamente
 
-### 3. Edge function `download-free-contract`: stesso fix
-
-### 4. Azione manuale richiesta
-L'utente deve caricare tutti i file DOCX nel bucket `contract-files` su Supabase Storage. Senza questo, il download non funzionerà.
+### 3. Traduzioni - LanguageContext.tsx
+- Rimuovere le chiavi di traduzione non piu necessarie (`pricing.contactInfoTitle`, `pricing.yourName`, ecc.)
 
 ## Risultato
-Dopo queste modifiche + upload dei file nel bucket, il flusso sarà:
-- Pagamento → Stripe → redirect a checkout-success → download automatico via signed URL (5 min expiry)
-- Gratuito → email dialog → download immediato via signed URL
 
+Il flusso diventa: **click "Acquista ora" -> Stripe Checkout (nome, email, telefono, pagamento) -> pagina di successo**
+
+L'avvocato trovera nome, email e telefono del cliente direttamente nella notifica Stripe e nel dashboard Stripe, sotto "Customer details".
