@@ -291,7 +291,14 @@ export const ContractTemplatesSection = () => {
             contract={contract} 
             index={index}
             onPreview={() => handlePreview(contract)}
-            onBuy={() => handleBuy(contract.id)}
+            onBuy={() => {
+              if (contract.price === 0) {
+                const name = language === 'en' && contract.name_en ? contract.name_en : contract.name;
+                setFreeDownload({ open: true, contractId: contract.id, contractName: name });
+              } else {
+                handleBuy(contract.id);
+              }
+            }}
             buying={buyingId === contract.id}
           />
         ))}
