@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { ContractPreviewModal } from "./ContractPreviewModal";
+import { FreeDownloadDialog } from "./FreeDownloadDialog";
 import { toast } from "sonner";
 
 interface ContractTemplate {
@@ -122,13 +123,19 @@ const ContractCard = ({
 
         <div className="mt-auto">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-2xl font-bold text-foreground">€{contract.price}</span>
-            {contract.original_price && (
+            {contract.price === 0 ? (
+              <span className="text-2xl font-bold text-emerald-500">{t("contracts.free")}</span>
+            ) : (
               <>
-                <span className="text-sm text-muted-foreground line-through">€{contract.original_price}</span>
-                <Badge variant="secondary" className="bg-emerald-500/15 text-emerald-400 text-xs ml-auto">
-                  -{discount}%
-                </Badge>
+                <span className="text-2xl font-bold text-foreground">€{contract.price}</span>
+                {contract.original_price && (
+                  <>
+                    <span className="text-sm text-muted-foreground line-through">€{contract.original_price}</span>
+                    <Badge variant="secondary" className="bg-emerald-500/15 text-emerald-400 text-xs ml-auto">
+                      -{discount}%
+                    </Badge>
+                  </>
+                )}
               </>
             )}
           </div>
@@ -152,10 +159,12 @@ const ContractCard = ({
             >
               {buying ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
+              ) : contract.price === 0 ? (
+                <Download className="w-4 h-4" />
               ) : (
                 <ShoppingCart className="w-4 h-4" />
               )}
-              {t("contracts.buyNow")}
+              {contract.price === 0 ? t("contracts.downloadFree") : t("contracts.buyNow")}
             </Button>
           </div>
         </div>
@@ -170,6 +179,9 @@ export const ContractTemplatesSection = () => {
     open: false, url: null, name: ""
   });
   const [buyingId, setBuyingId] = useState<string | null>(null);
+  const [freeDownload, setFreeDownload] = useState<{ open: boolean; contractId: string; contractName: string }>({
+    open: false, contractId: "", contractName: ""
+  });
 
   const { data: contracts, isLoading } = useQuery({
     queryKey: ["contract-templates"],
@@ -279,7 +291,14 @@ export const ContractTemplatesSection = () => {
             contract={contract} 
             index={index}
             onPreview={() => handlePreview(contract)}
-            onBuy={() => handleBuy(contract.id)}
+            onBuy={() => {
+              if (contract.price === 0) {
+                const name = language === 'en' && contract.name_en ? contract.name_en : contract.name;
+                setFreeDownload({ open: true, contractId: contract.id, contractName: name });
+              } else {
+                handleBuy(contract.id);
+              }
+            }}
             buying={buyingId === contract.id}
           />
         ))}
@@ -333,6 +352,13 @@ export const ContractTemplatesSection = () => {
         onOpenChange={(open) => setPreviewModal(prev => ({ ...prev, open }))}
         previewUrl={previewModal.url}
         contractName={previewModal.name}
+      />
+
+      <FreeDownloadDialog
+        open={freeDownload.open}
+        onOpenChange={(open) => setFreeDownload(prev => ({ ...prev, open }))}
+        contractId={freeDownload.contractId}
+        contractName={freeDownload.contractName}
       />
     </section>
   );

@@ -1,46 +1,33 @@
 
 
-# Mutual NDA Gratuito con Checkout Stripe a €0
+# Semplificare il flusso: raccolta dati direttamente in Stripe
 
-## Problema
+## Cosa cambia
 
-Stripe Checkout in modalita `payment` richiede un importo minimo di €0.50. Non e possibile creare una sessione di checkout con prezzo zero.
+Rimuoviamo il dialog che chiede nome e WhatsApp prima del pagamento. Stripe Checkout raccoglie gia tutto:
+- **Nome**: campo nativo di Stripe
+- **Email**: campo nativo di Stripe  
+- **Telefono/WhatsApp**: tramite `phone_number_collection` (gia attivo)
 
-## Soluzione proposta
+Il cliente cliccera "Acquista ora" e andra direttamente al checkout Stripe, dove inserira tutti i suoi dati in un unico passaggio.
 
-Dato che l'obiettivo e raccogliere l'email del cliente prima del download, propongo un **dialog di raccolta email** integrato nel sito (senza passare da Stripe). Il flusso:
+## Modifiche
 
-1. Il contratto NDA appare nella sezione contratti con prezzo "Gratuito" e pulsante "Scarica Gratis"
-2. Click → si apre un dialog che chiede **email** (obbligatoria) e **nome** (opzionale)
-3. L'email viene salvata nella tabella `contract_purchases` (con amount = 0, status = "completed")
-4. Download immediato del file DOCX
+### 1. Frontend - PricingSection.tsx
+- Rimuovere il `Dialog` pre-checkout con i campi nome e WhatsApp
+- Il pulsante "Acquista ora" chiamera direttamente l'edge function senza passaggi intermedi
+- Rimuovere gli state `showWhatsAppDialog`, `customerName`, `customerWhatsApp`
 
-Tu vedrai tutte le email nella dashboard, esattamente come per i contratti a pagamento.
+### 2. Edge Function - create-consultation-checkout
+- Rimuovere i parametri `customerName` e `customerWhatsApp` dal body
+- Mantenere `phone_number_collection: { enabled: true }` (gia presente)
+- Semplificare i metadata rimuovendo i campi che ora Stripe raccoglie nativamente
 
-## Modifiche tecniche
-
-### 1. File: copiare il DOCX nella cartella pubblica
-- `public/contracts/Mutual_NDA_Template.docx`
-
-### 2. Database: inserire il contratto nella tabella `contract_templates`
-- Prezzo: 0, nessun `stripe_price_id`
-- Categoria: "NDA / Riservatezza"
-- Features: protezione bilaterale, definizioni chiare, clausole standard internazionali
-
-### 3. Frontend: `ContractTemplatesSection.tsx`
-- Per i contratti con `price === 0`: mostrare "Gratuito" invece del prezzo e "Scarica Gratis" invece di "Acquista ora"
-- Al click, aprire un dialog con campo email (obbligatorio) e nome (opzionale)
-- Dopo submit: salvare nella tabella `contract_purchases` via edge function, poi avviare il download
-
-### 4. Edge Function: `download-free-contract/index.ts`
-- Riceve `contractId`, `email`, `name`
-- Salva il record in `contract_purchases` (amount = 0, status = "completed")
-- Restituisce l'URL di download
-
-### 5. Traduzioni
-- Aggiungere chiavi per "Gratuito", "Scarica Gratis", "Inserisci la tua email per scaricare"
+### 3. Traduzioni - LanguageContext.tsx
+- Rimuovere le chiavi di traduzione non piu necessarie (`pricing.contactInfoTitle`, `pricing.yourName`, ecc.)
 
 ## Risultato
 
-Il flusso diventa: **click "Scarica Gratis" → inserisci email → download immediato**. Tu ricevi l'email del cliente nella dashboard come per tutti gli altri contratti.
+Il flusso diventa: **click "Acquista ora" -> Stripe Checkout (nome, email, telefono, pagamento) -> pagina di successo**
 
+L'avvocato trovera nome, email e telefono del cliente direttamente nella notifica Stripe e nel dashboard Stripe, sotto "Customer details".

@@ -194,6 +194,11 @@ const translations: Record<Language, Record<string, string>> = {
     "contracts.requestCustom": "Richiedi contratto personalizzato",
     "contracts.mostSold": "Più venduto",
     "contracts.buyNow": "Acquista ora",
+    "contracts.free": "Gratuito",
+    "contracts.downloadFree": "Scarica Gratis",
+    "contracts.freeDownloadTitle": "Scarica il contratto gratuito",
+    "contracts.freeDownloadDescription": "Inserisci la tua email per scaricare il documento. Non ti invieremo spam.",
+    "contracts.freeDownloadName": "Nome (opzionale)",
 
     // Footer
     "footer.ctaTitle": "Pronti a diventare il vostro partner legale?",
@@ -412,6 +417,11 @@ const translations: Record<Language, Record<string, string>> = {
     "contracts.requestCustom": "Request custom contract",
     "contracts.mostSold": "Best seller",
     "contracts.buyNow": "Buy now",
+    "contracts.free": "Free",
+    "contracts.downloadFree": "Download Free",
+    "contracts.freeDownloadTitle": "Download free contract",
+    "contracts.freeDownloadDescription": "Enter your email to download the document. We won't spam you.",
+    "contracts.freeDownloadName": "Name (optional)",
 
     // Footer
     "footer.ctaTitle": "Ready to become your legal partner?",

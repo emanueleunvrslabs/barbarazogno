@@ -14,3 +14,6 @@ verify_jwt = false
 
 [functions.create-consultation-checkout]
 verify_jwt = false
+
+[functions.download-free-contract]
+verify_jwt = false
