@@ -179,6 +179,9 @@ export const ContractTemplatesSection = () => {
     open: false, url: null, name: ""
   });
   const [buyingId, setBuyingId] = useState<string | null>(null);
+  const [freeDownload, setFreeDownload] = useState<{ open: boolean; contractId: string; contractName: string }>({
+    open: false, contractId: "", contractName: ""
+  });
 
   const { data: contracts, isLoading } = useQuery({
     queryKey: ["contract-templates"],
