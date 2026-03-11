@@ -36,6 +36,9 @@ serve(async (req) => {
     if (contract.price > 0) throw new Error("This contract is not free");
     if (!contract.file_url) throw new Error("No file available for this contract");
 
+    // Normalize path: strip leading /contracts/ if present
+    const storagePath = contract.file_url.replace(/^\/?contracts\//, '');
+
     // Record the "purchase" (lead capture)
     await supabaseClient.from("contract_purchases").insert({
       contract_id: contractId,
@@ -50,7 +53,7 @@ serve(async (req) => {
     const { data: signedUrlData, error: signedUrlError } = await supabaseClient
       .storage
       .from("contract-files")
-      .createSignedUrl(contract.file_url, 300); // 5 minutes expiry
+      .createSignedUrl(storagePath, 300); // 5 minutes expiry
 
     if (signedUrlError || !signedUrlData?.signedUrl) {
       console.error("Signed URL error:", signedUrlError);
