@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
 import { ContractPreviewModal } from "./ContractPreviewModal";
+import { FreeDownloadDialog } from "./FreeDownloadDialog";
 import { toast } from "sonner";
 
 interface ContractTemplate {

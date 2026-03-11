@@ -417,6 +417,11 @@ const translations: Record<Language, Record<string, string>> = {
     "contracts.requestCustom": "Request custom contract",
     "contracts.mostSold": "Best seller",
     "contracts.buyNow": "Buy now",
+    "contracts.free": "Free",
+    "contracts.downloadFree": "Download Free",
+    "contracts.freeDownloadTitle": "Download free contract",
+    "contracts.freeDownloadDescription": "Enter your email to download the document. We won't spam you.",
+    "contracts.freeDownloadName": "Name (optional)",
 
     // Footer
     "footer.ctaTitle": "Ready to become your legal partner?",
