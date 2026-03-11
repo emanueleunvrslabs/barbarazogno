@@ -353,6 +353,13 @@ export const ContractTemplatesSection = () => {
         previewUrl={previewModal.url}
         contractName={previewModal.name}
       />
+
+      <FreeDownloadDialog
+        open={freeDownload.open}
+        onOpenChange={(open) => setFreeDownload(prev => ({ ...prev, open }))}
+        contractId={freeDownload.contractId}
+        contractName={freeDownload.contractName}
+      />
     </section>
   );
 };
