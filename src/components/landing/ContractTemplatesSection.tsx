@@ -200,7 +200,7 @@ export const ContractTemplatesSection = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("contract_templates")
-        .select("*")
+        .select("id, name, name_en, description, description_en, category, category_en, price, original_price, features, features_en, is_bestseller, color, preview_url, stripe_price_id, page_count")
         .eq("is_active", true)
         .order("display_order", { ascending: true });
       

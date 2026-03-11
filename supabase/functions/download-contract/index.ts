@@ -35,7 +35,7 @@ serve(async (req) => {
       { auth: { persistSession: false } }
     );
 
-    // Fetch the contract to get file_url
+    // Fetch the contract to get file_url (storage path)
     const { data: contract, error: contractError } = await supabaseClient
       .from("contract_templates")
       .select("*")
@@ -45,9 +45,16 @@ serve(async (req) => {
     if (contractError || !contract) throw new Error("Contract not found");
     if (!contract.file_url) throw new Error("No file available for this contract");
 
-    // Build download URL - files are served from the public site
-    const origin = req.headers.get("origin") || "https://barbarazogno.lovable.app";
-    const downloadUrl = `${origin}${contract.file_url}`;
+    // Generate a short-lived signed URL from private storage bucket
+    const { data: signedUrlData, error: signedUrlError } = await supabaseClient
+      .storage
+      .from("contract-files")
+      .createSignedUrl(contract.file_url, 300); // 5 minutes expiry
+
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      console.error("Signed URL error:", signedUrlError);
+      throw new Error("Unable to generate download link");
+    }
 
     // Record the download (ignore conflict if already recorded)
     await supabaseClient.from("contract_downloads").upsert({
@@ -72,7 +79,7 @@ serve(async (req) => {
     });
 
     return new Response(JSON.stringify({ 
-      downloadUrl,
+      downloadUrl: signedUrlData.signedUrl,
       contractName: contract.name 
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

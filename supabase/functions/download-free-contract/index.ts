@@ -46,10 +46,18 @@ serve(async (req) => {
       status: "completed",
     });
 
-    const origin = req.headers.get("origin") || "https://barbarazogno.lovable.app";
-    const downloadUrl = `${origin}${contract.file_url}`;
+    // Generate a short-lived signed URL from private storage bucket
+    const { data: signedUrlData, error: signedUrlError } = await supabaseClient
+      .storage
+      .from("contract-files")
+      .createSignedUrl(contract.file_url, 300); // 5 minutes expiry
 
-    return new Response(JSON.stringify({ downloadUrl, contractName: contract.name }), {
+    if (signedUrlError || !signedUrlData?.signedUrl) {
+      console.error("Signed URL error:", signedUrlError);
+      throw new Error("Unable to generate download link");
+    }
+
+    return new Response(JSON.stringify({ downloadUrl: signedUrlData.signedUrl, contractName: contract.name }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
