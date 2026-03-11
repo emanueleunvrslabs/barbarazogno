@@ -59,7 +59,16 @@ const ContractCard = ({
   const category = language === 'en' && contract.category_en ? contract.category_en : contract.category;
   const description = language === 'en' && contract.description_en ? contract.description_en : contract.description;
   const features = language === 'en' && contract.features_en ? contract.features_en : contract.features;
-  const color = contract.color || "from-primary to-amber-600";
+  const colorMap: Record<string, string> = {
+    "from-blue-500 to-cyan-600": "linear-gradient(to bottom right, #3b82f6, #0891b2)",
+    "from-violet-500 to-purple-600": "linear-gradient(to bottom right, #8b5cf6, #9333ea)",
+    "from-emerald-500 to-teal-600": "linear-gradient(to bottom right, #10b981, #0d9488)",
+    "from-blue-600 to-cyan-500": "linear-gradient(to bottom right, #2563eb, #06b6d4)",
+    "from-emerald-600 to-teal-500": "linear-gradient(to bottom right, #059669, #14b8a6)",
+    "from-indigo-600 to-violet-500": "linear-gradient(to bottom right, #4f46e5, #8b5cf6)",
+    "from-primary to-amber-600": "linear-gradient(to bottom right, hsl(43, 74%, 49%), #d97706)",
+  };
+  const iconGradient = colorMap[contract.color || ""] || colorMap["from-primary to-amber-600"];
   const discount = contract.original_price 
     ? Math.round((1 - contract.price / contract.original_price) * 100) 
     : 0;
