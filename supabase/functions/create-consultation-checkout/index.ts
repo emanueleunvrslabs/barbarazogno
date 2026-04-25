@@ -28,7 +28,7 @@ serve(async (req) => {
       apiVersion: "2025-08-27.basil",
     });
 
-    const origin = req.headers.get("origin") || "https://barbarazogno.lovable.app";
+    const origin = req.headers.get("origin") || "https://legalboutiques.com";
 
     const session = await stripe.checkout.sessions.create({
       line_items: [{ price: priceId, quantity: 1 }],

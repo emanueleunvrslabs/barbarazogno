@@ -20,6 +20,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.expertise": "Competenze",
     "nav.contracts": "Contratti",
     "nav.pricing": "Consulenze",
+    "nav.publications": "Pubblicazioni",
     "nav.contact": "Contattaci",
     "nav.logout": "Esci",
 
@@ -234,6 +235,25 @@ const translations: Record<Language, Record<string, string>> = {
     "contact.whatsappHeader": "Richiesta Consulenza",
     "contact.whatsappName": "Nome",
     "contact.whatsappReason": "Motivo della consulenza",
+
+    // Publications Section
+    "publications.badge": "Le Pubblicazioni",
+    "publications.title1": "I libri di",
+    "publications.title2": "Barbara Zogno",
+    "publications.description": "Venticinque anni di contrattualistica internazionale distillati in manuali pratici, diretti e immediatamente applicabili. Strumenti operativi per chi vuole risultati concreti, non teoria.",
+    "publications.feat.experience": "25+ anni di esperienza sul campo",
+    "publications.feat.bilingual": "Edizioni in italiano e inglese",
+    "publications.feat.kindle": "Disponibili su Amazon Kindle",
+    "publications.italian": "Italiano",
+    "publications.english": "English",
+    "publications.kindleEdition": "Edizione Kindle",
+    "publications.pages": "pagine",
+    "publications.buyOnAmazon": "Acquista su Amazon",
+    "publications.disclaimer": "Tutti i libri sono pubblicati su Amazon Kindle e disponibili anche con Kindle Unlimited.",
+    "publications.book.negotiation.title": "Tecniche e Strategie di Negoziazione",
+    "publications.book.negotiation.desc": "Manuale pratico per una negoziazione di successo, dedicato ad avvocati d'azienda e in-house counsel. Niente teoria: solo strumenti operativi per ottenere risultati al tavolo negoziale, dalla preparazione alla chiusura sotto pressione.",
+    "publications.book.rd.title": "Contratto di Ricerca e Sviluppo",
+    "publications.book.rd.desc": "Guida pratica per professionisti legali e operatori economici nei settori hi-tech e IoT. Analizza le tre principali categorie di R&D contracts (puro, misto, T&M), con clausole modello, gestione IP e cautele negoziali.",
   },
   en: {
     // Navbar
@@ -243,6 +263,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.expertise": "Expertise",
     "nav.contracts": "Contracts",
     "nav.pricing": "Consultations",
+    "nav.publications": "Publications",
     "nav.contact": "Contact Us",
     "nav.logout": "Logout",
 
@@ -457,6 +478,25 @@ const translations: Record<Language, Record<string, string>> = {
     "contact.whatsappHeader": "Consultation Request",
     "contact.whatsappName": "Name",
     "contact.whatsappReason": "Reason for consultation",
+
+    // Publications Section
+    "publications.badge": "Publications",
+    "publications.title1": "Books by",
+    "publications.title2": "Barbara Zogno",
+    "publications.description": "Twenty-five years of international contract negotiation distilled into practical, direct, and immediately applicable handbooks. Field tools for professionals who want real results, not theory.",
+    "publications.feat.experience": "25+ years of field experience",
+    "publications.feat.bilingual": "Italian and English editions",
+    "publications.feat.kindle": "Available on Amazon Kindle",
+    "publications.italian": "Italian",
+    "publications.english": "English",
+    "publications.kindleEdition": "Kindle Edition",
+    "publications.pages": "pages",
+    "publications.buyOnAmazon": "Buy on Amazon",
+    "publications.disclaimer": "All books are published on Amazon Kindle and also available with Kindle Unlimited.",
+    "publications.book.negotiation.title": "Negotiation Techniques and Strategies",
+    "publications.book.negotiation.desc": "A practical guide to successful negotiation for lawyers and in-house counsel. Built on twenty-five years of international negotiation experience, this is a field manual — not a theoretical textbook — focused on real contracts, real deals, and real pressure.",
+    "publications.book.rd.title": "Research & Development Contract",
+    "publications.book.rd.desc": "A practical guide for legal professionals and business operators in hi-tech and IoT sectors. Covers the three main R&D contract categories (Pure, Mixed Development & Supply, Time & Material) with model clauses, IP management, and key negotiation safeguards.",
   },
 };
 

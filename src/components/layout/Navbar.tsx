@@ -19,6 +19,7 @@ const landingNavLinks: NavLink[] = [
   { labelKey: "nav.pricing", href: "#pricing", isAnchor: true },
   { labelKey: "nav.about", href: "#how-it-works", isAnchor: true },
   { labelKey: "nav.services", href: "#servizi", isAnchor: true },
+  { labelKey: "nav.publications", href: "#pubblicazioni", isAnchor: true },
 ];
 
 const dashboardNavLinks: NavLink[] = [
@@ -53,7 +54,7 @@ export const Navbar = ({ variant = "landing" }: NavbarProps) => {
   useEffect(() => {
     if (variant !== "landing") return;
 
-    const sectionIds = ["servizi", "how-it-works", "pricing", "contratti"];
+    const sectionIds = ["pubblicazioni", "servizi", "how-it-works", "pricing", "contratti"];
     
     const handleScrollActive = () => {
       const scrollY = window.scrollY + 200;

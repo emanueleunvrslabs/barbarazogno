@@ -40,4 +40,4 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-Sitemap: https://barbarazogno.lovable.app/sitemap.xml
+Sitemap: https://legalboutiques.com/sitemap.xml

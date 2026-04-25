@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
     }
 
     // Generate password reset link
-    const siteUrl = 'https://33348e92-4913-4638-b2b0-acc71eff9392.lovableproject.com'
+    const siteUrl = Deno.env.get('SITE_URL') || 'https://legalboutiques.com'
     const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'recovery',
       email: email.trim(),

@@ -7,6 +7,7 @@ import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { ServicesSection } from "@/components/landing/ServicesSection";
 import { ContractTemplatesSection } from "@/components/landing/ContractTemplatesSection";
 import { PricingSection } from "@/components/landing/PricingSection";
+import { PublicationsSection } from "@/components/landing/PublicationsSection";
 import { ConsultationDialog } from "@/components/landing/ConsultationDialog";
 import { Footer } from "@/components/landing/Footer";
 import { useAuth } from "@/contexts/AuthContext";
@@ -94,6 +95,7 @@ const Index = () => {
           <PricingSection />
           <HowItWorksSection />
           <ServicesSection />
+          <PublicationsSection />
         </main>
         
         <Footer />
