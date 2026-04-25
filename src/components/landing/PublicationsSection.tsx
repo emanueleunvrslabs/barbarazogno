@@ -127,7 +127,7 @@ const BookCard = ({ book, index }: { book: Book; index: number }) => {
               className="text-xs gap-1.5 border-primary/30 text-primary bg-primary/5"
             >
               <Award className="w-3 h-3" />
-              Lex4Tech Series
+              {t("publications.category")}
             </Badge>
             <Badge
               variant="outline"
